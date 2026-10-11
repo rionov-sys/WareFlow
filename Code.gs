@@ -47,15 +47,28 @@ function doGet(e) {
   return template.evaluate()
     .setTitle('WareFlow - Distributor Aqua')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
-    .addMetaTag('theme-color', '#00569e');
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 }
 
 /**
  * Mendapatkan Spreadsheet yang aktif atau terikat
  */
 function getSpreadsheet() {
-  return SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    var propId = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
+    if (propId) {
+      try {
+        ss = SpreadsheetApp.openById(propId);
+      } catch (e) {
+        throw new Error('Gagal membuka Spreadsheet dengan ID ' + propId + ': ' + e.message);
+      }
+    }
+  }
+  if (!ss) {
+    throw new Error('Spreadsheet tidak terikat. Pastikan Apps Script dibuat melalui Google Sheets (menu Ekstensi > Apps Script) atau tambahkan Script Property "SPREADSHEET_ID" di Pengaturan Proyek Apps Script.');
+  }
+  return ss;
 }
 
 /**
