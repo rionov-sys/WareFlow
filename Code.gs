@@ -18,7 +18,7 @@ const SHEETS = {
 // Header Kolom untuk Setiap Sheet
 const HEADERS = {
   USERS: ['email', 'nama', 'role', 'aktif', 'created_at'],
-  PRODUK: ['sku', 'nama_produk', 'kategori', 'pcs_per_karton', 'stok_minimum_karton', 'lead_time_hari', 'harga_karton', 'aktif'],
+  PRODUK: ['sku', 'nama_produk', 'kategori', 'pcs_per_karton', 'stok_minimum_karton', 'lead_time_hari', 'harga_karton', 'aktif', 'avg_penjualan_harian_karton'],
   PIHAK: ['id_pihak', 'nama_pihak', 'jenis', 'kontak', 'alamat', 'aktif'],
   TRANSAKSI: ['id_transaksi', 'timestamp', 'jenis', 'arah', 'sku', 'qty_pcs', 'pihak', 'no_dokumen', 'catatan', 'user_email'],
   OPNAME: ['id_opname', 'tanggal_buka', 'tanggal_tutup', 'status', 'dibuka_oleh', 'ditutup_oleh', 'catatan', 'snapshot_sistem_json'],
@@ -410,6 +410,7 @@ function getProductsAndStock() {
       lead_time_hari: Number(p.lead_time_hari) || 2,
       harga_karton: Number(p.harga_karton) || 0,
       aktif: p.aktif === true || String(p.aktif).toLowerCase() === 'true',
+      avg_penjualan_harian_karton: Number(p.avg_penjualan_harian_karton) || 0,
       current_pcs: currentPcs,
       current_karton: karton,
       current_sisa_pcs: sisaPcs,
@@ -450,7 +451,8 @@ function saveProduct(productData) {
       Number(productData.stok_minimum_karton) || 10,
       Number(productData.lead_time_hari) || 2,
       Number(productData.harga_karton) || 0,
-      productData.aktif !== false
+      productData.aktif !== false,
+      Number(productData.avg_penjualan_harian_karton) || 0
     ];
     
     if (foundIndex > 0) {
@@ -695,6 +697,169 @@ function saveTransaction(txData) {
       success: true,
       message: 'Transaksi ' + jenis + ' (' + sku + ') sebesar ' + qtyPcs + ' pcs berhasil dicatat.',
       id_transaksi: idTrx
+    };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Menyimpan Stok Sistem Awal per SKU (Hanya Super Admin)
+ * Menyesuaikan saldo sistem secara transaksional dengan audit trail
+ */
+function setInitialStock(sku, karton, pcs, catatan, tanggal) {
+  var user = validateRole([ROLES.ADMIN]);
+  
+  sku = String(sku || '').trim().toUpperCase();
+  if (!sku) throw new Error('SKU produk wajib dipilih.');
+  
+  var ktn = Math.max(0, Number(karton) || 0);
+  var lepasan = Math.max(0, Number(pcs) || 0);
+  
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000);
+    
+    var products = getSheetDataBatch(SHEETS.PRODUK);
+    var targetProd = null;
+    for (var i = 0; i < products.length; i++) {
+      if (String(products[i].sku).trim().toUpperCase() === sku) {
+        targetProd = products[i];
+        break;
+      }
+    }
+    if (!targetProd) throw new Error('Produk dengan SKU ' + sku + ' tidak ditemukan.');
+    
+    var pcsPerKtn = Number(targetProd.pcs_per_karton) || 1;
+    var targetTotalPcs = (ktn * pcsPerKtn) + lepasan;
+    
+    var stockMap = calculateStockPcsMap();
+    var currentStockPcs = stockMap[sku] || 0;
+    var selisihPcs = targetTotalPcs - currentStockPcs;
+    
+    if (selisihPcs === 0) {
+      return {
+        success: true,
+        message: 'Stok sistem ' + sku + ' sudah tepat (' + ktn + ' Karton + ' + lepasan + ' pcs = ' + targetTotalPcs + ' pcs). Tidak diperlukan transaksi penyesuaian.'
+      };
+    }
+    
+    var ss = getSpreadsheet();
+    var trxSheet = ss.getSheetByName(SHEETS.TRANSAKSI);
+    var arah = selisihPcs > 0 ? 'MASUK' : 'KELUAR';
+    var absQty = Math.abs(selisihPcs);
+    var idTrx = 'TRX-INIT-' + Utilities.formatDate(new Date(), 'Asia/Jakarta', 'yyyyMMdd-HHmmss') + '-' + sku;
+    var txTimestamp = tanggal ? new Date(tanggal).toISOString() : new Date().toISOString();
+    
+    var txRow = [
+      idTrx,
+      txTimestamp,
+      'PENYESUAIAN',
+      arah,
+      sku,
+      absQty,
+      'SALDO AWAL GUDANG',
+      'SALDO-AWAL',
+      catatan || ('Inisialisasi Stok Sistem Awal: ' + ktn + ' Ktn ' + lepasan + ' pcs (Target ' + targetTotalPcs + ' pcs, Penyesuaian ' + (selisihPcs > 0 ? '+' : '') + selisihPcs + ' pcs)'),
+      user.email
+    ];
+    
+    trxSheet.appendRow(txRow);
+    
+    return {
+      success: true,
+      message: 'Stok sistem ' + sku + ' berhasil diset ke ' + ktn + ' Karton + ' + lepasan + ' pcs (' + targetTotalPcs + ' pcs). Transaksi ' + arah + ' sebesar ' + absQty + ' pcs telah dicatat.',
+      id_transaksi: idTrx
+    };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Menyimpan Batch Stok Sistem Awal dan Acuan Rata-rata Penjualan Forecast (Hanya Super Admin)
+ * items: Array of { sku, karton, pcs, avg_sales_karton }
+ */
+function saveBatchInitialStockAndForecast(items, tanggal, catatan) {
+  var user = validateRole([ROLES.ADMIN]);
+  
+  if (!items || !items.length) {
+    throw new Error('Data item inisialisasi tidak boleh kosong.');
+  }
+  
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+    
+    var ss = getSpreadsheet();
+    var prodSheet = ss.getSheetByName(SHEETS.PRODUK);
+    var trxSheet = ss.getSheetByName(SHEETS.TRANSAKSI);
+    
+    var products = getSheetDataBatch(SHEETS.PRODUK);
+    var stockMap = calculateStockPcsMap();
+    
+    var prodMap = {}; // sku -> product row
+    for (var p = 0; p < products.length; p++) {
+      prodMap[String(products[p].sku).trim().toUpperCase()] = products[p];
+    }
+    
+    var nowStr = new Date().toISOString();
+    var txTimestamp = tanggal ? new Date(tanggal).toISOString() : nowStr;
+    var adjustedStockCount = 0;
+    var updatedForecastCount = 0;
+    
+    for (var i = 0; i < items.length; i++) {
+      var itm = items[i];
+      var sku = String(itm.sku || '').trim().toUpperCase();
+      if (!sku || !prodMap[sku]) continue;
+      
+      var prod = prodMap[sku];
+      var pcsPerKtn = Number(prod.pcs_per_karton) || 1;
+      
+      // 1. Update Rata-rata Penjualan untuk Forecast di Sheet Produk
+      if (itm.avg_sales_karton !== undefined && itm.avg_sales_karton !== null && itm.avg_sales_karton !== '') {
+        var avgSales = Math.max(0, Number(itm.avg_sales_karton) || 0);
+        prodSheet.getRange(prod._rowIndex, 9).setValue(avgSales);
+        updatedForecastCount++;
+      }
+      
+      // 2. Cek dan simpan penyesuaian stok sistem awal jika diisi
+      if (itm.karton !== undefined && itm.karton !== null && itm.karton !== '') {
+        var ktn = Math.max(0, Number(itm.karton) || 0);
+        var lepasan = Math.max(0, Number(itm.pcs) || 0);
+        var targetTotalPcs = (ktn * pcsPerKtn) + lepasan;
+        
+        var currentPcs = stockMap[sku] || 0;
+        var selisih = targetTotalPcs - currentPcs;
+        
+        if (selisih !== 0) {
+          var arah = selisih > 0 ? 'MASUK' : 'KELUAR';
+          var absQty = Math.abs(selisih);
+          var idTrx = 'TRX-INIT-' + Utilities.formatDate(new Date(), 'Asia/Jakarta', 'yyyyMMdd-HHmmss') + '-' + Math.floor(100 + Math.random() * 900) + '-' + sku;
+          
+          var txRow = [
+            idTrx,
+            txTimestamp,
+            'PENYESUAIAN',
+            arah,
+            sku,
+            absQty,
+            'SALDO AWAL GUDANG',
+            'SALDO-AWAL',
+            catatan || ('Inisialisasi Stok Sistem Awal: ' + ktn + ' Ktn ' + lepasan + ' pcs (Target ' + targetTotalPcs + ' pcs, Penyesuaian ' + (selisih > 0 ? '+' : '') + selisih + ' pcs)'),
+            user.email
+          ];
+          
+          trxSheet.appendRow(txRow);
+          stockMap[sku] = targetTotalPcs; // Update stok memori
+          adjustedStockCount++;
+        }
+      }
+    }
+    
+    return {
+      success: true,
+      message: 'Inisialisasi berhasil: ' + adjustedStockCount + ' mutasi stok awal dicatat, ' + updatedForecastCount + ' acuan rata-rata forecast diperbarui.'
     };
   } finally {
     lock.releaseLock();
@@ -1125,8 +1290,29 @@ function getForecastData() {
       var dailyAverageWeekW = weeklyOut[w] / 7;
       weightedSumPcsDaily += dailyAverageWeekW * weight;
     }
-    var rataRataKeluarHarianPcs = weightedSumPcsDaily / totalBobot;
-    var rataRataKeluarHarianKtn = rataRataKeluarHarianPcs / pcsPerKtn;
+    var actualWmaDailyPcs = weightedSumPcsDaily / totalBobot;
+    var actualWmaDailyKtn = Number((actualWmaDailyPcs / pcsPerKtn).toFixed(1));
+    
+    // Cek apakah ada data acuan rata-rata penjualan yang dimasukkan oleh Super Admin
+    var baselineSalesKtn = Number(prod.avg_penjualan_harian_karton) || 0;
+    var rataRataKeluarHarianPcs = 0;
+    var rataRataKeluarHarianKtn = 0;
+    var tipeAcuan = 'AKTUAL_8_MINGGU';
+    
+    if (baselineSalesKtn > 0) {
+      // Prioritaskan acuan rata-rata penjualan dari Super Admin sebagai patokan forecast
+      rataRataKeluarHarianKtn = baselineSalesKtn;
+      rataRataKeluarHarianPcs = baselineSalesKtn * pcsPerKtn;
+      tipeAcuan = 'ACUAN_ADMIN';
+    } else if (actualWmaDailyPcs > 0) {
+      rataRataKeluarHarianPcs = actualWmaDailyPcs;
+      rataRataKeluarHarianKtn = actualWmaDailyKtn;
+      tipeAcuan = 'AKTUAL_8_MINGGU';
+    } else {
+      rataRataKeluarHarianPcs = 0;
+      rataRataKeluarHarianKtn = 0;
+      tipeAcuan = 'BELUM_ADA_DATA';
+    }
     
     // Titik Pesan Ulang (Reorder Point) = rata-rata harian x lead time + stok pengaman (10%)
     var leadTimeDemandPcs = rataRataKeluarHarianPcs * leadTimeHari;
@@ -1174,6 +1360,9 @@ function getForecastData() {
       current_stock_ktn: currentStockKtn,
       rata_rata_harian_pcs: Math.round(rataRataKeluarHarianPcs),
       rata_rata_harian_ktn: Number(rataRataKeluarHarianKtn.toFixed(1)),
+      tipe_acuan: tipeAcuan,
+      acuan_admin_ktn: baselineSalesKtn,
+      aktual_8_minggu_ktn: actualWmaDailyKtn,
       titik_pesan_ulang_pcs: Math.round(titikPesanUlangPcs),
       titik_pesan_ulang_ktn: titikPesanUlangKtn,
       sisa_hari: sisaHari !== null ? Number(sisaHari.toFixed(1)) : 999,
@@ -1213,6 +1402,14 @@ function setup() {
         .setBackground('#00569e')
         .setFontColor('#ffffff');
       sheet.setFrozenRows(1);
+    } else if (key === 'PRODUK') {
+      // Pastikan kolom ke-9 avg_penjualan_harian_karton ada di header
+      if (existingValues.length < headers.length || !existingValues[8]) {
+        sheet.getRange(1, headers.length).setValue(headers[headers.length - 1])
+          .setFontWeight('bold')
+          .setBackground('#00569e')
+          .setFontColor('#ffffff');
+      }
     }
   }
   
@@ -1264,16 +1461,16 @@ function seedDemo() {
   var prodSkus = currentProds.map(function(p) { return String(p.sku).toUpperCase(); });
   
   var demoProducts = [
-    ['AQ-GAL-19L', 'Aqua Galon 19 Liter', 'Galon', 1, 500, 2, 21000, true],
-    ['AQ-BTL-330', 'Aqua Botol Mini 330ml', 'Botol', 24, 200, 2, 42000, true],
-    ['AQ-BTL-600', 'Aqua Botol Sedang 600ml', 'Botol', 24, 350, 2, 51000, true],
-    ['AQ-BTL-1500', 'Aqua Botol Besar 1500ml', 'Botol', 12, 250, 2, 49000, true],
-    ['AQ-CUP-220', 'Aqua Cup Gelas 220ml', 'Cup', 48, 400, 3, 34000, true],
-    ['AQ-REF-380S', 'Aqua Reflections Still 380ml', 'Reflections', 24, 80, 4, 185000, true],
-    ['AQ-REF-380SP', 'Aqua Reflections Sparkling 380ml', 'Reflections', 24, 60, 4, 210000, true],
-    ['AQ-CLG-750', 'Aqua Click n Go 750ml', 'Botol', 18, 120, 3, 76000, true],
-    ['AQ-LIF-500', 'Aqua Life 500ml (100% Recycled)', 'Botol', 24, 150, 3, 68000, true],
-    ['MZ-LYC-500', 'Mizone Lychee Lemon 500ml', 'Isotonik', 12, 100, 2, 45000, true]
+    ['AQ-GAL-19L', 'Aqua Galon 19 Liter', 'Galon', 1, 500, 2, 21000, true, 80],
+    ['AQ-BTL-330', 'Aqua Botol Mini 330ml', 'Botol', 24, 200, 2, 42000, true, 35],
+    ['AQ-BTL-600', 'Aqua Botol Sedang 600ml', 'Botol', 24, 350, 2, 51000, true, 55],
+    ['AQ-BTL-1500', 'Aqua Botol Besar 1500ml', 'Botol', 12, 250, 2, 49000, true, 40],
+    ['AQ-CUP-220', 'Aqua Cup Gelas 220ml', 'Cup', 48, 400, 3, 34000, true, 60],
+    ['AQ-REF-380S', 'Aqua Reflections Still 380ml', 'Reflections', 24, 80, 4, 185000, true, 12],
+    ['AQ-REF-380SP', 'Aqua Reflections Sparkling 380ml', 'Reflections', 24, 60, 4, 210000, true, 10],
+    ['AQ-CLG-750', 'Aqua Click n Go 750ml', 'Botol', 18, 120, 3, 76000, true, 18],
+    ['AQ-LIF-500', 'Aqua Life 500ml (100% Recycled)', 'Botol', 24, 150, 3, 68000, true, 25],
+    ['MZ-LYC-500', 'Mizone Lychee Lemon 500ml', 'Isotonik', 12, 100, 2, 45000, true, 15]
   ];
   
   for (var p = 0; p < demoProducts.length; p++) {

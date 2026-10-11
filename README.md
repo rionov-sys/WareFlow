@@ -75,6 +75,7 @@ Fungsi `setup()` akan secara otomatis membuat dan memformat 6 sheet berikut di G
 | `lead_time_hari` | Number | Estimasi waktu tiba kiriman pabrik (standar: 2-3 hari) |
 | `harga_karton` | Number | Estimasi nilai per karton |
 | `aktif` | Boolean | Status keaktifan produk |
+| `avg_penjualan_harian_karton` | Number | Acuan rata-rata penjualan harian (karton/hari) untuk kalkulasi forecast |
 
 ### 3. `Pihak`
 | Kolom | Tipe | Keterangan |
@@ -152,6 +153,7 @@ Session.getActiveUser().getEmail();
 | Kirim Hitungan Fisik Stock Opname | ✅ | ✅ | ✅ |
 | Tutup Sesi Opname (Generate Penyesuaian) | ✅ | ✅ | ❌ |
 | Lihat Forecast & Rekomendasi Reorder | ✅ | ✅ | ✅ |
+| Inisialisasi Saldo Stok Awal & Acuan Forecast | ✅ | ❌ | ❌ |
 | Kelola Master (Users, Produk, Pihak) | ✅ | ❌ | ❌ |
 
 ---
@@ -183,14 +185,20 @@ Session.getActiveUser().getEmail();
    - Matriks perbandingan: Stok Sistem (beku) vs Total Hitung Fisik vs Varian Selisih.
    - Otomatisasi pembuatan tiket `PENYESUAIAN` ke ledger transaksi saat penutupan sesi.
 6. **Forecast & Saran Order (`view-forecast`)**:
-   - Perhitungan laju pengeluaran harian menggunakan *Weighted Moving Average* (WMA) 8 minggu terakhir (bobot minggu ke-1 s/d 8: $w \in \{1..8\}$).
+   - Perhitungan laju pengeluaran harian memprioritaskan parameter acuan admin (`avg_penjualan_harian_karton`) atau fallback otomatis ke *Weighted Moving Average* (WMA) 8 minggu terakhir ($w \in \{1..8\}$) jika data transaksi mencukupi.
    - Titik Pesan Ulang (*Reorder Point* / ROP):
      $$\text{ROP} = (\text{Laju Harian} \times \text{Lead Time}) + 10\% \text{ Safety Stock}$$
    - Estimasi sisa hari kehabisan stok (*Run-out Days*) dan rekomendasi order pembelian dalam satuan karton.
+   - Tombol pintas khusus Super Admin untuk langsung menyesuaikan baseline stok & laju penjualan.
 7. **Kelola Admin (`view-admin`)**:
    - Tab **Users**: Tambah operator, ubah peran, dan aktivasi akun pemohon.
-   - Tab **Produk**: Master SKU, rasio isi karton, dan ambang batas minimum.
+   - Tab **Produk**: Master SKU, rasio isi karton, harga karton, ambang batas minimum, dan acuan rata-rata jual.
    - Tab **Pihak**: Direktori pabrik Danone, depo satelit, dan armada distribusi.
+   - Tab **Inisialisasi Stok & Forecast**:
+     - Pengaturan saldo awal fisik gudang (Karton + Pcs lepasan) untuk mengkalibrasi sistem saat implementasi pertama kali.
+     - Sistem secara cerdas menghitung selisih matematis (`targetPcs - currentPcs`) dan membuat transaksi audit `PENYESUAIAN` resmi (`SALDO AWAL GUDANG`) tanpa melanggar prinsip keutuhan ledger transaksi.
+     - Penentuan angka rata-rata penjualan harian (Karton/Hari) per SKU yang menjadi acuan langsung pada formula kalkulasi ROP dan saran order pembelian.
+     - Tombol *Salin Stok Saat Ini*, kalkulasi delta interaktif real-time, serta fitur simpan per baris maupun simpan massal (*batch save*).
 
 ---
 

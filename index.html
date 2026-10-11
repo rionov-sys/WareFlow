@@ -857,6 +857,10 @@
               <p class="text-sm text-secondary mt-0.5">Rata-rata keluar harian 8 minggu terakhir (bobot minggu terbaru lebih tinggi). Titik pesan ulang = rata-rata harian &times; lead time + stok pengaman (10%).</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
+              <button onclick="navigate('admin'); setAdminTab('baseline');" id="btn-fc-edit-baseline" class="hidden h-10 px-3.5 rounded-lg bg-primary-fixed hover:bg-primary-fixed/80 text-on-primary-fixed-variant font-bold text-xs flex items-center gap-1.5 border border-primary/20 shadow-sm transition-all">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+                <span>Atur Acuan Stok & Forecast</span>
+              </button>
               <button onclick="exportForecast('xlsx')" class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-tertiary">table_chart</span>
                 <span>Export Excel</span>
@@ -942,8 +946,8 @@
             </div>
           </div>
 
-          <!-- Segmented Tab Navigation for Admin: Users vs Produk vs Pihak -->
-          <div class="flex items-center gap-2 p-1 bg-surface-container-low rounded-xl border border-surface-container w-fit">
+          <!-- Segmented Tab Navigation for Admin: Users vs Produk vs Pihak vs Inisialisasi Stok & Forecast -->
+          <div class="flex items-center gap-2 p-1 bg-surface-container-low rounded-xl border border-surface-container w-fit flex-wrap">
             <button onclick="setAdminTab('users')" id="admin-tab-users" class="px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white text-primary shadow-sm">
               Users (Pengguna)
             </button>
@@ -952,6 +956,10 @@
             </button>
             <button onclick="setAdminTab('partners')" id="admin-tab-partners" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface">
               Pihak (Mitra & Rekanan)
+            </button>
+            <button onclick="setAdminTab('baseline')" id="admin-tab-baseline" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px]">tune</span>
+              <span>Inisialisasi Stok & Forecast</span>
             </button>
           </div>
 
@@ -1043,6 +1051,84 @@
               </div>
             </div>
           </div>
+
+          <!-- ADMIN TAB 4: INISIALISASI STOK AWAL & FORECAST -->
+          <div id="admin-content-baseline" class="hidden flex flex-col gap-4">
+            <!-- Header Card & Instructions -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-primary/10 via-surface-container to-surface-container-low border border-primary/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                  <span class="material-symbols-outlined text-[22px]">tune</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-sm font-bold text-on-surface">Inisialisasi Stok Sistem Awal & Acuan Forecast</h3>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-primary-fixed text-on-primary-fixed-variant uppercase">Super Admin</span>
+                  </div>
+                  <p class="text-xs text-secondary mt-1 max-w-2xl leading-relaxed">
+                    Tentukan <strong>saldo fisik awal gudang</strong> (Karton & Pcs) sebagai acuan dasar aplikasi (dicatat secara transaksional dengan audit trail) serta <strong>rata-rata penjualan harian</strong> (Karton/Hari) yang digunakan langsung untuk kalkulasi titik pesan ulang (ROP) & perkiraan hari habis stok.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0 flex-wrap">
+                <button type="button" onclick="copyCurrentStockToInputs()" class="h-9 px-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-bold text-xs flex items-center gap-1.5 border border-surface-container transition-all">
+                  <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                  <span>Salin Stok Saat Ini</span>
+                </button>
+                <button type="button" onclick="saveAllBaselineData()" id="btn-save-all-baseline" class="h-9 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                  <span class="material-symbols-outlined text-[16px]">save</span>
+                  <span>Simpan Semua Data</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pengaturan Dokumen Mutasi Awal -->
+            <div class="p-3 bg-surface-container-lowest rounded-xl border border-surface-container-low flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-3 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-secondary">Tanggal Saldo Awal:</span>
+                  <input type="date" id="base-tx-date" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold"/>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-secondary">No. Dokumen:</span>
+                  <input type="text" id="base-tx-doc" value="SALDO-AWAL-GUDANG" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-mono text-[11px] w-44"/>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-secondary">Catatan Audit:</span>
+                  <input type="text" id="base-tx-note" value="Inisialisasi Saldo Awal Gudang & Acuan Forecast DC" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none w-64"/>
+                </div>
+              </div>
+              <div class="text-[11px] text-secondary font-medium flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 text-tertiary font-semibold"><span class="w-2 h-2 rounded-full bg-tertiary"></span> +MASUK</span>
+                <span>•</span>
+                <span class="inline-flex items-center gap-1 text-error font-semibold"><span class="w-2 h-2 rounded-full bg-error"></span> -KELUAR</span>
+              </div>
+            </div>
+
+            <!-- Tabel Inisialisasi Stok & Forecast -->
+            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-surface-container-low/70 text-secondary uppercase text-[11px] font-bold">
+                    <tr>
+                      <th class="py-3 px-4">Produk & SKU</th>
+                      <th class="py-3 px-3 text-right">Stok Sistem Saat Ini</th>
+                      <th class="py-3 px-3 text-center">Stok Awal (Karton)</th>
+                      <th class="py-3 px-3 text-center">Pcs Lepas</th>
+                      <th class="py-3 px-3 text-right">Target Total</th>
+                      <th class="py-3 px-3 text-center">Mutasi Selisih</th>
+                      <th class="py-3 px-3 text-center">Acuan Jual (Ktn/Hr)</th>
+                      <th class="py-3 px-3 text-right">Estimasi ROP</th>
+                      <th class="py-3 px-4 text-right">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-baseline-tbody" class="divide-y divide-surface-container-low text-on-surface">
+                    <tr><td colspan="9" class="py-8 text-center text-secondary">Memuat data acuan produk...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </section>
 
       </main>
@@ -1121,6 +1207,16 @@
           <div>
             <label class="block font-bold text-on-surface mb-1">Lead Time (Hari)</label>
             <input type="number" id="mprod-lead" min="1" value="2" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-on-surface mb-1">Harga per Karton (Rp)</label>
+            <input type="number" id="mprod-harga" min="0" value="0" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+          </div>
+          <div>
+            <label class="block font-bold text-on-surface mb-1">Rata2 Jual (Karton/Hari)</label>
+            <input type="number" step="0.1" id="mprod-avg-sales" min="0" value="0" placeholder="Acuan Forecast" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
           </div>
         </div>
         <div class="pt-3 border-t border-surface-container-low flex justify-end gap-2">
@@ -1308,6 +1404,8 @@
           if (user.role === 'admin') {
             document.getElementById('nav-admin').classList.remove('hidden');
             document.getElementById('btn-admin-add-prod').classList.remove('hidden');
+            const btnFc = document.getElementById('btn-fc-edit-baseline');
+            if (btnFc) btnFc.classList.remove('hidden');
           }
           navigate('dashboard');
           loadAllData();
@@ -1699,11 +1797,15 @@
           document.getElementById('mprod-pcs').value = prod.pcs_per_karton;
           document.getElementById('mprod-min').value = prod.stok_minimum_karton;
           document.getElementById('mprod-lead').value = prod.lead_time_hari || 2;
+          document.getElementById('mprod-harga').value = prod.harga_karton || 0;
+          document.getElementById('mprod-avg-sales').value = prod.avg_penjualan_harian_karton || 0;
         }
       } else {
         document.getElementById('modal-product-title').innerText = 'Tambah Produk Aqua';
         document.getElementById('mprod-sku').readOnly = false;
         document.getElementById('form-modal-product').reset();
+        document.getElementById('mprod-harga').value = 0;
+        document.getElementById('mprod-avg-sales').value = 0;
       }
     }
 
@@ -1724,6 +1826,8 @@
         pcs_per_karton: Number(document.getElementById('mprod-pcs').value) || 1,
         stok_minimum_karton: Number(document.getElementById('mprod-min').value) || 10,
         lead_time_hari: Number(document.getElementById('mprod-lead').value) || 2,
+        harga_karton: Number(document.getElementById('mprod-harga').value) || 0,
+        avg_penjualan_harian_karton: Number(document.getElementById('mprod-avg-sales').value) || 0,
         aktif: true
       };
 
@@ -1735,6 +1839,10 @@
         closeProductModal();
         showToast(res.message, 'success');
         loadProducts();
+        if (state.currentView === 'admin') {
+          loadAdminProducts();
+          loadAdminBaseline();
+        }
       }, (err) => {
         btn.disabled = false;
       });
@@ -2237,7 +2345,12 @@
             </td>
             <td class="py-3 px-3 text-right">
               <span class="font-bold text-primary block tnum">${f.rata_rata_harian_ktn} Ktn/hr</span>
-              <span class="text-[10px] text-secondary tnum">${formatRibuan(f.rata_rata_harian_pcs)} pcs/hr</span>
+              <div class="flex items-center justify-end gap-1 mt-0.5">
+                <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${f.tipe_acuan === 'ACUAN_ADMIN' ? 'bg-primary-fixed text-on-primary-fixed-variant' : 'bg-surface-container text-secondary'} inline-block">
+                  ${f.tipe_acuan === 'ACUAN_ADMIN' ? 'Acuan Admin' : 'Aktual 8-W'}
+                </span>
+                <span class="text-[10px] text-secondary tnum">(${formatRibuan(f.rata_rata_harian_pcs)} pcs)</span>
+              </div>
             </td>
             <td class="py-3 px-3 text-right font-medium text-secondary">${f.lead_time_hari} Hari</td>
             <td class="py-3 px-3 text-right font-bold text-on-surface tnum">${formatRibuan(f.titik_pesan_ulang_ktn)} Ktn</td>
@@ -2267,12 +2380,14 @@
       loadAdminUsers();
       loadAdminProducts();
       loadAdminPartners();
+      loadAdminBaseline();
     }
 
     function setAdminTab(tabName) {
-      ['users', 'products', 'partners'].forEach(t => {
+      ['users', 'products', 'partners', 'baseline'].forEach(t => {
         const btn = document.getElementById(`admin-tab-${t}`);
         const content = document.getElementById(`admin-content-${t}`);
+        if (!btn || !content) return;
         if (t === tabName) {
           btn.className = 'px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white text-primary shadow-sm';
           content.classList.remove('hidden');
@@ -2281,6 +2396,9 @@
           content.classList.add('hidden');
         }
       });
+      if (tabName === 'baseline') {
+        loadAdminBaseline();
+      }
     }
 
     function loadAdminUsers() {
@@ -2491,6 +2609,204 @@
         loadAdminPartners();
       }, () => {
         btn.disabled = false;
+      });
+    }
+
+    /**
+     * LOGIKA ADMIN: INISIALISASI STOK AWAL & FORECAST
+     */
+    function loadAdminBaseline() {
+      const dateInput = document.getElementById('base-tx-date');
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().substring(0, 10);
+      }
+
+      callServer('getProductsAndStock', [], (prods) => {
+        state.products = prods;
+        renderAdminBaselineUI(prods);
+      });
+    }
+
+    function renderAdminBaselineUI(prods) {
+      const tbody = document.getElementById('admin-baseline-tbody');
+      if (!prods || prods.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-secondary">Belum ada data produk.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = prods.map(p => {
+        const ppk = p.pcs_per_karton || 1;
+        const currentPcs = p.current_pcs || 0;
+        const currentKtn = p.current_karton || 0;
+        const currentSisa = p.current_sisa_pcs || 0;
+        const avgSales = p.avg_penjualan_harian_karton || 0;
+        const lead = p.lead_time_hari || 2;
+        const estRop = Math.ceil((avgSales * lead) * 1.1);
+
+        return `
+          <tr id="row-base-${p.sku}" data-sku="${escapeHtml(p.sku)}" data-ppk="${ppk}" data-cur-pcs="${currentPcs}" data-cur-ktn="${currentKtn}" data-cur-sisa="${currentSisa}" data-lead="${lead}" class="hover:bg-surface-container-low/50 transition-colors">
+            <td class="py-3 px-4">
+              <span class="font-bold text-on-surface block">${escapeHtml(p.nama_produk)}</span>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="text-[10px] text-primary font-mono font-bold">${escapeHtml(p.sku)}</span>
+                <span class="text-[10px] text-secondary">• ${ppk} pcs/ktn</span>
+                <span class="text-[10px] text-secondary">• LT ${lead}hr</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-right">
+              <span class="font-bold text-on-surface block tnum">${formatRibuan(currentKtn)} Ktn</span>
+              <span class="text-[10px] text-secondary tnum">${formatRibuan(currentPcs)} pcs</span>
+            </td>
+            <td class="py-3 px-3 text-center">
+              <input type="number" min="0" value="${currentKtn}" id="base-ktn-${p.sku}" oninput="updateBaselineRowPcs('${escapeHtml(p.sku)}')" class="w-20 h-8 px-2 text-center rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-bold tnum"/>
+            </td>
+            <td class="py-3 px-3 text-center">
+              <input type="number" min="0" max="${ppk - 1}" value="${currentSisa}" id="base-pcs-${p.sku}" oninput="updateBaselineRowPcs('${escapeHtml(p.sku)}')" class="w-16 h-8 px-2 text-center rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-bold tnum"/>
+            </td>
+            <td class="py-3 px-3 text-right font-bold text-primary tnum" id="base-target-pcs-${p.sku}">
+              ${formatRibuan(currentPcs)} pcs
+            </td>
+            <td class="py-3 px-3 text-center" id="base-diff-badge-${p.sku}">
+              <span class="px-2 py-0.5 rounded font-bold text-[10px] bg-surface-container text-secondary">0 pcs</span>
+            </td>
+            <td class="py-3 px-3 text-center">
+              <input type="number" min="0" step="0.1" value="${avgSales}" id="base-avg-${p.sku}" oninput="updateBaselineRowPcs('${escapeHtml(p.sku)}')" class="w-20 h-8 px-2 text-center rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-bold tnum" placeholder="0"/>
+            </td>
+            <td class="py-3 px-3 text-right font-bold text-on-surface tnum" id="base-rop-${p.sku}">
+              ${formatRibuan(estRop)} Ktn
+            </td>
+            <td class="py-3 px-4 text-right">
+              <button type="button" onclick="saveSingleBaseline('${escapeHtml(p.sku)}')" id="btn-save-row-${p.sku}" class="h-8 px-2.5 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs transition-colors flex items-center gap-1 ml-auto shadow-sm">
+                <span class="material-symbols-outlined text-[14px]">check</span>
+                <span>Simpan</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateBaselineRowPcs(sku) {
+      const row = document.getElementById(`row-base-${sku}`);
+      if (!row) return;
+
+      const ppk = Number(row.dataset.ppk) || 1;
+      const curPcs = Number(row.dataset.curPcs) || 0;
+      const leadTime = Number(row.dataset.lead) || 2;
+
+      const ktnInput = document.getElementById(`base-ktn-${sku}`);
+      const pcsInput = document.getElementById(`base-pcs-${sku}`);
+      const avgInput = document.getElementById(`base-avg-${sku}`);
+
+      const ktnVal = Math.max(0, Number(ktnInput.value) || 0);
+      const pcsVal = Math.max(0, Number(pcsInput.value) || 0);
+      const avgVal = Math.max(0, Number(avgInput.value) || 0);
+
+      const targetPcs = (ktnVal * ppk) + pcsVal;
+      const diff = targetPcs - curPcs;
+
+      const targetDisplay = document.getElementById(`base-target-pcs-${sku}`);
+      if (targetDisplay) targetDisplay.innerText = formatRibuan(targetPcs) + ' pcs';
+
+      const diffBadge = document.getElementById(`base-diff-badge-${sku}`);
+      if (diffBadge) {
+        if (diff > 0) {
+          diffBadge.innerHTML = `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-tertiary/10 text-tertiary">+${formatRibuan(diff)} pcs</span>`;
+        } else if (diff < 0) {
+          diffBadge.innerHTML = `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-error-container text-on-error-container">-${formatRibuan(Math.abs(diff))} pcs</span>`;
+        } else {
+          diffBadge.innerHTML = `<span class="px-2 py-0.5 rounded font-bold text-[10px] bg-surface-container text-secondary">0 pcs</span>`;
+        }
+      }
+
+      const ropDisplay = document.getElementById(`base-rop-${sku}`);
+      if (ropDisplay) {
+        const estRopKtn = Math.ceil((avgVal * leadTime) * 1.1);
+        ropDisplay.innerText = formatRibuan(estRopKtn) + ' Ktn';
+      }
+    }
+
+    function copyCurrentStockToInputs() {
+      if (!state.products) return;
+      state.products.forEach(p => {
+        const ktnInput = document.getElementById(`base-ktn-${p.sku}`);
+        const pcsInput = document.getElementById(`base-pcs-${p.sku}`);
+        if (ktnInput) ktnInput.value = p.current_karton || 0;
+        if (pcsInput) pcsInput.value = p.current_sisa_pcs || 0;
+        updateBaselineRowPcs(p.sku);
+      });
+      showToast('Stok sistem saat ini berhasil disalin ke kolom input.', 'info');
+    }
+
+    function saveSingleBaseline(sku) {
+      const ktnInput = document.getElementById(`base-ktn-${sku}`);
+      const pcsInput = document.getElementById(`base-pcs-${sku}`);
+      const avgInput = document.getElementById(`base-avg-${sku}`);
+      const dateInput = document.getElementById('base-tx-date');
+      const noteInput = document.getElementById('base-tx-note');
+
+      const karton = Number(ktnInput.value) || 0;
+      const pcs = Number(pcsInput.value) || 0;
+      const avgSales = Number(avgInput.value) || 0;
+      const tanggal = dateInput ? dateInput.value : '';
+      const catatan = noteInput ? noteInput.value : '';
+
+      const btn = document.getElementById(`btn-save-row-${sku}`);
+      if (btn) btn.disabled = true;
+
+      const items = [{
+        sku: sku,
+        karton: karton,
+        pcs: pcs,
+        avg_sales_karton: avgSales
+      }];
+
+      callServer('saveBatchInitialStockAndForecast', [items, tanggal, catatan], (res) => {
+        if (btn) btn.disabled = false;
+        showToast(`Stok awal & forecast ${sku} berhasil disimpan.`, 'success');
+        loadAdminBaseline();
+      }, (err) => {
+        if (btn) btn.disabled = false;
+      });
+    }
+
+    function saveAllBaselineData() {
+      if (!state.products || state.products.length === 0) {
+        showToast('Tidak ada data produk.', 'error');
+        return;
+      }
+
+      const dateInput = document.getElementById('base-tx-date');
+      const noteInput = document.getElementById('base-tx-note');
+      const tanggal = dateInput ? dateInput.value : '';
+      const catatan = noteInput ? noteInput.value : '';
+
+      const items = [];
+      state.products.forEach(p => {
+        const ktnInput = document.getElementById(`base-ktn-${p.sku}`);
+        const pcsInput = document.getElementById(`base-pcs-${p.sku}`);
+        const avgInput = document.getElementById(`base-avg-${p.sku}`);
+        if (ktnInput && pcsInput) {
+          items.push({
+            sku: p.sku,
+            karton: Number(ktnInput.value) || 0,
+            pcs: Number(pcsInput.value) || 0,
+            avg_sales_karton: avgInput ? (Number(avgInput.value) || 0) : 0
+          });
+        }
+      });
+
+      const btn = document.getElementById('btn-save-all-baseline');
+      if (btn) btn.disabled = true;
+
+      callServer('saveBatchInitialStockAndForecast', [items, tanggal, catatan], (res) => {
+        if (btn) btn.disabled = false;
+        showToast(res.message, 'success');
+        loadAdminBaseline();
+        if (state.currentView === 'forecast') loadForecast();
+        if (state.currentView === 'products') loadProducts();
+      }, (err) => {
+        if (btn) btn.disabled = false;
       });
     }
 
@@ -3106,6 +3422,83 @@
 
         return { success: true, message: `Sesi Opname ${opnameId} ditutup. ${countAdj} transaksi PENYESUAIAN dibuat.` };
       },
+      setInitialStock(sku, karton, pcs, catatan, tanggal) {
+        this._init();
+        const prods = this.getProductsAndStock();
+        const p = prods.find(x => x.sku === sku);
+        if (!p) throw new Error('Produk tidak ditemukan.');
+
+        const targetPcs = (Number(karton) * p.pcs_per_karton) + Number(pcs);
+        const diff = targetPcs - p.current_pcs;
+        if (diff === 0) {
+          return { success: true, message: `Stok ${sku} sudah tepat (${targetPcs} pcs).` };
+        }
+
+        const txs = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
+        const arah = diff > 0 ? 'MASUK' : 'KELUAR';
+        const absQty = Math.abs(diff);
+        txs.push({
+          id_transaksi: 'TRX-INIT-' + Date.now() + '-' + sku,
+          timestamp: tanggal ? new Date(tanggal).toISOString() : new Date().toISOString(),
+          jenis: 'PENYESUAIAN',
+          arah: arah,
+          sku: sku,
+          qty_pcs: absQty,
+          pihak: 'SALDO AWAL GUDANG',
+          no_dokumen: 'SALDO-AWAL',
+          catatan: catatan || `Inisialisasi Stok Sistem Awal: ${karton} Ktn ${pcs} pcs`,
+          user_email: state.user ? state.user.email : 'admin@danone-distrib.co.id'
+        });
+        localStorage.setItem('wf_transactions', JSON.stringify(txs));
+
+        return { success: true, message: `Stok awal ${sku} diset ke ${karton} Ktn + ${pcs} pcs (${targetPcs} pcs).` };
+      },
+      saveBatchInitialStockAndForecast(items, tanggal, catatan) {
+        this._init();
+        let products = JSON.parse(localStorage.getItem('wf_products') || '[]');
+        const txs = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
+        const prodsWithStock = this.getProductsAndStock();
+
+        let countStock = 0;
+        let countFc = 0;
+
+        items.forEach(itm => {
+          const pIdx = products.findIndex(p => p.sku === itm.sku);
+          if (pIdx >= 0 && itm.avg_sales_karton !== undefined) {
+            products[pIdx].avg_penjualan_harian_karton = Math.max(0, Number(itm.avg_sales_karton) || 0);
+            countFc++;
+          }
+
+          const curProd = prodsWithStock.find(p => p.sku === itm.sku);
+          if (curProd && itm.karton !== undefined && itm.karton !== '') {
+            const ktn = Math.max(0, Number(itm.karton) || 0);
+            const pcs = Math.max(0, Number(itm.pcs) || 0);
+            const targetPcs = (ktn * curProd.pcs_per_karton) + pcs;
+            const diff = targetPcs - curProd.current_pcs;
+            if (diff !== 0) {
+              countStock++;
+              txs.push({
+                id_transaksi: 'TRX-INIT-' + Date.now() + '-' + itm.sku,
+                timestamp: tanggal ? new Date(tanggal).toISOString() : new Date().toISOString(),
+                jenis: 'PENYESUAIAN',
+                arah: diff > 0 ? 'MASUK' : 'KELUAR',
+                sku: itm.sku,
+                qty_pcs: Math.abs(diff),
+                pihak: 'SALDO AWAL GUDANG',
+                no_dokumen: 'SALDO-AWAL',
+                catatan: catatan || `Inisialisasi Stok Sistem Awal: ${ktn} Ktn ${pcs} pcs`,
+                user_email: state.user ? state.user.email : 'admin@danone-distrib.co.id'
+              });
+              curProd.current_pcs = targetPcs; // update in-memory
+            }
+          }
+        });
+
+        localStorage.setItem('wf_products', JSON.stringify(products));
+        localStorage.setItem('wf_transactions', JSON.stringify(txs));
+
+        return { success: true, message: `Inisialisasi berhasil: ${countStock} mutasi stok awal dicatat, ${countFc} acuan forecast diperbarui.` };
+      },
       getForecastData() {
         this._init();
         const prods = this.getProductsAndStock();
@@ -3124,15 +3517,33 @@
             }
           });
 
-          // WMA 8 minggu
+          // WMA 8 minggu aktual
           let sumW = 0;
           for (let w = 0; w < 8; w++) {
             sumW += (weekly[w] / 7) * (w + 1);
           }
-          let avgDailyPcs = sumW / 36;
-          if (avgDailyPcs === 0) avgDailyPcs = (p.stok_minimum_karton * p.pcs_per_karton * 0.15); // Fallback jika transaksi sedikit
+          let actualWmaDailyPcs = sumW / 36;
+          let actualWmaDailyKtn = Number((actualWmaDailyPcs / p.pcs_per_karton).toFixed(1));
 
-          const avgDailyKtn = Number((avgDailyPcs / p.pcs_per_karton).toFixed(1));
+          const baselineSalesKtn = Number(p.avg_penjualan_harian_karton) || 0;
+          let avgDailyPcs = 0;
+          let avgDailyKtn = 0;
+          let tipeAcuan = 'AKTUAL_8_MINGGU';
+
+          if (baselineSalesKtn > 0) {
+            avgDailyKtn = baselineSalesKtn;
+            avgDailyPcs = baselineSalesKtn * p.pcs_per_karton;
+            tipeAcuan = 'ACUAN_ADMIN';
+          } else if (actualWmaDailyPcs > 0) {
+            avgDailyPcs = actualWmaDailyPcs;
+            avgDailyKtn = actualWmaDailyKtn;
+            tipeAcuan = 'AKTUAL_8_MINGGU';
+          } else {
+            avgDailyPcs = (p.stok_minimum_karton * p.pcs_per_karton * 0.15); // Fallback
+            avgDailyKtn = Number((avgDailyPcs / p.pcs_per_karton).toFixed(1));
+            tipeAcuan = 'BELUM_ADA_DATA';
+          }
+
           const leadTimeDemandPcs = avgDailyPcs * p.lead_time_hari;
           const safetyStockPcs = leadTimeDemandPcs * 0.10;
           const ropPcs = leadTimeDemandPcs + safetyStockPcs;
@@ -3160,6 +3571,9 @@
             current_stock_ktn: p.current_karton,
             rata_rata_harian_pcs: Math.round(avgDailyPcs),
             rata_rata_harian_ktn: avgDailyKtn,
+            tipe_acuan: tipeAcuan,
+            acuan_admin_ktn: baselineSalesKtn,
+            aktual_8_minggu_ktn: actualWmaDailyKtn,
             titik_pesan_ulang_pcs: Math.round(ropPcs),
             titik_pesan_ulang_ktn: ropKtn,
             sisa_hari: sisaHari,
@@ -3179,16 +3593,16 @@
         ];
 
         const products = [
-          { sku: 'AQ-GAL-19L', nama_produk: 'Aqua Galon 19 Liter', kategori: 'Galon', pcs_per_karton: 1, stok_minimum_karton: 500, lead_time_hari: 2, harga_karton: 21000, aktif: true },
-          { sku: 'AQ-BTL-330', nama_produk: 'Aqua Botol Mini 330ml', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 200, lead_time_hari: 2, harga_karton: 42000, aktif: true },
-          { sku: 'AQ-BTL-600', nama_produk: 'Aqua Botol Sedang 600ml', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 350, lead_time_hari: 2, harga_karton: 51000, aktif: true },
-          { sku: 'AQ-BTL-1500', nama_produk: 'Aqua Botol Besar 1500ml', kategori: 'Botol', pcs_per_karton: 12, stok_minimum_karton: 250, lead_time_hari: 2, harga_karton: 49000, aktif: true },
-          { sku: 'AQ-CUP-220', nama_produk: 'Aqua Cup Gelas 220ml', kategori: 'Cup', pcs_per_karton: 48, stok_minimum_karton: 400, lead_time_hari: 3, harga_karton: 34000, aktif: true },
-          { sku: 'AQ-REF-380S', nama_produk: 'Aqua Reflections Still 380ml', kategori: 'Reflections', pcs_per_karton: 24, stok_minimum_karton: 80, lead_time_hari: 4, harga_karton: 185000, aktif: true },
-          { sku: 'AQ-REF-380SP', nama_produk: 'Aqua Reflections Sparkling 380ml', kategori: 'Reflections', pcs_per_karton: 24, stok_minimum_karton: 60, lead_time_hari: 4, harga_karton: 210000, aktif: true },
-          { sku: 'AQ-CLG-750', nama_produk: 'Aqua Click n Go 750ml', kategori: 'Botol', pcs_per_karton: 18, stok_minimum_karton: 120, lead_time_hari: 3, harga_karton: 76000, aktif: true },
-          { sku: 'AQ-LIF-500', nama_produk: 'Aqua Life 500ml Recycled', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 150, lead_time_hari: 3, harga_karton: 68000, aktif: true },
-          { sku: 'MZ-LYC-500', nama_produk: 'Mizone Lychee Lemon 500ml', kategori: 'Isotonik', pcs_per_karton: 12, stok_minimum_karton: 100, lead_time_hari: 2, harga_karton: 45000, aktif: true }
+          { sku: 'AQ-GAL-19L', nama_produk: 'Aqua Galon 19 Liter', kategori: 'Galon', pcs_per_karton: 1, stok_minimum_karton: 500, lead_time_hari: 2, harga_karton: 21000, aktif: true, avg_penjualan_harian_karton: 80 },
+          { sku: 'AQ-BTL-330', nama_produk: 'Aqua Botol Mini 330ml', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 200, lead_time_hari: 2, harga_karton: 42000, aktif: true, avg_penjualan_harian_karton: 35 },
+          { sku: 'AQ-BTL-600', nama_produk: 'Aqua Botol Sedang 600ml', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 350, lead_time_hari: 2, harga_karton: 51000, aktif: true, avg_penjualan_harian_karton: 55 },
+          { sku: 'AQ-BTL-1500', nama_produk: 'Aqua Botol Besar 1500ml', kategori: 'Botol', pcs_per_karton: 12, stok_minimum_karton: 250, lead_time_hari: 2, harga_karton: 49000, aktif: true, avg_penjualan_harian_karton: 40 },
+          { sku: 'AQ-CUP-220', nama_produk: 'Aqua Cup Gelas 220ml', kategori: 'Cup', pcs_per_karton: 48, stok_minimum_karton: 400, lead_time_hari: 3, harga_karton: 34000, aktif: true, avg_penjualan_harian_karton: 60 },
+          { sku: 'AQ-REF-380S', nama_produk: 'Aqua Reflections Still 380ml', kategori: 'Reflections', pcs_per_karton: 24, stok_minimum_karton: 80, lead_time_hari: 4, harga_karton: 185000, aktif: true, avg_penjualan_harian_karton: 12 },
+          { sku: 'AQ-REF-380SP', nama_produk: 'Aqua Reflections Sparkling 380ml', kategori: 'Reflections', pcs_per_karton: 24, stok_minimum_karton: 60, lead_time_hari: 4, harga_karton: 210000, aktif: true, avg_penjualan_harian_karton: 10 },
+          { sku: 'AQ-CLG-750', nama_produk: 'Aqua Click n Go 750ml', kategori: 'Botol', pcs_per_karton: 18, stok_minimum_karton: 120, lead_time_hari: 3, harga_karton: 76000, aktif: true, avg_penjualan_harian_karton: 18 },
+          { sku: 'AQ-LIF-500', nama_produk: 'Aqua Life 500ml Recycled', kategori: 'Botol', pcs_per_karton: 24, stok_minimum_karton: 150, lead_time_hari: 3, harga_karton: 68000, aktif: true, avg_penjualan_harian_karton: 25 },
+          { sku: 'MZ-LYC-500', nama_produk: 'Mizone Lychee Lemon 500ml', kategori: 'Isotonik', pcs_per_karton: 12, stok_minimum_karton: 100, lead_time_hari: 2, harga_karton: 45000, aktif: true, avg_penjualan_harian_karton: 15 }
         ];
 
         const partners = [
