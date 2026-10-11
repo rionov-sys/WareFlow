@@ -1,0 +1,23 @@
+{
+  "name": "WareFlow - Sistem Gudang Distributor Aqua",
+  "short_name": "WareFlow",
+  "description": "Aplikasi Gudang & Logistik Distributor Danone-AQUA DC 01 Cakung",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f9ff",
+  "theme_color": "#00569e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' width='192' height='192'%3E%3Crect width='192' height='192' rx='36' fill='%2300569e'/%3E%3Cpath d='M96 32 C65 72 48 108 48 136 C48 162 69 176 96 176 C123 176 144 162 144 136 C144 108 127 72 96 32 Z' fill='%23ffffff'/%3E%3Cpath d='M96 60 C80 90 68 116 68 136 C68 152 80 160 96 160 C112 160 124 152 124 136 C124 116 112 90 96 60 Z' fill='%230b6ec7'/%3E%3Ccircle cx='96' cy='128' r='14' fill='%2386f8c9'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Crect width='512' height='512' rx='96' fill='%2300569e'/%3E%3Cpath d='M256 80 C173 192 128 288 128 362 C128 432 184 470 256 470 C328 470 384 432 384 362 C384 288 339 192 256 80 Z' fill='%23ffffff'/%3E%3Cpath d='M256 160 C213 240 181 309 181 362 C181 405 213 427 256 427 C299 427 331 405 331 362 C331 309 299 240 256 160 Z' fill='%230b6ec7'/%3E%3Ccircle cx='256' cy='341' r='38' fill='%2386f8c9'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
