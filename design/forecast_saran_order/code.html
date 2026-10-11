@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"secondary":"#556068","on-primary-fixed":"#001c3a","inverse-on-surface":"#e9f1ff","surface-container-high":"#dde9fb","on-tertiary":"#ffffff","surface-bright":"#f8f9ff","surface-container-highest":"#d7e4f5","surface-container-low":"#eef4ff","tertiary-container":"#007d5a","surface-container":"#e4efff","on-secondary-container":"#5b666e","on-primary-fixed-variant":"#004786","primary":"#00569e","on-tertiary-fixed-variant":"#00513a","on-secondary-fixed-variant":"#3e4850","outline-variant":"#c1c6d4","inverse-primary":"#a5c8ff","outline":"#717783","secondary-container":"#d9e4ee","error":"#ba1a1a","surface-variant":"#d7e4f5","on-secondary-fixed":"#121d24","on-secondary":"#ffffff","tertiary-fixed-dim":"#68dbae","on-surface":"#101c29","on-error":"#ffffff","on-tertiary-fixed":"#002115","secondary-fixed":"#d9e4ee","on-surface-variant":"#414752","on-primary-container":"#ebf1ff","primary-fixed-dim":"#a5c8ff","inverse-surface":"#26313f","primary-fixed":"#d4e3ff","tertiary-fixed":"#86f8c9","on-background":"#101c29","primary-container":"#0b6ec7","surface-container-lowest":"#ffffff","surface-dim":"#cfdbec","on-error-container":"#93000a","surface":"#f8f9ff","error-container":"#ffdad6","surface-tint":"#005faf","on-tertiary-container":"#beffdf","secondary-fixed-dim":"#bdc8d1","on-primary":"#ffffff","background":"#f8f9ff","tertiary":"#006246"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-desktop":"2rem","space-xl":"2rem","space-sm":"0.5rem","space-2xl":"3rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","margin":"1rem","space-lg":"1.5rem","space-md":"1rem","gutter":"1rem"},"fontFamily":{"headline-lg-mobile":["Inter"],"label-sm":["Inter"],"label-lg":["Inter"],"body-md":["Inter"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-sm":["Inter"],"numeric-metric":["Inter"],"headline-md":["Inter"],"label-md":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"]},"fontSize":{"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"500"}],"numeric-metric":["32px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)] justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="WareFlow Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WcQOOWcepJDdcKJRhyCfr_nEmwSkwt_ntgOWFZUHrEDtarAgbCXVnkSx7mp_RyrBYeSRrZ-mrRzkRp7MngCg8AQg6zNOk-ADfuHApwB7urj3Gykk7saHjU4Sd5xSOVHbyiG7rPmki-cnQqYZsXKkKNpbej2ujYhpSKlWk8wNxxbqrhDN18wXA7It653QOXGBB-wpXT-yqoaET66KKWaEo4Sy0xe2LdheQH0wL1aQ6LPVy1e6NXzb0gRiIu"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">WareFlow</span><span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Aqua Distributor</span></div></div></div><div class="px-space-md py-space-sm"><div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm overflow-hidden"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">warehouse</span><div class="flex flex-col truncate"><span class="font-label-sm text-label-sm text-secondary truncate">Lokasi Gudang</span><span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">DC 01 Cakung</span></div></div><span class="material-symbols-outlined text-secondary text-[18px] shrink-0">unfold_more</span></div></div><nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="produk-&-stok" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-lg text-label-lg">Produk & Stok</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="transaksi" href="#"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="font-label-lg text-label-lg">Transaksi</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="riwayat" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Riwayat</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="stock-opname" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span><span class="font-label-lg text-label-lg">Stock Opname</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-all min-h-[44px] bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="forecast" href="#"><span class="material-symbols-outlined text-[20px]">trending_up</span><span class="font-label-lg text-label-lg">Forecast</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="kelola-admin" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span class="font-label-lg text-label-lg">Kelola Admin</span></a></nav></div><div class="p-space-md bg-surface-container-lowest"><div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm min-w-0"><div class="relative shrink-0"><div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">person</span></div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-container ring-2 ring-surface-container-lowest"></span></div><div class="flex flex-col truncate"><span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Andi Pratama</span><span class="font-label-sm text-label-sm text-secondary truncate">Kepala Gudang</span></div></div><a class="w-8 h-8 rounded-lg flex items-center justify-center text-error hover:bg-error-container hover:text-on-error-container transition-colors shrink-0" data-path="login" href="#" title="Keluar"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="lg:pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-md lg:px-margin-desktop"><div class="flex items-center gap-space-md"><div class="flex lg:hidden items-center gap-space-sm"><img alt="WareFlow Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WcQOOWcepJDdcKJRhyCfr_nEmwSkwt_ntgOWFZUHrEDtarAgbCXVnkSx7mp_RyrBYeSRrZ-mrRzkRp7MngCg8AQg6zNOk-ADfuHApwB7urj3Gykk7saHjU4Sd5xSOVHbyiG7rPmki-cnQqYZsXKkKNpbej2ujYhpSKlWk8wNxxbqrhDN18wXA7It653QOXGBB-wpXT-yqoaET66KKWaEo4Sy0xe2LdheQH0wL1aQ6LPVy1e6NXzb0gRiIu"/><span class="font-headline-sm text-headline-sm text-primary">WareFlow</span></div><div class="hidden sm:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full text-secondary"><span class="material-symbols-outlined text-[16px] text-tertiary-container">circle</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">Gudang Utama Cakung - DC 01</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><button aria-label="Pemberitahuan" class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><button aria-label="Bantuan Gudang" class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">help_outline</span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 pb-20 lg:pb-space-xl px-space-md lg:px-margin-desktop flex-1 bg-background"><div class="flex flex-col w-full">
+<!-- Top Control Banner / Hero Section -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-surface-tint p-space-lg lg:p-space-xl shadow-md text-on-primary mb-space-lg">
+<div class="absolute -right-12 -top-12 w-64 h-64 rounded-full bg-white/5 pointer-events-none"></div>
+<div class="absolute right-1/4 -bottom-20 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-lowest/15 backdrop-blur-md text-on-primary mb-space-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">insights</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase font-semibold">AI Run-out Prediction Model</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg tracking-tight text-white mb-space-xs">
+          Forecast Stok & Estimasi Kebutuhan Pasokan
+        </h2>
+<p class="font-body-md text-body-md text-primary-fixed opacity-95">
+          Kalkulasi otomatis proyeksi kehabisan stok (Run-out date) dan rekomendasi order ke pabrik Danone Aqua berdasarkan laju pengeluaran riil gudang.
+        </p>
+</div>
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-sm shrink-0">
+<button class="min-h-[48px] px-space-md py-space-sm bg-surface-container-lowest/15 hover:bg-surface-container-lowest/25 text-white rounded-lg flex items-center justify-center gap-space-xs font-label-lg text-label-lg transition-colors" id="btnLeadTimeParam" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<span>Atur Lead Time Pabrik</span>
+</button>
+<button class="min-h-[48px] px-space-lg py-space-sm bg-surface-container-lowest hover:bg-surface-container-low text-primary rounded-lg flex items-center justify-center gap-space-xs font-label-lg text-label-lg shadow-sm transition-transform active:scale-[0.98]" id="btnMassPO" type="button">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+<span class="font-bold">Buat PO Massal</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Operational Metrics Ticker -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-lg">
+<!-- Card 1: Critical Orders -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#D64545]"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Status Stok Kritis</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">2 SKU Butuh Order Hari Ini</h3>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#FEF2F2] flex items-center justify-center text-[#D64545] shrink-0">
+<span class="material-symbols-outlined text-[24px]">crisis_alert</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-sm">
+<span class="font-numeric-metric text-numeric-metric text-[#D64545] tracking-tight">2 SKU</span>
+<span class="font-body-sm text-body-sm text-secondary">Estimasi stok habis < 48 jam</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-space-xs text-[#D64545] font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+<span>Aqua Galon 19L & Cup 220ml di bawah ambang aman</span>
+</div>
+</div>
+<!-- Card 2: Average Run-out -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Ketersediaan Rata-rata</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Run-out Gudang Cakung</h3>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[24px]">hourglass_top</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-sm">
+<span class="font-numeric-metric text-numeric-metric text-on-surface tracking-tight">11,4 Hari</span>
+<span class="font-body-sm text-body-sm text-secondary">Buffer coverage</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-[#1D9E75]">trending_up</span>
+<span>Velocity agregat: 7.420 Karton / hari operasional</span>
+</div>
+</div>
+<!-- Card 3: Plant Lead Time -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary-container"></div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Rute Pabrik Pasokan</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Ciherang & Subang Plant</h3>
+</div>
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/10 flex items-center justify-center text-tertiary-container shrink-0">
+<span class="material-symbols-outlined text-[24px]">local_shipping</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-sm">
+<span class="font-numeric-metric text-numeric-metric text-on-surface tracking-tight">2 Hari</span>
+<span class="font-body-sm text-body-sm text-secondary">Standar waktu tiba (Lead Time)</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-secondary font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#1D9E75]"></span> Jalur Distribusi Normal
+        </span>
+<span class="text-primary font-semibold cursor-pointer hover:underline">Ganti Pabrik</span>
+</div>
+</div>
+</div>
+<!-- Seasonal Spike Alert Widget -->
+<div class="mb-space-lg rounded-xl bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low p-space-md shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-lowest shadow-sm flex items-center justify-center text-[#E08A00] shrink-0">
+<span class="material-symbols-outlined text-[28px]">wb_sunny</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-[#FFFBEB] text-[#8A4C00] font-label-sm text-label-sm font-bold uppercase">Prediksi Lonjakan Musiman</span>
+<span class="font-label-sm text-label-sm text-secondary">Periode: Minggu Depan</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium mt-1">
+          Antisipasi gelombang cuaca panas & cuti bersama: estimasi kenaikan konsumsi <span class="font-bold text-[#E08A00]">+25%</span> di area Jabodetabek.
+        </p>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">
+          Rekomendasi safety stock dinaikkan sebesar 1.500 karton untuk SKU Botol 600ml & Aqua Galon.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0 w-full md:w-auto">
+<button class="w-full md:w-auto min-h-[44px] px-space-md py-space-xs rounded-lg bg-surface-container-lowest hover:bg-surface-bright text-primary font-label-lg text-label-lg shadow-sm transition-colors" type="button">
+        Terapkan +25% ke Semua Saran
+      </button>
+</div>
+</div>
+<!-- Main Comprehensive Forecast Table Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-xl">
+<!-- Table Header Toolbar -->
+<div class="p-space-md lg:p-space-lg bg-surface-container-lowest flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Matriks Analisis Run-Out & Saran Pengadaan</h3>
+<p class="font-body-sm text-body-sm text-secondary">Perhitungan diperbarui secara otomatis per transaksi gerbang gudang jam 14:00 WIB.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest shadow-sm font-label-sm text-label-sm text-on-surface font-semibold" type="button">Semua SKU (5)</button>
+<button class="px-3 py-1.5 rounded-lg text-secondary hover:text-on-surface font-label-sm text-label-sm font-medium" type="button">Kritis Saja (2)</button>
+<button class="px-3 py-1.5 rounded-lg text-secondary hover:text-on-surface font-label-sm text-label-sm font-medium" type="button">Reorder (1)</button>
+</div>
+<button class="min-h-[40px] px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-lg flex items-center gap-1 font-label-sm text-label-sm font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Unduh Excel PO</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-md px-space-lg min-w-[280px]">SKU & Produk</th>
+<th class="py-space-md px-space-md text-right min-w-[130px]">Stok Fisik Saat Ini</th>
+<th class="py-space-md px-space-md text-right min-w-[150px]">Laju Penjualan (Velocity)</th>
+<th class="py-space-md px-space-md min-w-[180px]">Sisa Hari (Days)</th>
+<th class="py-space-md px-space-lg min-w-[240px]">Rekomendasi Saran Order</th>
+<th class="py-space-md px-space-md text-center min-w-[120px]">Prioritas</th>
+<th class="py-space-md px-space-lg text-right min-w-[160px]">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<!-- Row 1: Aqua Galon 19L (KRITIS) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-lowest">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden shrink-0 relative flex items-center justify-center p-1">
+<img class="w-full h-full object-contain" data-alt="Close up commercial studio photography of standard Danone Aqua 19 Liter polycarbonate gallon bottle with iconic blue seal on clean industrial surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0G6DmspulXs0OSZ_D1Ym9RcGQrPNPx-dOlwY1ctqmZjKcOd9SnrgzPl5V608J6V8jzZ6vsgXyPlPD58CwO-h_6tw8qNoSbE087MgDhBOp-C1XcAM22syAEq72i2k94MbF0cRcfuzUa_HUlZ_XVmP10UIfYE2H2DsjpBFpExbR76Cf6YckCqjv8xyC_LK2mI6Rz-utmBAvUbLuAn8uZALsS_XF519okL8h7-zugoijBHnAvArT6qOIlw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Aqua Galon 19 Liter</span>
+<span class="font-body-sm text-body-sm text-secondary">SKU: AQA-GLN-19L</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Volume: Returnable Polycarbonate</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">3.750</span>
+<span class="block font-label-sm text-label-sm text-secondary">Galon Riil</span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">2.500</span>
+<span class="block font-label-sm text-label-sm text-secondary">Galon / hari</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#D64545]">1,5 Hari</span>
+<span class="font-label-sm text-label-sm text-secondary">Kritis</span>
+</div>
+<!-- Visual Bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-[#D64545] rounded-full" style="width: 15%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-[#D64545]">Habis: Besok Lusa 10:00</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Saran:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#0B6EC7]">5.000 Karton</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Setara 10 Truk Tronton Pabrik</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF2F2] text-[#991B1B] font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#D64545] animate-pulse"></span>
+                Kritis
+              </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="min-h-[40px] px-3 py-1.5 bg-primary hover:bg-[#0959a3] text-on-primary rounded-lg font-label-sm text-label-sm font-semibold transition-colors shadow-sm" type="button">
+                  Buat PO
+                </button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" title="Simulasi Lead Time" type="button">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Aqua Botol 600ml (SEDANG/REORDER) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-lowest">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden shrink-0 relative flex items-center justify-center p-1">
+<img class="w-full h-full object-contain" data-alt="Danone Aqua 600ml clear plastic bottled water packaged carton crate showcase on modern clean warehouse pallette background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfxJiBoo-6uw7H6OHMJz6RxTB32Nw2sypPaliXMYJ5qQfHprKNf11fe9KR7ruflst1ZhxmC4iLGiy5adcIfrBd1vHtBRgbihS9nbP7IPXFfphlSBezJkRmrprzLZ7yrN_RmpzWgT45HNrsfcQZt3EuuBsDc6jbkdajq5hqP3SR1YVMQfZDHE_D6RWcZ6hUP7Ut_gzZyo06DjPoH69fjFgTtEzvdBoQUUOZl9pPD7tjI3Uwtfo0JtmotQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Aqua Botol 600ml (Dus)</span>
+<span class="font-body-sm text-body-sm text-secondary">SKU: AQA-BTL-600</span>
+<span class="font-label-sm text-label-sm text-secondary">Kemasan: 24 Botol / Karton</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">3.600</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton</span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">1.200</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton / hari</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#8A4C00]">3,0 Hari</span>
+<span class="font-label-sm text-label-sm text-secondary">Menipis</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-[#E08A00] rounded-full" style="width: 30%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">Buffer aman: 5 Hari</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Saran:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#0B6EC7]">3.500 Karton</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Setara 7 Truk Wingbox</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFFBEB] text-[#8A4C00] font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#E08A00]"></span>
+                Reorder
+              </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="min-h-[40px] px-3 py-1.5 bg-primary hover:bg-[#0959a3] text-on-primary rounded-lg font-label-sm text-label-sm font-semibold transition-colors shadow-sm" type="button">
+                  Buat PO
+                </button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" title="Simulasi Lead Time" type="button">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Aqua Cup 220ml (KRITIS) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-lowest">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden shrink-0 relative flex items-center justify-center p-1">
+<img class="w-full h-full object-contain" data-alt="Aqua plastic drink water cups 220ml arranged in neat wholesale box container crisp warehouse industrial catalog styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn9ibse-_QzttDNaNuZj68RslL4UXe4D4_VfkpjlQvm_aghq39_XA1hAiVdKEwbg-yWWcsCG-H3yRsNWG_7tVvwvP69QldWxDbK9GFIenfNi7AkPBtKgaUTQyuPq_YFrJccB3-vG49XIOMSDyTH4FyNOgdavMj60ESJ081kIetKH2wXiBf1XuBlSbX3pM46_HuidFOXKtYD0xVWJPaXZ8NECwG9lqBxr83GjJQ6Mea9aFlOGs7z1pSyQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Aqua Cup 220ml (Gelas)</span>
+<span class="font-body-sm text-body-sm text-secondary">SKU: AQA-CUP-220</span>
+<span class="font-label-sm text-label-sm text-secondary">Kemasan: 48 Cup / Karton</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">2.100</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton</span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">1.050</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton / hari</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#D64545]">2,0 Hari</span>
+<span class="font-label-sm text-label-sm text-secondary">Sangat Kritis</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-[#D64545] rounded-full" style="width: 20%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-[#D64545]">Sama dengan Lead Time Pabrik</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Saran:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#0B6EC7]">2.500 Karton</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Setara 5 Truk Wingbox</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF2F2] text-[#991B1B] font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#D64545] animate-pulse"></span>
+                Kritis
+              </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="min-h-[40px] px-3 py-1.5 bg-primary hover:bg-[#0959a3] text-on-primary rounded-lg font-label-sm text-label-sm font-semibold transition-colors shadow-sm" type="button">
+                  Buat PO
+                </button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" title="Simulasi Lead Time" type="button">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Aqua Botol 1500ml (AMAN) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-lowest">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden shrink-0 relative flex items-center justify-center p-1">
+<img class="w-full h-full object-contain" data-alt="Large Aqua 1500ml family bottled water cartons in warehouse storage rack Danone logistics environment high clarity photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2jnC9hJ23kkHXARrH7GSPW7vewAKB6uCEf8C4_pvH2oVgD0cgCRYvhqTi_mqJJg5IZWDfGAvmivavbdOi4DRs_dyWuiLdzr8PTVdtKt6q_ZUd1nVTTKXTVwVMsl4p74z7MAQ3Z9HJayNsLcVJFR3960Lg8JldiT3-zykn3qYyXR22G6bs2KS81UjcpkQXEClUrwiIYt6eXgqV4IwSKOxM4cswgdUuMeKCBFTYjRIwYUdMujx3EE4zdg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Aqua Botol 1500ml</span>
+<span class="font-body-sm text-body-sm text-secondary">SKU: AQA-BTL-1500</span>
+<span class="font-label-sm text-label-sm text-secondary">Kemasan: 12 Botol / Karton</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">9.600</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton</span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">800</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton / hari</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#0F5B41]">12,0 Hari</span>
+<span class="font-label-sm text-label-sm text-secondary">Aman</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-[#1D9E75] rounded-full" style="width: 75%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">Lead time tercukupi</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Saran:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-[#0B6EC7]">2.000 Karton</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Order Rutin Terjadwal</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ECFDF5] text-[#0F5B41] font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#1D9E75]"></span>
+                Normal
+              </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="min-h-[40px] px-3 py-1.5 bg-surface-container-high hover:bg-surface-container text-on-surface rounded-lg font-label-sm text-label-sm font-semibold transition-colors" type="button">
+                  Buat PO
+                </button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" title="Simulasi Lead Time" type="button">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Aqua Reflections Premium (SANGAT AMAN) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-lowest">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-lg bg-surface-container-low overflow-hidden shrink-0 relative flex items-center justify-center p-1">
+<img class="w-full h-full object-contain" data-alt="Danone Aqua Reflections premium glass water bottle elegant packaging on luxury beverage distributor display table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqwkI0mZOLtOc4-UPzfzistfFlHAp7kCnhaUL9dWb95F_p05OR4xWBQvn7Vc6PdWOfH62zGXApl9I3mM3SUYyh3ep7PC5XiRY2HenyXNslDfQQDJHLUCqyxcDq8bgBgRIsDd_EPhGLL7xsdhaBKp-dhGkW_7e2Uw8RV2KkK-s0HAU-dOx5um4loRfC9p9BV970APNwZ2DM6pQU-u43oUnk143IaYfr2LOBjCM-mHnibxT9cNcvG-VQLw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Aqua Reflections (Glass) 380ml</span>
+<span class="font-body-sm text-body-sm text-secondary">SKU: AQA-REF-380</span>
+<span class="font-label-sm text-label-sm text-secondary">Kemasan: Glass Bottle Premium HoReCa</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">2.700</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton</span>
+</td>
+<td class="py-space-md px-space-md text-right">
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">150</span>
+<span class="block font-label-sm text-label-sm text-secondary">Karton / hari</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-lg text-label-lg font-bold text-[#0F5B41]">18,0 Hari</span>
+<span class="font-label-sm text-label-sm text-secondary">Sangat Aman</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-[#1D9E75] rounded-full" style="width: 95%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-[#0F5B41]">Tidak Perlu PO Segera</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg">
+<div class="p-2.5 rounded-lg bg-surface-container-low flex flex-col">
+<div class="flex items-baseline gap-1">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Saran:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-secondary">0 Karton</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Stok melebihi target buffer</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ECFDF5] text-[#0F5B41] font-label-sm text-label-sm font-bold">
+<span class="w-2 h-2 rounded-full bg-[#1D9E75]"></span>
+                Rendah
+              </span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="min-h-[40px] px-3 py-1.5 bg-surface-container-high hover:bg-surface-container text-secondary rounded-lg font-label-sm text-label-sm font-semibold transition-colors" type="button">
+                  Tinjau
+                </button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" title="Simulasi Lead Time" type="button">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Summary Bar -->
+<div class="p-space-md lg:p-space-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-lg">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Total Saran PO Pabrik:</span>
+<span class="block font-headline-sm text-headline-sm font-bold text-primary">13.000 Karton</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant hidden sm:block"></div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Estimasi Kapasitas Armada:</span>
+<span class="block font-body-lg text-body-lg font-bold text-on-surface">22 Armada Truk (Wingbox & Tronton)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto">
+<button class="w-full md:w-auto min-h-[48px] px-space-xl bg-[#0B6EC7] hover:bg-[#0959a3] text-white rounded-lg flex items-center justify-center gap-space-xs font-label-lg text-label-lg font-bold shadow-md transition-transform active:scale-[0.98]" id="btnConfirmBatch" type="button">
+<span class="material-symbols-outlined text-[22px]">send</span>
+<span>Kirim PO Massal ke Pabrik (13.000 Karton)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Slide-over Simulation Modal / Tray (Hidden by default, triggered via script) -->
+<div class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-space-md" id="simulationModal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-xl shadow-2xl relative">
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">tune</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Atur Parameter Lead Time Pabrik</h4>
+</div>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container" id="btnCloseModal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="space-y-space-md pt-space-xs">
+<div>
+<label class="block font-label-sm text-label-sm uppercase font-semibold text-secondary mb-1">Pilihan Pabrik Pemasok (Origin Source)</label>
+<div class="space-y-2">
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary" name="plant" type="radio"/>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pabrik Danone Ciherang (Bogor)</span>
+<span class="font-body-sm text-body-sm text-secondary">Lead Time: 2 Hari (Prioritas DC 01 Cakung)</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary" name="plant" type="radio"/>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pabrik Danone Subang</span>
+<span class="font-body-sm text-body-sm text-secondary">Lead Time: 3 Hari (Alternatif Cadangan)</span>
+</div>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm uppercase font-semibold text-secondary mb-1">Buffer Safety Stock Target (Hari Operasi)</label>
+<div class="flex items-center gap-space-sm">
+<input class="w-full accent-primary h-2 bg-surface-container-high rounded-lg cursor-pointer" id="bufferRange" max="14" min="3" type="range" value="5"/>
+<span class="font-headline-sm text-headline-sm font-bold text-primary w-16 text-right" id="bufferValue">5 Hari</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary mt-1 block">Rekomendasi standar ISO FMCG: 5 hari untuk air minum dalam kemasan.</span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+            Perubahan parameter akan langsung mengkalkulasi ulang jumlah saran karton dan mengubah batas status kritis pada tabel secara real-time.
+          </p>
+</div>
+</div>
+<div class="mt-space-lg flex items-center justify-end gap-space-sm">
+<button class="min-h-[44px] px-space-md rounded-lg text-secondary hover:bg-surface-container font-label-lg text-label-lg" id="btnCancelModal" type="button">
+          Batal
+        </button>
+<button class="min-h-[44px] px-space-lg bg-primary hover:bg-[#0959a3] text-white rounded-lg font-label-lg text-label-lg font-semibold shadow-sm" id="btnApplyModal" type="button">
+          Terapkan Perubahan
+        </button>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      const modal = document.getElementById('simulationModal');
+      const btnLeadTimeParam = document.getElementById('btnLeadTimeParam');
+      const btnCloseModal = document.getElementById('btnCloseModal');
+      const btnCancelModal = document.getElementById('btnCancelModal');
+      const btnApplyModal = document.getElementById('btnApplyModal');
+      const bufferRange = document.getElementById('bufferRange');
+      const bufferValue = document.getElementById('bufferValue');
+      const btnMassPO = document.getElementById('btnMassPO');
+      const btnConfirmBatch = document.getElementById('btnConfirmBatch');
+
+      function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      if (btnLeadTimeParam) btnLeadTimeParam.addEventListener('click', openModal);
+      if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+      if (btnCancelModal) btnCancelModal.addEventListener('click', closeModal);
+      if (btnApplyModal) btnApplyModal.addEventListener('click', closeModal);
+
+      if (bufferRange && bufferValue) {
+        bufferRange.addEventListener('input', function(e) {
+          bufferValue.textContent = e.target.value + ' Hari';
+        });
+      }
+
+      if (btnMassPO) {
+        btnMassPO.addEventListener('click', function() {
+          const tableElement = document.querySelector('table');
+          if (tableElement) {
+            tableElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      if (btnConfirmBatch) {
+        btnConfirmBatch.addEventListener('click', function() {
+          const originalText = btnConfirmBatch.innerHTML;
+          btnConfirmBatch.disabled = true;
+          btnConfirmBatch.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Memproses PO ke Danone...</span>';
+          
+          setTimeout(function() {
+            btnConfirmBatch.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>PO Berhasil Dikirim (No: PO-2025-AQ-889)</span>';
+            btnConfirmBatch.classList.remove('bg-[#0B6EC7]', 'hover:bg-[#0959a3]');
+            btnConfirmBatch.classList.add('bg-[#1D9E75]');
+            
+            setTimeout(function() {
+              btnConfirmBatch.innerHTML = originalText;
+              btnConfirmBatch.classList.remove('bg-[#1D9E75]');
+              btnConfirmBatch.classList.add('bg-[#0B6EC7]', 'hover:bg-[#0959a3]');
+              btnConfirmBatch.disabled = false;
+            }, 3000);
+          }, 1200);
+        });
+      }
+    })();
+  </script>
+</div></main><nav class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40 flex items-center justify-around px-space-xs" data-active-classes="text-primary font-bold"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-label-sm mt-0.5">Dashboard</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="transaksi" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-label-sm text-label-sm mt-0.5">Transaksi</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="stock-opname" href="#"><span class="material-symbols-outlined text-[22px]">fact_check</span><span class="font-label-sm text-label-sm mt-0.5">Opname</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-primary font-bold" data-path="forecast" href="#"><span class="material-symbols-outlined text-[22px]">trending_up</span><span class="font-label-sm text-label-sm mt-0.5">Forecast</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="produk-&-stok" href="#"><span class="material-symbols-outlined text-[22px]">more_horiz</span><span class="font-label-sm text-label-sm mt-0.5">Lainnya</span></a></nav></div></body></html>

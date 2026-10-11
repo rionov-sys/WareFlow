@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"secondary":"#556068","on-primary-fixed":"#001c3a","inverse-on-surface":"#e9f1ff","surface-container-high":"#dde9fb","on-tertiary":"#ffffff","surface-bright":"#f8f9ff","surface-container-highest":"#d7e4f5","surface-container-low":"#eef4ff","tertiary-container":"#007d5a","surface-container":"#e4efff","on-secondary-container":"#5b666e","on-primary-fixed-variant":"#004786","primary":"#00569e","on-tertiary-fixed-variant":"#00513a","on-secondary-fixed-variant":"#3e4850","outline-variant":"#c1c6d4","inverse-primary":"#a5c8ff","outline":"#717783","secondary-container":"#d9e4ee","error":"#ba1a1a","surface-variant":"#d7e4f5","on-secondary-fixed":"#121d24","on-secondary":"#ffffff","tertiary-fixed-dim":"#68dbae","on-surface":"#101c29","on-error":"#ffffff","on-tertiary-fixed":"#002115","secondary-fixed":"#d9e4ee","on-surface-variant":"#414752","on-primary-container":"#ebf1ff","primary-fixed-dim":"#a5c8ff","inverse-surface":"#26313f","primary-fixed":"#d4e3ff","tertiary-fixed":"#86f8c9","on-background":"#101c29","primary-container":"#0b6ec7","surface-container-lowest":"#ffffff","surface-dim":"#cfdbec","on-error-container":"#93000a","surface":"#f8f9ff","error-container":"#ffdad6","surface-tint":"#005faf","on-tertiary-container":"#beffdf","secondary-fixed-dim":"#bdc8d1","on-primary":"#ffffff","background":"#f8f9ff","tertiary":"#006246"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-desktop":"2rem","space-xl":"2rem","space-sm":"0.5rem","space-2xl":"3rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","margin":"1rem","space-lg":"1.5rem","space-md":"1rem","gutter":"1rem"},"fontFamily":{"headline-lg-mobile":["Inter"],"label-sm":["Inter"],"label-lg":["Inter"],"body-md":["Inter"],"headline-xl":["Inter"],"headline-sm":["Inter"],"body-sm":["Inter"],"numeric-metric":["Inter"],"headline-md":["Inter"],"label-md":["Inter"],"headline-lg":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"]},"fontSize":{"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"500"}],"numeric-metric":["32px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)] justify-between"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="WareFlow Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WcQOOWcepJDdcKJRhyCfr_nEmwSkwt_ntgOWFZUHrEDtarAgbCXVnkSx7mp_RyrBYeSRrZ-mrRzkRp7MngCg8AQg6zNOk-ADfuHApwB7urj3Gykk7saHjU4Sd5xSOVHbyiG7rPmki-cnQqYZsXKkKNpbej2ujYhpSKlWk8wNxxbqrhDN18wXA7It653QOXGBB-wpXT-yqoaET66KKWaEo4Sy0xe2LdheQH0wL1aQ6LPVy1e6NXzb0gRiIu"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">WareFlow</span><span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Aqua Distributor</span></div></div></div><div class="px-space-md py-space-sm"><div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm overflow-hidden"><span class="material-symbols-outlined text-primary text-[20px] shrink-0">warehouse</span><div class="flex flex-col truncate"><span class="font-label-sm text-label-sm text-secondary truncate">Lokasi Gudang</span><span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">DC 01 Cakung</span></div></div><span class="material-symbols-outlined text-secondary text-[18px] shrink-0">unfold_more</span></div></div><nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-label-lg text-label-lg">Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="produk-&-stok" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-lg text-label-lg">Produk & Stok</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="transaksi" href="#"><span class="material-symbols-outlined text-[20px]">local_shipping</span><span class="font-label-lg text-label-lg">Transaksi</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-all min-h-[44px] bg-primary-container text-on-primary-container font-semibold shadow-sm" data-path="riwayat" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="font-label-lg text-label-lg">Riwayat</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="stock-opname" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span><span class="font-label-lg text-label-lg">Stock Opname</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="forecast" href="#"><span class="material-symbols-outlined text-[20px]">trending_up</span><span class="font-label-lg text-label-lg">Forecast</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="kelola-admin" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span class="font-label-lg text-label-lg">Kelola Admin</span></a></nav></div><div class="p-space-md bg-surface-container-lowest"><div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm min-w-0"><div class="relative shrink-0"><div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">person</span></div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-container ring-2 ring-surface-container-lowest"></span></div><div class="flex flex-col truncate"><span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Andi Pratama</span><span class="font-label-sm text-label-sm text-secondary truncate">Kepala Gudang</span></div></div><a class="w-8 h-8 rounded-lg flex items-center justify-center text-error hover:bg-error-container hover:text-on-error-container transition-colors shrink-0" data-path="login" href="#" title="Keluar"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="lg:pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-md lg:px-margin-desktop"><div class="flex items-center gap-space-md"><div class="flex lg:hidden items-center gap-space-sm"><img alt="WareFlow Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WcQOOWcepJDdcKJRhyCfr_nEmwSkwt_ntgOWFZUHrEDtarAgbCXVnkSx7mp_RyrBYeSRrZ-mrRzkRp7MngCg8AQg6zNOk-ADfuHApwB7urj3Gykk7saHjU4Sd5xSOVHbyiG7rPmki-cnQqYZsXKkKNpbej2ujYhpSKlWk8wNxxbqrhDN18wXA7It653QOXGBB-wpXT-yqoaET66KKWaEo4Sy0xe2LdheQH0wL1aQ6LPVy1e6NXzb0gRiIu"/><span class="font-headline-sm text-headline-sm text-primary">WareFlow</span></div><div class="hidden sm:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1 rounded-full text-secondary"><span class="material-symbols-outlined text-[16px] text-tertiary-container">circle</span><span class="font-label-sm text-label-sm font-semibold text-on-surface">Gudang Utama Cakung - DC 01</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><button aria-label="Pemberitahuan" class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><button aria-label="Bantuan Gudang" class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">help_outline</span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 pb-20 lg:pb-space-xl px-space-md lg:px-margin-desktop flex-1 bg-background"><div class="flex flex-col w-full gap-space-lg">
+<!-- Top Headline & Action Deck -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Logistik & Distribusi DC 01 Cakung</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Riwayat Transaksi Gudang</h1>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-space-xs">
+        Total pencatatan aktif:
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">1.420 Transaksi Bulan Ini</span>
+<span class="text-outline-variant">•</span>
+<span>Terakhir sinkron: 20 Mei 2025, 14:32 WIB</span>
+</p>
+</div>
+<!-- Export Action Group -->
+<div class="flex items-center flex-wrap gap-space-xs self-start lg:self-end">
+<!-- Export CSV -->
+<button class="flex items-center gap-space-xs px-3.5 h-12 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors shadow-sm focus:outline-none" onclick="triggerExport('CSV')" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">description</span>
+<span class="font-label-lg text-label-lg">Export CSV</span>
+</button>
+<!-- Export Excel -->
+<button class="flex items-center gap-space-xs px-3.5 h-12 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors shadow-sm focus:outline-none" onclick="triggerExport('Excel (.xlsx)')" type="button">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">table_chart</span>
+<span class="font-label-lg text-label-lg">Export Excel (.xlsx)</span>
+</button>
+<!-- Export PDF -->
+<button class="flex items-center gap-space-xs px-4 h-12 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors shadow-sm focus:outline-none" onclick="triggerExport('PDF')" type="button">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+<span class="font-label-lg text-label-lg font-semibold">Export PDF</span>
+</button>
+</div>
+</div>
+<!-- Operational Metrics Strip (Tactile KPI glance) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Muatan Masuk (Hari Ini)</span>
+<span class="material-symbols-outlined text-tertiary-container text-[22px]">south_west</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-numeric-metric text-numeric-metric text-on-surface">3.820</span>
+<span class="font-label-md text-label-md text-secondary">Karton/Galon</span>
+</div>
+<div class="mt-space-xs flex items-center text-tertiary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="ml-1">8 Truk Pabrik Sandar</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Muatan Keluar (Hari Ini)</span>
+<span class="material-symbols-outlined text-primary text-[22px]">north_east</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-numeric-metric text-numeric-metric text-on-surface">5.140</span>
+<span class="font-label-md text-label-md text-secondary">Karton/Galon</span>
+</div>
+<div class="mt-space-xs flex items-center text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+<span class="ml-1">14 Armada Dispatch</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase">Retur / Klaim Fisik</span>
+<span class="material-symbols-outlined text-error text-[22px]">assignment_late</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-numeric-metric text-numeric-metric text-error">42</span>
+<span class="font-label-md text-label-md text-secondary">Galon Pecah/Cacat</span>
+</div>
+<div class="mt-space-xs flex items-center text-on-surface-variant font-label-sm text-label-sm">
+<span>0,18% dari throughput</span>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase">SLA Verifikasi Dokumen</span>
+<span class="material-symbols-outlined text-primary-container text-[22px]">verified</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-numeric-metric text-numeric-metric text-on-surface">99,4%</span>
+<span class="font-label-md text-label-md text-tertiary">Optimal</span>
+</div>
+<div class="mt-space-xs flex items-center text-secondary font-label-sm text-label-sm">
+<span>Rata-rata 4,8 mnt per DO</span>
+</div>
+</div>
+</div>
+<!-- Filter & Parameter Panel (High Contrast Industrial Ergonomics) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md">
+<!-- Row 1: Search & Date Controls -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-center">
+<!-- Search Input -->
+<div class="lg:col-span-5 relative">
+<div class="h-12 w-full bg-surface-container-low rounded-lg px-3 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">search</span>
+<input class="w-full bg-transparent text-on-surface placeholder:text-secondary font-body-md text-body-md focus:outline-none" id="searchInput" placeholder="Cari No. Dokumen (DO/SJ), Plat Truk, atau Nama Supir..." type="text"/>
+<button class="w-7 h-7 flex items-center justify-center rounded text-secondary hover:text-on-surface" onclick="document.getElementById('searchInput').value = ''; filterTransactions();" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Date Presets & Range -->
+<div class="lg:col-span-7 flex flex-wrap items-center justify-between lg:justify-end gap-space-sm">
+<!-- Preset Segmented Control -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-lg">
+<button class="date-preset-btn px-3 h-10 rounded-md font-label-md text-label-md text-secondary hover:text-on-surface transition-all" onclick="selectDatePreset('today', this)" type="button">Hari Ini</button>
+<button class="date-preset-btn px-3 h-10 rounded-md font-label-md text-label-md text-secondary hover:text-on-surface transition-all" onclick="selectDatePreset('7d', this)" type="button">7 Hari</button>
+<button class="date-preset-btn px-3 h-10 rounded-md bg-surface-container-lowest text-primary shadow-sm font-semibold transition-all" onclick="selectDatePreset('month', this)" type="button">Bulan Ini</button>
+</div>
+<!-- Date Range Custom Indicator -->
+<div class="h-12 px-3.5 bg-surface-container-low rounded-lg flex items-center gap-space-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
+<span class="font-label-lg text-label-lg font-semibold tracking-tight" id="activeDateRange">01 Mei 2025 - 20 Mei 2025</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">edit_calendar</span>
+</div>
+</div>
+</div>
+<!-- Row 2: Categorical Dropdowns -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm pt-space-xs">
+<!-- Filter Jenis -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase font-semibold" for="filterJenis">Jenis Transaksi</label>
+<div class="relative">
+<select class="w-full h-12 pl-3 pr-9 bg-surface-container-low rounded-lg font-label-lg text-label-lg text-on-surface appearance-none focus:outline-none cursor-pointer" id="filterJenis" onchange="filterTransactions()">
+<option value="all">Semua Jenis Transaksi</option>
+<option value="MASUK">Masuk Pabrik (Inbound)</option>
+<option value="KELUAR">Keluar Distributor (Outbound)</option>
+<option value="RETUR">Retur Pelanggan</option>
+<option value="RUSAK">Afkir / Rusak Internal</option>
+</select>
+<span class="material-symbols-outlined text-secondary absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filter Pihak -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase font-semibold" for="filterPihak">Pihak Mitra / Depo</label>
+<div class="relative">
+<select class="w-full h-12 pl-3 pr-9 bg-surface-container-low rounded-lg font-label-lg text-label-lg text-on-surface appearance-none focus:outline-none cursor-pointer" id="filterPihak" onchange="filterTransactions()">
+<option value="all">Semua Pihak Mitra</option>
+<option value="Pabrik Aqua">Pabrik Aqua (Ciherang / Subang)</option>
+<option value="Agen">Agen Resmi</option>
+<option value="Toko Grosir">Toko Grosir</option>
+<option value="Retail">Retail Modern</option>
+</select>
+<span class="material-symbols-outlined text-secondary absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Filter SKU -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase font-semibold" for="filterSku">Produk / SKU</label>
+<div class="relative">
+<select class="w-full h-12 pl-3 pr-9 bg-surface-container-low rounded-lg font-label-lg text-label-lg text-on-surface appearance-none focus:outline-none cursor-pointer" id="filterSku" onchange="filterTransactions()">
+<option value="all">Semua SKU Produk</option>
+<option value="Aqua Galon 19L">Aqua Galon 19L</option>
+<option value="Aqua 600ml">Aqua Botol 600ml</option>
+<option value="Aqua 330ml">Aqua Botol 330ml</option>
+<option value="Aqua Cup 220ml">Aqua Cup 220ml</option>
+</select>
+<span class="material-symbols-outlined text-secondary absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Reset Filter Action -->
+<div class="flex flex-col justify-end">
+<button class="h-12 w-full rounded-lg bg-surface-container-high text-on-surface hover:bg-secondary-container transition-colors flex items-center justify-center gap-space-xs focus:outline-none" onclick="resetFilters()" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span class="font-label-lg text-label-lg font-semibold">Reset Semua Filter</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Operational Alert Banner (High Contrast Quick Notice) -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">inventory</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface font-semibold">Audit Fisik Harian & Sinkronisasi Timbangan</p>
+<p class="font-body-sm text-body-sm text-secondary">Semua delivery order outbound telah tersinkron dengan gerbang timbang weighbridge DC 01.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs self-end sm:self-auto shrink-0">
+<span class="font-label-sm text-label-sm text-primary font-bold">100% VALIDATED</span>
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">verified</span>
+</div>
+</div>
+<!-- Transactions Table (Desktop & Vehicle Terminal Responsive Grid) -->
+<div class="rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden flex flex-col">
+<!-- Visual Table Subheader with Item Counts -->
+<div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Daftar Transaksi Fisik & Surat Jalan</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-secondary font-label-sm text-label-sm font-semibold" id="tableRowCount">6 Transaksi Ditampilkan</span>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="hidden sm:inline">Urutan kronologis terbaru</span>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse" id="transactionTable">
+<thead>
+<tr class="bg-surface-container-lowest text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3.5 px-space-md font-semibold">No. Dokumen & Waktu</th>
+<th class="py-3.5 px-space-md font-semibold">Tipe</th>
+<th class="py-3.5 px-space-md font-semibold">Pihak Asal / Tujuan</th>
+<th class="py-3.5 px-space-md font-semibold">Detail Barang & Qty</th>
+<th class="py-3.5 px-space-md font-semibold">Armada & Petugas</th>
+<th class="py-3.5 px-space-md font-semibold">Status</th>
+<th class="py-3.5 px-space-md font-semibold text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60 font-body-md text-body-md text-on-surface">
+<!-- Row 1: DO Keluar Toko Makmur Jaya -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Toko Grosir" data-sku="Aqua 600ml" data-type="KELUAR">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-primary tracking-tight">DO-OUT-2025-4122</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 14:20 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> KELUAR
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Toko Makmur Jaya Grosir</span>
+<span class="font-body-sm text-body-sm text-secondary">Rute: Depo Cakung → Bekasi Timur</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Botol 600ml</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">850 Karton <span class="text-secondary">(20.400 botol)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> B 9821 PQR
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Dedi K. (Checker 02)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">done_all</span> Selesai
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('DO-OUT-2025-4122')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('DO-OUT-2025-4122')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Masuk dari Pabrik Ciherang -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Pabrik Aqua" data-sku="Aqua Galon 19L" data-type="MASUK">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-tertiary-container tracking-tight">SJ-IN-2025-8831</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 13:05 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> MASUK
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pabrik Aqua Ciherang</span>
+<span class="font-body-sm text-body-sm text-secondary">Rute: Plant Bogor → DC Cakung</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Galon 19L (Refill)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">1.200 Galon <span class="text-secondary">(Full Palletized)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> B 9114 UYY
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Rian Pratama (Timbang 01)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Terverifikasi
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('SJ-IN-2025-8831')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('SJ-IN-2025-8831')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: DO Keluar Agen Sumber Tirta -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Agen" data-sku="Aqua Cup 220ml" data-type="KELUAR">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-primary tracking-tight">DO-OUT-2025-4121</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 11:45 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> KELUAR
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Agen Resmi Sumber Tirta</span>
+<span class="font-body-sm text-body-sm text-secondary">Rute: Depo Cakung → Kelapa Gading</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Cup 220ml</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">1.100 Karton <span class="text-secondary">(52.800 cup)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> B 9244 TX
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Wahyu S. (Loading Bay 3)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">done_all</span> Selesai
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('DO-OUT-2025-4121')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('DO-OUT-2025-4121')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Retur Galon Pecah / Rusak -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Agen" data-sku="Aqua Galon 19L" data-type="RETUR">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-error tracking-tight">RT-RET-2025-0199</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 10:15 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> RETUR
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Agen Berkah Abadi</span>
+<span class="font-body-sm text-body-sm text-secondary">Klaim Pecah & Leher Retak Saat Distribusi</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Galon 19L (Kosong)</span>
+<span class="font-body-sm text-body-sm text-error font-medium">35 Galon Rusak <span class="text-secondary">(Fisik Diafkir)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> B 9553 CD
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Hendra T. (QC Area)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Terverifikasi
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('RT-RET-2025-0199')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('RT-RET-2025-0199')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Pabrik Subang Masuk Botol 330ml -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Pabrik Aqua" data-sku="Aqua 330ml" data-type="MASUK">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-tertiary-container tracking-tight">SJ-IN-2025-8830</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 09:30 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> MASUK
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pabrik Aqua Subang</span>
+<span class="font-body-sm text-body-sm text-secondary">Rute: Plant Subang → DC Cakung</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Botol 330ml (Mini)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">1.600 Karton <span class="text-secondary">(38.400 botol)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> D 8802 AC
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Rian Pratama (Timbang 01)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span> Terverifikasi
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('SJ-IN-2025-8830')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('SJ-IN-2025-8830')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Keluar Retail Supermarket -->
+<tr class="hover:bg-surface-container-low/70 transition-colors transaction-row" data-pihak="Retail" data-sku="Aqua 600ml" data-type="KELUAR">
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-primary tracking-tight">DO-OUT-2025-4120</span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 20 Mei, 08:10 WIB
+                </span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> KELUAR
+              </span>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Supermarket Lotte Mart Wholesale</span>
+<span class="font-body-sm text-body-sm text-secondary">Rute: Depo Cakung → Pasar Rebo</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">Aqua Botol 600ml</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">920 Karton <span class="text-secondary">(22.080 botol)</span></span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span> B 9308 KKK
+                </span>
+<span class="font-body-sm text-body-sm text-secondary">Petugas: Dedi K. (Checker 02)</span>
+</div>
+</td>
+<td class="py-4 px-space-md align-top">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">done_all</span> Selesai
+              </span>
+</td>
+<td class="py-4 px-space-md align-top text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-sm text-label-sm flex items-center gap-1 focus:outline-none" onclick="printReceipt('DO-OUT-2025-4120')" title="Cetak Bukti Transaksi" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="hidden md:inline">Cetak</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high transition-colors font-label-sm text-label-sm font-bold flex items-center gap-1 focus:outline-none" onclick="openDetailModal('DO-OUT-2025-4120')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Detail</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Empty Filter Notice (Hidden by default) -->
+<div class="hidden py-12 px-space-md text-center flex flex-col items-center justify-center" id="noDataRow">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-secondary mb-3">
+<span class="material-symbols-outlined text-[28px]">search_off</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Tidak ada data transaksi yang cocok</p>
+<p class="font-body-md text-body-md text-secondary max-w-md mt-1">Silakan sesuaikan filter pencarian, rentang tanggal, atau reset filter untuk menampilkan rekaman logistik lainnya.</p>
+<button class="mt-4 px-4 h-10 rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold" onclick="resetFilters()" type="button">
+        Reset Filter
+      </button>
+</div>
+<!-- Pagination & Row Metrics Footer -->
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm text-secondary font-body-sm text-body-sm">
+<span>Menampilkan <strong class="text-on-surface font-semibold">1 - 6</strong> dari <strong class="text-on-surface font-semibold">1.420</strong> total transaksi</span>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-1">
+<span>Baris:</span>
+<select class="bg-surface-container-lowest text-on-surface rounded px-2 py-1 font-label-sm text-label-sm focus:outline-none cursor-pointer">
+<option>10</option>
+<option selected="">25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+</div>
+<!-- Pagination Buttons -->
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-secondary opacity-40 flex items-center justify-center cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">first_page</span>
+</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-secondary opacity-40 flex items-center justify-center cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<!-- Active Page -->
+<button class="w-9 h-9 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center justify-center shadow-sm" type="button">1</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-medium flex items-center justify-center transition-colors" type="button">2</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-medium flex items-center justify-center transition-colors" type="button">3</button>
+<span class="px-1 text-secondary">...</span>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-medium flex items-center justify-center transition-colors" type="button">57</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">last_page</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detail Modal Drawer (Interactive Logistik Inspection) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-center justify-center p-4" id="detailModal">
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-xl overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="px-space-md py-space-md bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="modalDocNumber">DO-OUT-2025-4122</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Manifest Muatan Logistik Aqua DC 01</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container hover:text-on-surface" onclick="closeDetailModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-md flex flex-col gap-space-md max-h-[70vh] overflow-y-auto">
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-md p-space-md rounded-lg bg-surface-container-low">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Waktu Pencatatan</span>
+<p class="font-label-lg text-label-lg font-semibold text-on-surface mt-0.5">20 Mei 2025, 14:20 WIB</p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Status Validasi</span>
+<p class="font-label-lg text-label-lg font-semibold text-tertiary mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Selesai / Terverifikasi
+            </p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Gate / Bay</span>
+<p class="font-label-lg text-label-lg font-semibold text-on-surface mt-0.5">Bay Keluar 04</p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Nomor Kendaraan</span>
+<p class="font-label-lg text-label-lg font-semibold text-on-surface mt-0.5">B 9821 PQR (Truk Colt Diesel)</p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Driver / Supir</span>
+<p class="font-label-lg text-label-lg font-semibold text-on-surface mt-0.5">Bambang Sutedjo</p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase">Operator Checker</span>
+<p class="font-label-lg text-label-lg font-semibold text-on-surface mt-0.5">Dedi K. (NIK: WH-0881)</p>
+</div>
+</div>
+<!-- Manifest Breakdown Table -->
+<div class="flex flex-col gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Rincian Muatan Produk</span>
+<div class="rounded-lg bg-surface-container-low overflow-hidden">
+<table class="w-full text-left text-body-sm font-body-sm">
+<thead class="bg-surface-container font-label-sm text-label-sm text-secondary uppercase">
+<tr>
+<th class="py-2.5 px-3">Kode SKU</th>
+<th class="py-2.5 px-3">Nama Produk</th>
+<th class="py-2.5 px-3 text-right">Volume</th>
+<th class="py-2.5 px-3 text-right">Berat Est.</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high text-on-surface">
+<tr>
+<td class="py-2.5 px-3 font-semibold text-primary">AQ-600ML-BTL</td>
+<td class="py-2.5 px-3">Aqua Botol 600ml (24 btl/karton)</td>
+<td class="py-2.5 px-3 text-right font-bold">850 Karton</td>
+<td class="py-2.5 px-3 text-right">12.240 kg</td>
+</tr>
+<tr class="bg-surface-container-lowest/60 font-semibold">
+<td class="py-2.5 px-3 text-right" colspan="2">Total Muatan Bersih:</td>
+<td class="py-2.5 px-3 text-right text-primary">20.400 Botol</td>
+<td class="py-2.5 px-3 text-right">12,24 Ton</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Verification Signature Note -->
+<div class="p-3 rounded-lg bg-surface-container-high/60 flex items-center justify-between text-body-sm text-secondary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">fingerprint</span>
+<span>Ditandatangani secara digital via Android Scanner Zebra TC26</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Valid SHA-256</span>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-end gap-space-xs">
+<button class="px-4 h-10 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors font-label-lg text-label-lg" onclick="closeDetailModal()" type="button">Tutup</button>
+<button class="px-4 h-10 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors font-label-lg text-label-lg font-semibold flex items-center gap-1" onclick="printReceipt(document.getElementById('modalDocNumber').innerText)" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Cetak Surat Jalan</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Industrial Notification Toast Trigger -->
+<div class="fixed bottom-6 right-6 z-50 bg-inverse-surface text-inverse-on-surface px-4 py-3 rounded-xl shadow-lg flex items-center gap-space-sm transform translate-y-24 opacity-0 transition-all duration-300" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[22px]">download_done</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-semibold" id="toastTitle">Berhasil Memproses</span>
+<span class="font-body-sm text-body-sm text-secondary-fixed-dim" id="toastDesc">Laporan siap diunduh</span>
+</div>
+</div>
+</div>
+<script>
+  // Filter state and interaction engine
+  function filterTransactions() {
+    const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+    const jenisVal = document.getElementById('filterJenis').value;
+    const pihakVal = document.getElementById('filterPihak').value;
+    const skuVal = document.getElementById('filterSku').value;
+
+    const rows = document.querySelectorAll('.transaction-row');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const rowType = row.getAttribute('data-type');
+      const rowPihak = row.getAttribute('data-pihak');
+      const rowSku = row.getAttribute('data-sku');
+      const rowText = row.innerText.toLowerCase();
+
+      const matchesSearch = searchVal === '' || rowText.includes(searchVal);
+      const matchesJenis = jenisVal === 'all' || rowType === jenisVal;
+      const matchesPihak = pihakVal === 'all' || rowPihak.includes(pihakVal);
+      const matchesSku = skuVal === 'all' || rowSku.includes(skuVal);
+
+      if (matchesSearch && matchesJenis && matchesPihak && matchesSku) {
+        row.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        row.classList.add('hidden');
+      }
+    });
+
+    const noData = document.getElementById('noDataRow');
+    const tableCount = document.getElementById('tableRowCount');
+
+    if (visibleCount === 0) {
+      noData.classList.remove('hidden');
+      tableCount.innerText = '0 Transaksi Ditampilkan';
+    } else {
+      noData.classList.add('hidden');
+      tableCount.innerText = visibleCount + ' Transaksi Ditampilkan';
+    }
+  }
+
+  // Date Preset Selection
+  function selectDatePreset(preset, el) {
+    document.querySelectorAll('.date-preset-btn').forEach(btn => {
+      btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      btn.classList.add('text-secondary');
+    });
+    el.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+    el.classList.remove('text-secondary');
+
+    const rangeLabel = document.getElementById('activeDateRange');
+    if (preset === 'today') {
+      rangeLabel.innerText = '20 Mei 2025';
+    } else if (preset === '7d') {
+      rangeLabel.innerText = '14 Mei 2025 - 20 Mei 2025';
+    } else {
+      rangeLabel.innerText = '01 Mei 2025 - 20 Mei 2025';
+    }
+
+    showToast('Filter Tanggal Diperbarui', rangeLabel.innerText);
+    filterTransactions();
+  }
+
+  // Reset Filters
+  function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterJenis').value = 'all';
+    document.getElementById('filterPihak').value = 'all';
+    document.getElementById('filterSku').value = 'all';
+    
+    // reset preset button visual to Month
+    const btns = document.querySelectorAll('.date-preset-btn');
+    btns.forEach(btn => {
+      btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      btn.classList.add('text-secondary');
+    });
+    if (btns[2]) {
+      btns[2].classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      btns[2].classList.remove('text-secondary');
+    }
+    document.getElementById('activeDateRange').innerText = '01 Mei 2025 - 20 Mei 2025';
+
+    filterTransactions();
+    showToast('Filter Direset', 'Semua kriteria penelusuran dikembalikan ke awal');
+  }
+
+  // Detail Modal Controls
+  function openDetailModal(docNo) {
+    const modal = document.getElementById('detailModal');
+    document.getElementById('modalDocNumber').innerText = docNo;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeDetailModal() {
+    const modal = document.getElementById('detailModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  // Action Triggers
+  function triggerExport(format) {
+    showToast('Mengunduh Berkas ' + format, 'Riwayat 1.420 transaksi sedang disiapkan...');
+  }
+
+  function printReceipt(docNo) {
+    showToast('Mencetak Bukti', 'Mengirim ' + docNo + ' ke printer thermal warehouse...');
+  }
+
+  // Industrial Toast Helper
+  let toastTimeout;
+  function showToast(title, desc) {
+    const toast = document.getElementById('toastNotification');
+    document.getElementById('toastTitle').innerText = title;
+    document.getElementById('toastDesc').innerText = desc;
+
+    toast.classList.remove('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-24', 'opacity-0');
+    }, 3200);
+  }
+
+  // Live filter hookup on typing
+  document.getElementById('searchInput').addEventListener('keyup', filterTransactions);
+</script></main><nav class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40 flex items-center justify-around px-space-xs" data-active-classes="text-primary font-bold"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-label-sm mt-0.5">Dashboard</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="transaksi" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-label-sm text-label-sm mt-0.5">Transaksi</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="stock-opname" href="#"><span class="material-symbols-outlined text-[22px]">fact_check</span><span class="font-label-sm text-label-sm mt-0.5">Opname</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="forecast" href="#"><span class="material-symbols-outlined text-[22px]">trending_up</span><span class="font-label-sm text-label-sm mt-0.5">Forecast</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-on-surface-variant hover:text-primary" data-path="produk-&-stok" href="#"><span class="material-symbols-outlined text-[22px]">more_horiz</span><span class="font-label-sm text-label-sm mt-0.5">Lainnya</span></a></nav></div></body></html>
