@@ -127,7 +127,7 @@
               <span class="material-symbols-outlined text-primary text-[20px] shrink-0">warehouse</span>
               <div class="flex flex-col truncate">
                 <span class="text-[11px] text-secondary font-medium">Lokasi Gudang</span>
-                <span class="text-xs text-on-surface font-bold truncate">DC 01 Cakung (Hub Utama)</span>
+                <span class="text-xs text-on-surface font-bold truncate">PSS-Depo Labuan Bajo</span>
               </div>
             </div>
             <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse shrink-0"></span>
@@ -261,16 +261,16 @@
               </div>
               <div>
                 <label class="block text-xs font-bold text-on-surface mb-1">Catatan / Posisi Penugasan</label>
-                <textarea id="req-catatan" rows="2" placeholder="Contoh: Checker Armada Baru DC Cakung" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                <textarea id="req-catatan" rows="2" placeholder="Contoh: Checker Armada Baru PSS-Depo Labuan Bajo" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
               </div>
               <button type="submit" id="btn-submit-req" class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-2">
                 <span class="material-symbols-outlined text-[20px]">send</span>
-                <span>Ajukan Akses ke Admin DC</span>
+                <span>Ajukan Akses ke Admin</span>
               </button>
             </form>
 
             <div id="req-success-message" class="hidden mt-4 p-4 rounded-xl bg-tertiary/10 text-tertiary border border-tertiary/20 text-xs font-medium">
-              Permohonan akses berhasil diajukan! Harap hubungi Admin DC untuk menyetujui akun Anda.
+              Permohonan akses berhasil diajukan! Harap hubungi Admin untuk menyetujui akun Anda.
             </div>
           </div>
         </section>
@@ -284,7 +284,7 @@
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
-                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Operasional Real-Time DC 01 Cakung</span>
+                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Operasional Real-Time PSS-Depo Labuan Bajo</span>
               </div>
               <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Ringkasan Operasional Gudang</h1>
               <p class="text-sm text-secondary mt-0.5">Pantauan logistik distribusi air mineral Aqua, throughput armada, & level stok fisik.</p>
@@ -512,7 +512,7 @@
             <div class="flex items-center gap-2 mb-1">
               <span id="tx-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
                 <span id="tx-badge-dot" class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-                <span id="tx-badge-text">Logistik Masuk • Inbound DC-01</span>
+                <span id="tx-badge-text">Logistik Masuk • Inbound PSS-Depo Labuan Bajo</span>
               </span>
             </div>
             <h1 id="tx-heading" class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Input Barang Masuk (Inbound)</h1>
@@ -645,7 +645,7 @@
           <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-3">
             <div>
               <div class="flex items-center gap-1.5 text-xs text-secondary font-medium">
-                <span>Logistik DC 01 Cakung</span>
+                <span>Logistik PSS-Depo Labuan Bajo</span>
                 <span>/</span>
                 <span class="text-primary font-bold">Audit Mutasi</span>
               </div>
@@ -756,7 +756,7 @@
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Modul Audit Fisik DC</span>
+                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Modul Audit Fisik PSS-Depo Labuan Bajo</span>
               </div>
               <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Stock Opname Gudang</h1>
               <p class="text-sm text-secondary mt-0.5">Buka sesi membekukan stok sistem, multi-user mengisi hitungan fisik, tutup sesi otomatis membuat transaksi penyesuaian.</p>
@@ -986,7 +986,7 @@
               <div class="flex items-center gap-1.5 text-xs text-secondary font-medium">
                 <span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded font-bold uppercase text-[10px]">Otoritas Penuh</span>
                 <span>•</span>
-                <span>DC 01 Cakung</span>
+                <span>PSS-Depo Labuan Bajo</span>
               </div>
               <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Kelola Master Data & Akses</h1>
               <p class="text-sm text-secondary mt-0.5">Kelola hak akses pengguna, master SKU produk Aqua, dan direktori pihak rekanan logistik.</p>
@@ -1329,7 +1329,7 @@
         <input type="hidden" id="mpart-id"/>
         <div>
           <label class="block font-bold text-on-surface mb-1">Nama Pihak / Rekanan / Armada *</label>
-          <input type="text" id="mpart-nama" required placeholder="Contoh: Pabrik Danone Aqua Ciherang" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="mpart-nama" required placeholder="Contoh: Pabrik Danone Aqua" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Jenis Entitas *</label>
@@ -1437,7 +1437,7 @@
      * INISIALISASI SAAT DOM READY
      */
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('env-badge').innerText = state.isGas ? 'GAS Web App' : 'Mode Demo';
+      document.getElementById('env-badge').innerText = state.isGas ? '' : 'Mode Demo';
       initApp();
     });
 
@@ -1607,7 +1607,7 @@
         showToast(res.message, 'success');
       }, (err) => {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span> Ajukan Akses ke Admin DC';
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span> Ajukan Akses ke Admin';
       });
     }
 
@@ -1990,7 +1990,7 @@
         // Konteks Header & Card
         if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider';
         if (badgeDot) badgeDot.className = 'w-2 h-2 rounded-full bg-emerald-600 animate-pulse';
-        if (badgeText) badgeText.innerText = 'Logistik Masuk • Inbound DC-01';
+        if (badgeText) badgeText.innerText = 'Logistik Masuk • Inbound PSS-Depo Labuan Bajo';
         if (heading) heading.innerText = 'Input Barang Masuk (Inbound)';
         if (subheading) subheading.innerText = 'Pencatatan pasokan dari pabrik Danone Aqua, transfer masuk antar cabang, & retur armada.';
         if (card) {
@@ -2027,7 +2027,7 @@
         // Konteks Header & Card
         if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider';
         if (badgeDot) badgeDot.className = 'w-2 h-2 rounded-full bg-primary animate-pulse';
-        if (badgeText) badgeText.innerText = 'Logistik Keluar • Outbound DC-01';
+        if (badgeText) badgeText.innerText = 'Logistik Keluar • Outbound PSS-Depo Labuan Bajo';
         if (heading) heading.innerText = 'Input Barang Keluar (Outbound)';
         if (subheading) subheading.innerText = 'Pencatatan distribusi armada kanvas harian, pemuatan truk pelanggan grosir, & transfer keluar.';
         if (card) {
@@ -2070,7 +2070,7 @@
       const jenis = document.getElementById('tx-jenis').value;
       const hint = document.getElementById('tx-jenis-hint');
       const hints = {
-        'PABRIK': 'Penerimaan pasokan air mineral dari pabrik Danone Ciherang / Subang.',
+        'PABRIK': 'Penerimaan pasokan air mineral dari pabrik Danone.',
         'TRANSFER_MASUK': 'Penerimaan perpindahan stok antar cabang depo tanpa konfirmasi terpisah.',
         'RETUR_ARMADA': 'Pemasukan fisik galon kosong, cacat kemasan, atau klaim dari armada.',
         'KANVAS': 'Pemuatan air mineral ke armada kanvas harian untuk rute keliling.',
@@ -2429,7 +2429,7 @@
     }
 
     function handleOpenOpname() {
-      const catatan = document.getElementById('opname-catatan-input').value.trim() || 'Stock Opname Fisik DC';
+      const catatan = document.getElementById('opname-catatan-input').value.trim() || 'Stock Opname Fisik';
       const btn = document.getElementById('btn-open-opname');
       btn.disabled = true;
 
@@ -3157,7 +3157,7 @@
       doc.text('WareFlow - Laporan Riwayat Transaksi Gudang', 14, 15);
       doc.setFontSize(9);
       doc.setTextColor(85, 96, 104);
-      doc.text(`DC 01 Cakung • Dicetak pada: ${new Date().toLocaleString('id-ID')} • Operator: ${state.user ? state.user.email : 'Sistem'}`, 14, 21);
+      doc.text(`PSS-Depo Labuan Bajo • Dicetak pada: ${new Date().toLocaleString('id-ID')} • Operator: ${state.user ? state.user.email : 'Sistem'}`, 14, 21);
 
       const tableData = transactions.map(t => [
         t.timestamp ? t.timestamp.substring(0, 16).replace('T', ' ') : '-',
@@ -3192,7 +3192,7 @@
       doc.text('WareFlow - Laporan Stok Fisik Real-Time', 14, 15);
       doc.setFontSize(9);
       doc.setTextColor(85, 96, 104);
-      doc.text(`DC 01 Cakung • Perhitungan Real-Time • ${new Date().toLocaleString('id-ID')}`, 14, 21);
+      doc.text(`PSS-Depo Labuan Bajo • Perhitungan Real-Time • ${new Date().toLocaleString('id-ID')}`, 14, 21);
 
       const tableData = products.map(p => [
         p.sku,
@@ -3605,7 +3605,7 @@
               arah: diff > 0 ? 'MASUK' : 'KELUAR',
               sku: s,
               qty_pcs: Math.abs(diff),
-              pihak: 'AUDIT INTERNAL DC',
+              pihak: 'AUDIT INTERNAL PSS-Depo Labuan Bajo',
               no_dokumen: opnameId,
               catatan: `Penyesuaian Opname Fisik: ${fisik} vs Sistem: ${snapshot[s]}`,
               user_email: state.user ? state.user.email : 'admin@danone-distrib.co.id'
@@ -3810,8 +3810,8 @@
         ];
 
         const partners = [
-          { id_pihak: 'PHK-001', nama_pihak: 'Pabrik Danone Aqua Ciherang', jenis: 'PABRIK', kontak: '0251-8241001', alamat: 'Bogor', aktif: true },
-          { id_pihak: 'PHK-002', nama_pihak: 'Pabrik Danone Aqua Subang', jenis: 'PABRIK', kontak: '0260-412002', alamat: 'Subang', aktif: true },
+          { id_pihak: 'PHK-001', nama_pihak: 'Pabrik Danone', jenis: 'PABRIK', kontak: '0251-8241001', alamat: 'Bogor', aktif: true },
+          { id_pihak: 'PHK-002', nama_pihak: 'Pabrik Danone', jenis: 'PABRIK', kontak: '0260-412002', alamat: 'Subang', aktif: true },
           { id_pihak: 'PHK-003', nama_pihak: 'Depo Distribusi Bekasi Barat', jenis: 'DEPO', kontak: '021-8899101', alamat: 'Bekasi', aktif: true },
           { id_pihak: 'PHK-004', nama_pihak: 'Agen Grosir Makmur Jaya', jenis: 'OUTLET', kontak: '0812-8888-1234', alamat: 'Kramat Jati', aktif: true },
           { id_pihak: 'PHK-005', nama_pihak: 'Toko Berkah Air Segar', jenis: 'OUTLET', kontak: '0813-7777-5678', alamat: 'Pulogadung', aktif: true },
@@ -3831,7 +3831,7 @@
             arah: 'MASUK',
             sku: p.sku,
             qty_pcs: (p.stok_minimum_karton * 2.5) * p.pcs_per_karton,
-            pihak: 'Pabrik Danone Aqua Ciherang',
+            pihak: 'Pabrik Danone',
             no_dokumen: `SJ-INIT-${100 + idx}`,
             catatan: 'Penerimaan Awal Pabrik',
             user_email: 'admin@danone-distrib.co.id'
