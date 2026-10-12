@@ -896,6 +896,11 @@ function getTransactionHistory(filter) {
       if (String(t.jenis).toUpperCase() !== String(filter.jenis).toUpperCase()) return false;
     }
     
+    // Filter arah (MASUK / KELUAR)
+    if (filter.arah && filter.arah !== 'ALL') {
+      if (String(t.arah).toUpperCase() !== String(filter.arah).toUpperCase()) return false;
+    }
+    
     // Filter pihak
     if (filter.pihak && filter.pihak !== 'ALL') {
       if (String(t.pihak).toLowerCase().indexOf(String(filter.pihak).toLowerCase()) === -1) return false;

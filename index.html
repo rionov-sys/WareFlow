@@ -144,9 +144,21 @@
             <span class="material-symbols-outlined text-[20px]">inventory_2</span>
             <span>Produk & Stok</span>
           </button>
-          <button onclick="navigate('transaction')" data-nav="transaction" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
-            <span class="material-symbols-outlined text-[20px]">local_shipping</span>
-            <span>Input Transaksi</span>
+          <!-- Tab Barang Masuk (Inbound) -->
+          <button onclick="navigate('inbound')" data-nav="inbound" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+            <span class="material-symbols-outlined text-[20px] text-emerald-600">south_west</span>
+            <div class="flex items-center justify-between flex-1">
+              <span>Barang Masuk</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Inbound</span>
+            </div>
+          </button>
+          <!-- Tab Barang Keluar (Outbound) -->
+          <button onclick="navigate('outbound')" data-nav="outbound" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+            <span class="material-symbols-outlined text-[20px] text-primary">north_east</span>
+            <div class="flex items-center justify-between flex-1">
+              <span>Barang Keluar</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">Outbound</span>
+            </div>
           </button>
           <button onclick="navigate('history')" data-nav="history" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">receipt_long</span>
@@ -277,10 +289,14 @@
               <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Ringkasan Operasional Gudang</h1>
               <p class="text-sm text-secondary mt-0.5">Pantauan logistik distribusi air mineral Aqua, throughput armada, & level stok fisik.</p>
             </div>
-            <div class="flex items-center gap-2">
-              <button onclick="navigate('transaction')" class="h-11 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95">
-                <span class="material-symbols-outlined text-[20px]">add_circle</span>
-                <span>Input Transaksi</span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <button onclick="navigate('inbound')" class="h-11 px-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95" title="Input Barang Masuk Pabrik / Transfer">
+                <span class="material-symbols-outlined text-[20px]">south_west</span>
+                <span>+ Barang Masuk</span>
+              </button>
+              <button onclick="navigate('outbound')" class="h-11 px-3.5 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95" title="Input Barang Keluar Armada Kanvas / Toko">
+                <span class="material-symbols-outlined text-[20px]">north_east</span>
+                <span>- Barang Keluar</span>
               </button>
             </div>
           </div>
@@ -494,26 +510,45 @@
         <section id="view-transaction" class="view-panel hidden py-4 flex flex-col gap-6 max-w-4xl mx-auto">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider">
-                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                Terminal Input DC-01
+              <span id="tx-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
+                <span id="tx-badge-dot" class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                <span id="tx-badge-text">Logistik Masuk • Inbound DC-01</span>
               </span>
             </div>
-            <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Input Transaksi Gudang</h1>
-            <p class="text-sm text-secondary mt-0.5">Pencatatan real-time logistik armada, barang masuk pabrik, & pengeluaran kanvas.</p>
+            <h1 id="tx-heading" class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Input Barang Masuk (Inbound)</h1>
+            <p id="tx-subheading" class="text-sm text-secondary mt-0.5">Pencatatan pasokan dari pabrik Danone Aqua, transfer masuk antar cabang, & retur armada.</p>
           </div>
 
           <!-- Form Panel Card -->
-          <div class="bg-surface-container-lowest rounded-2xl p-5 sm:p-7 shadow-sm border border-surface-container-low flex flex-col gap-6">
-            <!-- High Ergonomics Segmented Flow Toggle: INBOUND vs OUTBOUND -->
-            <div class="grid grid-cols-2 gap-2 p-1.5 bg-surface-container-low rounded-xl border border-surface-container">
-              <button type="button" id="tab-inbound" onclick="setTxFlow('INBOUND')" class="flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all bg-primary-container text-white shadow-sm">
-                <span class="material-symbols-outlined text-[20px]">south_west</span>
-                <span>BARANG MASUK</span>
+          <div id="tx-card-container" class="bg-surface-container-lowest rounded-2xl p-5 sm:p-7 shadow-sm border border-emerald-500/30 flex flex-col gap-6 transition-all duration-200">
+            <!-- Distinct Separated Tabs: BARANG MASUK vs BARANG KELUAR -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2 bg-surface-container-low rounded-2xl border border-surface-container">
+              <!-- TAB 1: BARANG MASUK -->
+              <button type="button" id="tab-inbound" onclick="setTxFlow('INBOUND')" class="flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/30">
+                <div id="tab-inbound-icon-wrap" class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
+                  <span class="material-symbols-outlined text-[24px]">south_west</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-extrabold tracking-wide">BARANG MASUK</span>
+                    <span id="tab-inbound-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Inbound</span>
+                  </div>
+                  <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Pabrik Danone, Transfer Masuk, Retur</span>
+                </div>
               </button>
-              <button type="button" id="tab-outbound" onclick="setTxFlow('OUTBOUND')" class="flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all text-secondary hover:text-on-surface">
-                <span class="material-symbols-outlined text-[20px]">north_east</span>
-                <span>BARANG KELUAR</span>
+
+              <!-- TAB 2: BARANG KELUAR -->
+              <button type="button" id="tab-outbound" onclick="setTxFlow('OUTBOUND')" class="flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container">
+                <div id="tab-outbound-icon-wrap" class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary">
+                  <span class="material-symbols-outlined text-[24px]">north_east</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-extrabold tracking-wide">BARANG KELUAR</span>
+                    <span id="tab-outbound-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary">Outbound</span>
+                  </div>
+                  <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Armada Kanvas, Toko/Grosir, Transfer</span>
+                </div>
               </button>
             </div>
 
@@ -521,7 +556,7 @@
               <!-- Jenis Transaksi & Pihak -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-jenis">Jenis Transaksi *</label>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-jenis" id="tx-jenis-label">Jenis Transaksi Masuk *</label>
                   <select id="tx-jenis" required onchange="handleJenisChange()" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-semibold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary">
                     <!-- Populated based on Inbound vs Outbound -->
                   </select>
@@ -529,8 +564,8 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-pihak">Pihak Terkait (Asal / Tujuan) *</label>
-                  <input type="text" id="tx-pihak" required list="pihak-datalist" placeholder="Pilih atau ketik rekanan / armada..." class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-pihak" id="tx-pihak-label">Pabrik / Depo / Rekanan Pengirim *</label>
+                  <input type="text" id="tx-pihak" required list="pihak-datalist" placeholder="Pilih atau ketik pabrik / rekanan pengirim..." class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
                   <datalist id="pihak-datalist"></datalist>
                 </div>
               </div>
@@ -584,12 +619,12 @@
               <!-- No Dokumen & Catatan -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-nodok">Nomor Dokumen (SJ / DO / PO) *</label>
-                  <input type="text" id="tx-nodok" required placeholder="Contoh: SJ-2025/05/0019" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-nodok" id="tx-nodok-label">Nomor Surat Jalan Masuk (SJ Pabrik / PO) *</label>
+                  <input type="text" id="tx-nodok" required placeholder="Contoh: SJ-PABRIK-2025/05/0019" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-catatan">Catatan / Keterangan</label>
-                  <input type="text" id="tx-catatan" placeholder="Contoh: Muatan Truk Plat B 9120 UXT" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-catatan" id="tx-catatan-label">Catatan / Keterangan</label>
+                  <input type="text" id="tx-catatan" placeholder="Contoh: Penerimaan Truk Tronton Plat B 9120 UXT" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
                 </div>
               </div>
 
@@ -598,9 +633,9 @@
                 <button type="reset" class="px-5 h-11 rounded-lg text-secondary hover:text-on-surface text-sm font-semibold transition-colors">
                   Reset
                 </button>
-                <button type="submit" id="btn-save-tx" class="px-6 h-12 bg-primary hover:bg-primary-container text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95">
+                <button type="submit" id="btn-save-tx" class="px-6 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95">
                   <span class="material-symbols-outlined text-[20px]">check_circle</span>
-                  <span>Simpan Transaksi</span>
+                  <span id="btn-save-tx-text">Simpan Barang Masuk</span>
                 </button>
               </div>
             </form>
@@ -636,6 +671,22 @@
                 <span>Export PDF</span>
               </button>
             </div>
+          </div>
+
+          <!-- Filter Tabs Masuk vs Keluar vs Semua -->
+          <div class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-xl border border-surface-container w-full sm:w-fit overflow-x-auto">
+            <button type="button" id="hist-tab-all" onclick="setHistoryFlowTab('ALL')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-sm whitespace-nowrap">
+              <span class="material-symbols-outlined text-[16px]">all_inclusive</span>
+              <span>Semua Transaksi</span>
+            </button>
+            <button type="button" id="hist-tab-masuk" onclick="setHistoryFlowTab('MASUK')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
+              <span class="material-symbols-outlined text-[16px] text-emerald-600">south_west</span>
+              <span>Barang Masuk (Inbound)</span>
+            </button>
+            <button type="button" id="hist-tab-keluar" onclick="setHistoryFlowTab('KELUAR')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
+              <span class="material-symbols-outlined text-[16px] text-primary">north_east</span>
+              <span>Barang Keluar (Outbound)</span>
+            </button>
           </div>
 
           <!-- Comprehensive Filter Deck -->
@@ -1135,25 +1186,29 @@
 
       <!-- MOBILE BOTTOM NAVIGATION DOCK (< 1024px) -->
       <nav id="mobile-dock" class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_-2px_10px_rgba(0,0,0,0.06)] z-40 flex items-center justify-around px-1 border-t border-surface-container-low">
-        <button onclick="navigate('dashboard')" data-mob-nav="dashboard" class="mob-nav-item flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-primary">
-          <span class="material-symbols-outlined text-[22px]">dashboard</span>
+        <button onclick="navigate('dashboard')" data-mob-nav="dashboard" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-primary">
+          <span class="material-symbols-outlined text-[20px]">dashboard</span>
           <span class="text-[10px] font-bold mt-0.5">Dashboard</span>
         </button>
-        <button onclick="navigate('products')" data-mob-nav="products" class="mob-nav-item flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-secondary">
-          <span class="material-symbols-outlined text-[22px]">inventory_2</span>
+        <button onclick="navigate('products')" data-mob-nav="products" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+          <span class="material-symbols-outlined text-[20px]">inventory_2</span>
           <span class="text-[10px] font-semibold mt-0.5">Produk</span>
         </button>
-        <button onclick="navigate('transaction')" data-mob-nav="transaction" class="mob-nav-item flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-secondary">
-          <span class="material-symbols-outlined text-[22px]">local_shipping</span>
-          <span class="text-[10px] font-semibold mt-0.5">Transaksi</span>
+        <button onclick="navigate('inbound')" data-mob-nav="inbound" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+          <span class="material-symbols-outlined text-[20px] text-emerald-600">south_west</span>
+          <span class="text-[10px] font-semibold mt-0.5">Masuk</span>
         </button>
-        <button onclick="navigate('opname')" data-mob-nav="opname" class="mob-nav-item flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-secondary">
-          <span class="material-symbols-outlined text-[22px]">fact_check</span>
+        <button onclick="navigate('outbound')" data-mob-nav="outbound" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+          <span class="material-symbols-outlined text-[20px] text-primary">north_east</span>
+          <span class="text-[10px] font-semibold mt-0.5">Keluar</span>
+        </button>
+        <button onclick="navigate('history')" data-mob-nav="history" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+          <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+          <span class="text-[10px] font-semibold mt-0.5">Riwayat</span>
+        </button>
+        <button onclick="navigate('opname')" data-mob-nav="opname" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+          <span class="material-symbols-outlined text-[20px]">fact_check</span>
           <span class="text-[10px] font-semibold mt-0.5">Opname</span>
-        </button>
-        <button onclick="navigate('forecast')" data-mob-nav="forecast" class="mob-nav-item flex flex-col items-center justify-center min-w-[56px] min-h-[48px] text-secondary">
-          <span class="material-symbols-outlined text-[22px]">trending_up</span>
-          <span class="text-[10px] font-semibold mt-0.5">Forecast</span>
         </button>
       </nav>
 
@@ -1464,18 +1519,35 @@
     /**
      * NAVIGASI ANTAR VIEW
      */
-    function navigate(viewName) {
+    function navigate(viewName, flow = null) {
       if (!state.user || !state.user.aktif) {
         showView('access-request');
         return;
       }
 
-      state.currentView = viewName;
-      showView(viewName);
+      let activeView = viewName;
+      let targetFlow = flow;
+
+      if (viewName === 'inbound') {
+        activeView = 'transaction';
+        targetFlow = 'INBOUND';
+      } else if (viewName === 'outbound') {
+        activeView = 'transaction';
+        targetFlow = 'OUTBOUND';
+      }
+
+      state.currentView = activeView;
+      showView(activeView);
+
+      // Tentukan target nav highlight untuk tab menu
+      const effectiveNav = (activeView === 'transaction')
+        ? ((targetFlow || state.txFlow) === 'OUTBOUND' ? 'outbound' : 'inbound')
+        : activeView;
 
       // Update Desktop Nav Active State
       document.querySelectorAll('.nav-item').forEach(btn => {
-        if (btn.getAttribute('data-nav') === viewName) {
+        const dataNav = btn.getAttribute('data-nav');
+        if (dataNav === effectiveNav || dataNav === activeView) {
           btn.classList.add('bg-primary-container', 'text-white', 'shadow-sm');
           btn.classList.remove('text-on-surface-variant');
         } else {
@@ -1486,7 +1558,8 @@
 
       // Update Mobile Dock Active State
       document.querySelectorAll('.mob-nav-item').forEach(btn => {
-        if (btn.getAttribute('data-mob-nav') === viewName) {
+        const dataMob = btn.getAttribute('data-mob-nav');
+        if (dataMob === effectiveNav || dataMob === activeView) {
           btn.classList.add('text-primary', 'font-bold');
           btn.classList.remove('text-secondary');
         } else {
@@ -1496,13 +1569,18 @@
       });
 
       // Panggil loader per view
-      if (viewName === 'dashboard') loadDashboard();
-      if (viewName === 'products') loadProducts();
-      if (viewName === 'transaction') loadTxDependencies();
-      if (viewName === 'history') loadHistory();
-      if (viewName === 'opname') loadOpname();
-      if (viewName === 'forecast') loadForecast();
-      if (viewName === 'admin') loadAdminData();
+      if (activeView === 'dashboard') loadDashboard();
+      if (activeView === 'products') loadProducts();
+      if (activeView === 'transaction') {
+        if (targetFlow) {
+          state.txFlow = targetFlow;
+        }
+        loadTxDependencies();
+      }
+      if (activeView === 'history') loadHistory();
+      if (activeView === 'opname') loadOpname();
+      if (activeView === 'forecast') loadForecast();
+      if (activeView === 'admin') loadAdminData();
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1871,16 +1949,82 @@
       const tabIn = document.getElementById('tab-inbound');
       const tabOut = document.getElementById('tab-outbound');
       const jenisSelect = document.getElementById('tx-jenis');
+      const card = document.getElementById('tx-card-container');
+      const badge = document.getElementById('tx-badge');
+      const badgeDot = document.getElementById('tx-badge-dot');
+      const badgeText = document.getElementById('tx-badge-text');
+      const heading = document.getElementById('tx-heading');
+      const subheading = document.getElementById('tx-subheading');
+      const jenisLabel = document.getElementById('tx-jenis-label');
+      const pihakLabel = document.getElementById('tx-pihak-label');
+      const pihakInput = document.getElementById('tx-pihak');
+      const nodokLabel = document.getElementById('tx-nodok-label');
+      const nodokInput = document.getElementById('tx-nodok');
+      const btnSave = document.getElementById('btn-save-tx');
+      const btnSaveText = document.getElementById('btn-save-tx-text');
+
+      // Sinkronkan highlight navigasi menu samping & mobile dock
+      const effectiveNav = flow === 'OUTBOUND' ? 'outbound' : 'inbound';
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        const navAttr = btn.getAttribute('data-nav');
+        if (navAttr === effectiveNav) {
+          btn.classList.add('bg-primary-container', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-on-surface-variant');
+        } else if (navAttr === 'inbound' || navAttr === 'outbound') {
+          btn.classList.remove('bg-primary-container', 'text-white', 'shadow-sm');
+          btn.classList.add('text-on-surface-variant');
+        }
+      });
+      document.querySelectorAll('.mob-nav-item').forEach(btn => {
+        const mobAttr = btn.getAttribute('data-mob-nav');
+        if (mobAttr === effectiveNav) {
+          btn.classList.add('text-primary', 'font-bold');
+          btn.classList.remove('text-secondary');
+        } else if (mobAttr === 'inbound' || mobAttr === 'outbound') {
+          btn.classList.remove('text-primary', 'font-bold');
+          btn.classList.add('text-secondary');
+        }
+      });
 
       if (flow === 'INBOUND') {
-        tabIn.className = 'flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all bg-primary-container text-white shadow-sm';
-        tabOut.className = 'flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all text-secondary hover:text-on-surface';
+        // Tab Inbound Aktif
+        if (tabIn) tabIn.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/30';
+        if (tabOut) tabOut.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container';
+
+        const iconWrapIn = document.getElementById('tab-inbound-icon-wrap');
+        const iconWrapOut = document.getElementById('tab-outbound-icon-wrap');
+        const badgeIn = document.getElementById('tab-inbound-badge');
+        const badgeOut = document.getElementById('tab-outbound-badge');
+
+        if (iconWrapIn) iconWrapIn.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white';
+        if (iconWrapOut) iconWrapOut.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary';
+        if (badgeIn) badgeIn.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white';
+        if (badgeOut) badgeOut.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary';
+
+        // Konteks Header & Card
+        if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider';
+        if (badgeDot) badgeDot.className = 'w-2 h-2 rounded-full bg-emerald-600 animate-pulse';
+        if (badgeText) badgeText.innerText = 'Logistik Masuk • Inbound DC-01';
+        if (heading) heading.innerText = 'Input Barang Masuk (Inbound)';
+        if (subheading) subheading.innerText = 'Pencatatan pasokan dari pabrik Danone Aqua, transfer masuk antar cabang, & retur armada.';
+        if (card) {
+          card.classList.remove('border-primary/40');
+          card.classList.add('border-emerald-500/30');
+        }
+
+        // Label & Placeholder Formulir
+        if (jenisLabel) jenisLabel.innerText = 'Jenis Transaksi Masuk *';
+        if (pihakLabel) pihakLabel.innerText = 'Pabrik / Depo / Rekanan Pengirim *';
+        if (pihakInput) pihakInput.placeholder = 'Pilih atau ketik pabrik / rekanan pengirim...';
+        if (nodokLabel) nodokLabel.innerText = 'Nomor Surat Jalan Masuk (SJ Pabrik / PO) *';
+        if (nodokInput) nodokInput.placeholder = 'Contoh: SJ-PABRIK-2025/05/0019';
+        if (btnSave) btnSave.className = 'px-6 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95';
+        if (btnSaveText) btnSaveText.innerText = 'Simpan Barang Masuk';
 
         // Opsi Masuk: PABRIK, TRANSFER_MASUK, RETUR_ARMADA
-        // Periksa batasan role: kepala_depo hanya boleh RETUR_ARMADA untuk masuk
         let opts = '';
         if (state.user && state.user.role === 'kepala_depo') {
-          opts = `<option value="RETUR_ARMADA">RETUR ARMADA (Masuk)</option>`;
+          opts = `<option value="RETUR_ARMADA">RETUR ARMADA (Pengembalian Galon/Karton)</option>`;
         } else {
           opts = `
             <option value="PABRIK">PABRIK (Penerimaan Pabrik Danone)</option>
@@ -1890,11 +2034,41 @@
         }
         jenisSelect.innerHTML = opts;
       } else {
-        tabOut.className = 'flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all bg-primary-container text-white shadow-sm';
-        tabIn.className = 'flex items-center justify-center gap-2 py-3 rounded-lg font-bold text-sm transition-all text-secondary hover:text-on-surface';
+        // Tab Outbound Aktif
+        if (tabOut) tabOut.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-primary text-white shadow-md ring-2 ring-primary/30';
+        if (tabIn) tabIn.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container';
+
+        const iconWrapIn = document.getElementById('tab-inbound-icon-wrap');
+        const iconWrapOut = document.getElementById('tab-outbound-icon-wrap');
+        const badgeIn = document.getElementById('tab-inbound-badge');
+        const badgeOut = document.getElementById('tab-outbound-badge');
+
+        if (iconWrapOut) iconWrapOut.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white';
+        if (iconWrapIn) iconWrapIn.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary';
+        if (badgeOut) badgeOut.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white';
+        if (badgeIn) badgeIn.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary';
+
+        // Konteks Header & Card
+        if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider';
+        if (badgeDot) badgeDot.className = 'w-2 h-2 rounded-full bg-primary animate-pulse';
+        if (badgeText) badgeText.innerText = 'Logistik Keluar • Outbound DC-01';
+        if (heading) heading.innerText = 'Input Barang Keluar (Outbound)';
+        if (subheading) subheading.innerText = 'Pencatatan distribusi armada kanvas harian, pemuatan truk pelanggan grosir, & transfer keluar.';
+        if (card) {
+          card.classList.remove('border-emerald-500/30');
+          card.classList.add('border-primary/40');
+        }
+
+        // Label & Placeholder Formulir
+        if (jenisLabel) jenisLabel.innerText = 'Jenis Transaksi Keluar *';
+        if (pihakLabel) pihakLabel.innerText = 'Armada Kanvas / Toko Tujuan / Depo Penerima *';
+        if (pihakInput) pihakInput.placeholder = 'Pilih atau ketik armada kanvas / toko tujuan...';
+        if (nodokLabel) nodokLabel.innerText = 'Nomor Surat Jalan Keluar (SJ / DO / Plat Armada) *';
+        if (nodokInput) nodokInput.placeholder = 'Contoh: SJ-KANVAS-2025/05/0088';
+        if (btnSave) btnSave.className = 'px-6 h-12 bg-primary hover:bg-primary-container text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95';
+        if (btnSaveText) btnSaveText.innerText = 'Simpan Barang Keluar';
 
         // Opsi Keluar: TRANSFER_KELUAR, KANVAS, MUAT_ARMADA
-        // Periksa batasan role: kepala_depo hanya boleh KANVAS, MUAT_ARMADA
         let opts = '';
         if (state.user && state.user.role === 'kepala_depo') {
           opts = `
@@ -1912,6 +2086,7 @@
       }
 
       handleJenisChange();
+      renderTxPihakDatalist();
       calculateTotalPcs();
     }
 
@@ -1919,7 +2094,7 @@
       const jenis = document.getElementById('tx-jenis').value;
       const hint = document.getElementById('tx-jenis-hint');
       const hints = {
-        'PABRIK': 'Penerimaan truk tronton pasokan dari pabrik Ciherang / Subang.',
+        'PABRIK': 'Penerimaan pasokan air mineral dari pabrik Danone Ciherang / Subang.',
         'TRANSFER_MASUK': 'Penerimaan perpindahan stok antar cabang depo tanpa konfirmasi terpisah.',
         'RETUR_ARMADA': 'Pemasukan fisik galon kosong, cacat kemasan, atau klaim dari armada.',
         'KANVAS': 'Pemuatan air mineral ke armada kanvas harian untuk rute keliling.',
@@ -1939,8 +2114,23 @@
 
     function renderTxPihakDatalist() {
       const dl = document.getElementById('pihak-datalist');
-      dl.innerHTML = state.partners.map(p => `
-        <option value="${escapeHtml(p.nama_pihak)}">${escapeHtml(p.jenis)}</option>
+      if (!dl) return;
+      let list = [...state.partners];
+      if (state.txFlow === 'INBOUND') {
+        list.sort((a, b) => {
+          const aPriority = ['PABRIK', 'DEPO'].includes(a.jenis) ? 0 : 1;
+          const bPriority = ['PABRIK', 'DEPO'].includes(b.jenis) ? 0 : 1;
+          return aPriority - bPriority;
+        });
+      } else {
+        list.sort((a, b) => {
+          const aPriority = ['KANVAS', 'OUTLET', 'ARMADA'].includes(a.jenis) ? 0 : 1;
+          const bPriority = ['KANVAS', 'OUTLET', 'ARMADA'].includes(b.jenis) ? 0 : 1;
+          return aPriority - bPriority;
+        });
+      }
+      dl.innerHTML = list.map(p => `
+        <option value="${escapeHtml(p.nama_pihak)}">${escapeHtml(p.jenis)}${p.alamat ? ' - ' + escapeHtml(p.alamat) : ''}</option>
       `).join('');
     }
 
@@ -2019,21 +2209,36 @@
       };
 
       const btn = document.getElementById('btn-save-tx');
+      const btnText = document.getElementById('btn-save-tx-text');
       btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Menyimpan...';
+      if (btnText) {
+        btnText.innerText = 'Menyimpan...';
+      } else {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Menyimpan...';
+      }
 
       callServer('saveTransaction', [txData], (res) => {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Simpan Transaksi';
+        const defaultText = state.txFlow === 'INBOUND' ? 'Simpan Barang Masuk' : 'Simpan Barang Keluar';
+        if (btnText) {
+          btnText.innerText = defaultText;
+        } else {
+          btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span> <span>${defaultText}</span>`;
+        }
         showToast(res.message, 'success');
         document.getElementById('form-transaksi').reset();
         document.getElementById('tx-stock-preview').classList.add('hidden');
         document.getElementById('tx-total-pcs-calc').innerText = '0 Pcs';
-        // Refresh cache produk
+        // Refresh cache produk & relasi
         loadTxDependencies();
       }, (err) => {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Simpan Transaksi';
+        const defaultText = state.txFlow === 'INBOUND' ? 'Simpan Barang Masuk' : 'Simpan Barang Keluar';
+        if (btnText) {
+          btnText.innerText = defaultText;
+        } else {
+          btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span> <span>${defaultText}</span>`;
+        }
       });
     }
 
@@ -2053,13 +2258,35 @@
       applyHistoryFilters();
     }
 
+    function setHistoryFlowTab(flow) {
+      state.historyFlow = flow;
+      const btnAll = document.getElementById('hist-tab-all');
+      const btnMasuk = document.getElementById('hist-tab-masuk');
+      const btnKeluar = document.getElementById('hist-tab-keluar');
+
+      if (btnAll) btnAll.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap';
+      if (btnMasuk) btnMasuk.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap';
+      if (btnKeluar) btnKeluar.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap';
+
+      if (flow === 'MASUK') {
+        if (btnMasuk) btnMasuk.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-emerald-600 text-white shadow-sm whitespace-nowrap';
+      } else if (flow === 'KELUAR') {
+        if (btnKeluar) btnKeluar.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-sm whitespace-nowrap';
+      } else {
+        if (btnAll) btnAll.className = 'flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-sm whitespace-nowrap';
+      }
+
+      applyHistoryFilters();
+    }
+
     function applyHistoryFilters() {
       const filter = {
         query: document.getElementById('hist-filter-query').value.trim(),
         jenis: document.getElementById('hist-filter-jenis').value,
         sku: document.getElementById('hist-filter-sku').value,
         start_date: document.getElementById('hist-filter-start').value,
-        end_date: document.getElementById('hist-filter-end').value
+        end_date: document.getElementById('hist-filter-end').value,
+        arah: state.historyFlow || 'ALL'
       };
 
       callServer('getTransactionHistory', [filter], (transactions) => {
@@ -3305,6 +3532,7 @@
         let txs = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
         
         return txs.filter(t => {
+          if (filter.arah && filter.arah !== 'ALL' && t.arah !== filter.arah) return false;
           if (filter.jenis && filter.jenis !== 'ALL' && t.jenis !== filter.jenis) return false;
           if (filter.sku && filter.sku !== 'ALL' && t.sku !== filter.sku) return false;
           if (filter.query) {
