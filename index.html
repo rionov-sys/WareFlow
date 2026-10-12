@@ -521,35 +521,31 @@
 
           <!-- Form Panel Card -->
           <div id="tx-card-container" class="bg-surface-container-lowest rounded-2xl p-5 sm:p-7 shadow-sm border border-emerald-500/30 flex flex-col gap-6 transition-all duration-200">
-            <!-- Distinct Separated Tabs: BARANG MASUK vs BARANG KELUAR -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2 bg-surface-container-low rounded-2xl border border-surface-container">
-              <!-- TAB 1: BARANG MASUK -->
-              <button type="button" id="tab-inbound" onclick="setTxFlow('INBOUND')" class="flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/30">
-                <div id="tab-inbound-icon-wrap" class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
-                  <span class="material-symbols-outlined text-[24px]">south_west</span>
+            <!-- Banner Status Alur Transaksi (Masing-masing alur berdiri sendiri tanpa tombol silang) -->
+            <div id="banner-inbound" class="flex items-center gap-3.5 p-4 rounded-xl bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/20">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
+                <span class="material-symbols-outlined text-[24px]">south_west</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-extrabold tracking-wide">FORMULIR INPUT BARANG MASUK</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Inbound DC</span>
                 </div>
-                <div class="flex flex-col min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm font-extrabold tracking-wide">BARANG MASUK</span>
-                    <span id="tab-inbound-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Inbound</span>
-                  </div>
-                  <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Pabrik Danone, Transfer Masuk, Retur</span>
-                </div>
-              </button>
+                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Penerimaan pasokan Pabrik Danone Aqua, Transfer Masuk Antar Depo, & Retur Armada</span>
+              </div>
+            </div>
 
-              <!-- TAB 2: BARANG KELUAR -->
-              <button type="button" id="tab-outbound" onclick="setTxFlow('OUTBOUND')" class="flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container">
-                <div id="tab-outbound-icon-wrap" class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary">
-                  <span class="material-symbols-outlined text-[24px]">north_east</span>
+            <div id="banner-outbound" class="hidden flex items-center gap-3.5 p-4 rounded-xl bg-primary text-white shadow-md ring-2 ring-primary/20">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
+                <span class="material-symbols-outlined text-[24px]">north_east</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-extrabold tracking-wide">FORMULIR INPUT BARANG KELUAR</span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Outbound DC</span>
                 </div>
-                <div class="flex flex-col min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm font-extrabold tracking-wide">BARANG KELUAR</span>
-                    <span id="tab-outbound-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary">Outbound</span>
-                  </div>
-                  <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Armada Kanvas, Toko/Grosir, Transfer</span>
-                </div>
-              </button>
+                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Distribusi Armada Kanvas Harian, Pemuatan Truk Toko/Grosir, & Transfer Keluar</span>
+              </div>
             </div>
 
             <form id="form-transaksi" onsubmit="handleSaveTransaction(event)" class="flex flex-col gap-5">
@@ -1946,8 +1942,8 @@
 
     function setTxFlow(flow) {
       state.txFlow = flow;
-      const tabIn = document.getElementById('tab-inbound');
-      const tabOut = document.getElementById('tab-outbound');
+      const bannerIn = document.getElementById('banner-inbound');
+      const bannerOut = document.getElementById('banner-outbound');
       const jenisSelect = document.getElementById('tx-jenis');
       const card = document.getElementById('tx-card-container');
       const badge = document.getElementById('tx-badge');
@@ -1987,19 +1983,9 @@
       });
 
       if (flow === 'INBOUND') {
-        // Tab Inbound Aktif
-        if (tabIn) tabIn.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/30';
-        if (tabOut) tabOut.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container';
-
-        const iconWrapIn = document.getElementById('tab-inbound-icon-wrap');
-        const iconWrapOut = document.getElementById('tab-outbound-icon-wrap');
-        const badgeIn = document.getElementById('tab-inbound-badge');
-        const badgeOut = document.getElementById('tab-outbound-badge');
-
-        if (iconWrapIn) iconWrapIn.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white';
-        if (iconWrapOut) iconWrapOut.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary';
-        if (badgeIn) badgeIn.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white';
-        if (badgeOut) badgeOut.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary';
+        // Tampilkan hanya banner Masuk, sembunyikan banner Keluar
+        if (bannerIn) bannerIn.classList.remove('hidden');
+        if (bannerOut) bannerOut.classList.add('hidden');
 
         // Konteks Header & Card
         if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider';
@@ -2034,19 +2020,9 @@
         }
         jenisSelect.innerHTML = opts;
       } else {
-        // Tab Outbound Aktif
-        if (tabOut) tabOut.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-primary text-white shadow-md ring-2 ring-primary/30';
-        if (tabIn) tabIn.className = 'flex items-center gap-3.5 p-3.5 rounded-xl font-bold text-sm transition-all text-left bg-surface-container-low text-secondary hover:text-on-surface hover:bg-surface-container border border-surface-container';
-
-        const iconWrapIn = document.getElementById('tab-inbound-icon-wrap');
-        const iconWrapOut = document.getElementById('tab-outbound-icon-wrap');
-        const badgeIn = document.getElementById('tab-inbound-badge');
-        const badgeOut = document.getElementById('tab-outbound-badge');
-
-        if (iconWrapOut) iconWrapOut.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white';
-        if (iconWrapIn) iconWrapIn.className = 'w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-surface-container-high text-secondary';
-        if (badgeOut) badgeOut.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white';
-        if (badgeIn) badgeIn.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-container-high text-secondary';
+        // Tampilkan hanya banner Keluar, sembunyikan banner Masuk
+        if (bannerOut) bannerOut.classList.remove('hidden');
+        if (bannerIn) bannerIn.classList.add('hidden');
 
         // Konteks Header & Card
         if (badge) badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold uppercase tracking-wider';
