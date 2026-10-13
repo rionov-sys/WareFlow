@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-  <meta content="#00569e" name="theme-color"/>
-  <meta content="WareFlow - Distributor Aqua" name="apple-mobile-web-app-title"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
-  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+  <meta content="#00569e" name="theme-color" />
+  <meta content="WareFlow - Distributor Aqua" name="apple-mobile-web-app-title" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
   <title>WareFlow - Sistem Gudang Distributor Aqua</title>
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%2300569e'/%3E%3Cpath d='M96 32 C65 72 48 108 48 136 C48 162 69 176 96 176 C123 176 144 162 144 136 C144 108 127 72 96 32 Z' fill='%23ffffff'/%3E%3Ccircle cx='96' cy='128' r='14' fill='%2386f8c9'/%3E%3C/svg%3E"/>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%2300569e'/%3E%3Cpath d='M96 32 C65 72 48 108 48 136 C48 162 69 176 96 176 C123 176 144 162 144 136 C144 108 127 72 96 32 Z' fill='%23ffffff'/%3E%3Ccircle cx='96' cy='128' r='14' fill='%2386f8c9'/%3E%3C/svg%3E" />
 
   <!-- Google Fonts & Material Symbols -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
   <!-- External Libraries: Chart.js, SheetJS, jsPDF -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -71,7 +76,9 @@
 
   <style>
     @layer base {
-      html, body {
+
+      html,
+      body {
         margin: 0;
         padding: 0;
         font-family: 'Inter', sans-serif;
@@ -80,32 +87,39 @@
         -webkit-tap-highlight-color: transparent;
       }
     }
+
     .tnum {
       font-variant-numeric: tabular-nums;
     }
+
     /* Hide scrollbar for clean UI while preserving scrollability */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
+
     .no-scrollbar {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
   </style>
 </head>
+
 <body class="bg-background font-sans antialiased text-on-surface">
 
   <!-- GLOBAL LOADING INDICATOR (Top progress bar) -->
-  <div id="global-loader" class="fixed top-0 left-0 right-0 h-1 bg-primary-container z-[9999] hidden animate-pulse"></div>
+  <div id="global-loader" class="fixed top-0 left-0 right-0 h-1 bg-primary-container z-[9999] hidden animate-pulse">
+  </div>
 
   <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="fixed top-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4"></div>
+  <div id="toast-container"
+    class="fixed top-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none max-w-sm w-full px-4"></div>
 
   <!-- APP CONTAINER -->
   <div id="app" class="flex min-h-screen flex-col">
 
     <!-- DESKTOP SIDEBAR NAVIGATION (>= 1024px) -->
-    <aside id="desktop-sidebar" class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)] justify-between">
+    <aside id="desktop-sidebar"
+      class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)] justify-between">
       <div class="flex flex-col">
         <!-- Logo Brand -->
         <div class="h-16 px-4 flex items-center justify-between border-b border-surface-container-low">
@@ -122,7 +136,8 @@
 
         <!-- Location Badge -->
         <div class="px-4 py-3">
-          <div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between border border-surface-container">
+          <div
+            class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between border border-surface-container">
             <div class="flex items-center gap-2 overflow-hidden">
               <span class="material-symbols-outlined text-primary text-[20px] shrink-0">warehouse</span>
               <div class="flex flex-col truncate">
@@ -136,16 +151,19 @@
 
         <!-- Navigation Menu -->
         <nav class="flex flex-col gap-1 px-3 mt-1" id="nav-list">
-          <button onclick="navigate('dashboard')" data-nav="dashboard" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('dashboard')" data-nav="dashboard"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">dashboard</span>
             <span>Dashboard</span>
           </button>
-          <button onclick="navigate('products')" data-nav="products" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('products')" data-nav="products"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">inventory_2</span>
             <span>Produk & Stok</span>
           </button>
           <!-- Tab Barang Masuk (Inbound) -->
-          <button onclick="navigate('inbound')" data-nav="inbound" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('inbound')" data-nav="inbound"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px] text-emerald-600">south_west</span>
             <div class="flex items-center justify-between flex-1">
               <span>Barang Masuk</span>
@@ -153,26 +171,32 @@
             </div>
           </button>
           <!-- Tab Barang Keluar (Outbound) -->
-          <button onclick="navigate('outbound')" data-nav="outbound" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('outbound')" data-nav="outbound"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px] text-primary">north_east</span>
             <div class="flex items-center justify-between flex-1">
               <span>Barang Keluar</span>
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">Outbound</span>
+              <span
+                class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">Outbound</span>
             </div>
           </button>
-          <button onclick="navigate('history')" data-nav="history" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('history')" data-nav="history"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">receipt_long</span>
             <span>Riwayat Transaksi</span>
           </button>
-          <button onclick="navigate('opname')" data-nav="opname" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('opname')" data-nav="opname"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">fact_check</span>
             <span>Stock Opname</span>
           </button>
-          <button onclick="navigate('forecast')" data-nav="forecast" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('forecast')" data-nav="forecast"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">trending_up</span>
             <span>Forecast & PO</span>
           </button>
-          <button onclick="navigate('admin')" data-nav="admin" id="nav-admin" class="nav-item hidden flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
+          <button onclick="navigate('admin')" data-nav="admin" id="nav-admin"
+            class="nav-item hidden flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all text-on-surface-variant hover:bg-surface-container-low">
             <span class="material-symbols-outlined text-[20px]">manage_accounts</span>
             <span>Kelola Admin</span>
           </button>
@@ -184,21 +208,26 @@
         <div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
           <div class="flex items-center gap-2.5 min-w-0">
             <div class="relative shrink-0">
-              <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold" id="user-avatar">
+              <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold"
+                id="user-avatar">
                 U
               </div>
-              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-container ring-2 ring-white"></span>
+              <span
+                class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-container ring-2 ring-white"></span>
             </div>
             <div class="flex flex-col truncate">
               <span class="text-xs font-bold text-on-surface truncate" id="user-display-name">Memuat...</span>
-              <span class="text-[11px] font-semibold text-secondary uppercase tracking-wider truncate" id="user-role-badge">-</span>
+              <span class="text-[11px] font-semibold text-secondary uppercase tracking-wider truncate"
+                id="user-role-badge">-</span>
             </div>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <button onclick="refreshData()" title="Segarkan Data" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-primary hover:bg-surface-container-high transition-colors">
+            <button onclick="refreshData()" title="Segarkan Data"
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-primary hover:bg-surface-container-high transition-colors">
               <span class="material-symbols-outlined text-[18px]">sync</span>
             </button>
-            <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-error hover:bg-error-container/20 transition-colors">
+            <button onclick="handleLogout()" title="Keluar / Ganti Akun"
+              class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-error hover:bg-error-container/20 transition-colors">
               <span class="material-symbols-outlined text-[18px]">logout</span>
             </button>
           </div>
@@ -210,7 +239,8 @@
     <div class="lg:pl-72 flex flex-col min-h-screen">
 
       <!-- TOP FIXED HEADER -->
-      <header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md shadow-sm z-40 flex items-center justify-between px-4 lg:px-8 border-b border-surface-container-low">
+      <header
+        class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-container-lowest/95 backdrop-blur-md shadow-sm z-40 flex items-center justify-between px-4 lg:px-8 border-b border-surface-container-low">
         <div class="flex items-center gap-3">
           <!-- Mobile Logo -->
           <div class="flex lg:hidden items-center gap-2">
@@ -219,7 +249,8 @@
             </div>
             <span class="font-bold text-lg text-primary tracking-tight">WareFlow</span>
           </div>
-          <div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low px-3 py-1 rounded-full text-secondary border border-surface-container">
+          <div
+            class="hidden sm:flex items-center gap-1.5 bg-surface-container-low px-3 py-1 rounded-full text-secondary border border-surface-container">
             <span class="material-symbols-outlined text-[16px] text-tertiary-container">check_circle</span>
             <span class="text-xs font-semibold text-on-surface">Gudang Distribusi Danone-AQUA</span>
           </div>
@@ -227,18 +258,22 @@
 
         <div class="flex items-center gap-2">
           <!-- Environment Mode Indicator -->
-          <span id="env-badge" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-primary-fixed text-on-primary-fixed-variant">
+          <span id="env-badge"
+            class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-primary-fixed text-on-primary-fixed-variant">
             Google Apps Script
           </span>
-          <button onclick="refreshData()" class="h-9 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-primary text-xs font-bold flex items-center gap-1.5 transition-colors border border-surface-container">
+          <button onclick="refreshData()"
+            class="h-9 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-primary text-xs font-bold flex items-center gap-1.5 transition-colors border border-surface-container">
             <span class="material-symbols-outlined text-[16px]" id="refresh-spinner">refresh</span>
             <span class="hidden sm:inline">Refresh</span>
           </button>
-          <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="h-9 px-2.5 rounded-lg bg-surface-container-low hover:bg-error-container/20 text-secondary hover:text-error text-xs font-bold flex items-center gap-1 transition-colors border border-surface-container">
+          <button onclick="handleLogout()" title="Keluar / Ganti Akun"
+            class="h-9 px-2.5 rounded-lg bg-surface-container-low hover:bg-error-container/20 text-secondary hover:text-error text-xs font-bold flex items-center gap-1 transition-colors border border-surface-container">
             <span class="material-symbols-outlined text-[16px]">logout</span>
           </button>
           <div class="lg:hidden flex items-center gap-1 pl-1">
-            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold" id="mobile-user-avatar">U</div>
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold"
+              id="mobile-user-avatar">U</div>
           </div>
         </div>
       </header>
@@ -250,93 +285,123 @@
         <!-- VIEW 0: AJUKAN AKSES (Email Belum Terdaftar) -->
         <!-- ========================================== -->
         <section id="view-access-request" class="view-panel hidden py-8 max-w-lg mx-auto">
-          <div class="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 shadow-sm border border-surface-container-low flex flex-col items-center text-center">
-            <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4 shadow-sm">
+          <div
+            class="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 shadow-sm border border-surface-container-low flex flex-col items-center text-center">
+            <div
+              class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4 shadow-sm">
               <span class="material-symbols-outlined text-[36px]">lock_person</span>
             </div>
             <h2 class="text-2xl font-bold text-on-surface">Pendaftaran Petugas Gudang</h2>
-            <p class="text-sm text-secondary mt-1">Sistem WareFlow dibatasi khusus untuk petugas depo resmi. Silakan ajukan akses akun Google Anda atau masuk jika sudah didaftarkan.</p>
+            <p class="text-sm text-secondary mt-1">Sistem WareFlow dibatasi khusus untuk petugas depo resmi. Silakan
+              ajukan akses akun Google Anda atau masuk jika sudah didaftarkan.</p>
 
             <!-- Tab Switcher: Daftar Akses Baru vs Masuk Akun Terdaftar -->
-            <div class="grid grid-cols-2 gap-2 p-1.5 bg-surface-container-low rounded-xl w-full my-5 border border-surface-container">
-              <button type="button" id="tab-auth-register" onclick="switchAuthTab('register')" class="py-2 text-xs font-bold rounded-lg transition-all bg-white text-primary shadow-sm">
+            <div
+              class="grid grid-cols-2 gap-2 p-1.5 bg-surface-container-low rounded-xl w-full my-5 border border-surface-container">
+              <button type="button" id="tab-auth-register" onclick="switchAuthTab('register')"
+                class="py-2 text-xs font-bold rounded-lg transition-all bg-white text-primary shadow-sm">
                 Ajukan Akses Baru
               </button>
-              <button type="button" id="tab-auth-login" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg transition-all text-secondary hover:text-on-surface">
+              <button type="button" id="tab-auth-login" onclick="switchAuthTab('login')"
+                class="py-2 text-xs font-bold rounded-lg transition-all text-secondary hover:text-on-surface">
                 Masuk Email Terdaftar
               </button>
             </div>
 
             <!-- Panel 1: FORM AJUKAN AKSES BARU -->
-            <form id="form-request-access" onsubmit="handleRequestAccess(event)" class="w-full flex flex-col gap-4 text-left">
+            <form id="form-request-access" onsubmit="handleRequestAccess(event)"
+              class="w-full flex flex-col gap-4 text-left">
               <div id="req-email-container">
                 <label class="block text-xs font-bold text-on-surface mb-1">Email Akun Google Anda *</label>
-                <input type="email" id="req-email" required placeholder="nama.anda@gmail.com" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono"/>
-                <span class="text-[11px] text-secondary mt-1 block">Pastikan menggunakan alamat email Google aktif yang Anda pakai di HP ini.</span>
+                <input type="email" id="req-email" required placeholder="nama.anda@gmail.com"
+                  class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono" />
+                <span class="text-[11px] text-secondary mt-1 block">Pastikan menggunakan alamat email Google aktif yang
+                  Anda pakai di HP ini.</span>
               </div>
               <div>
                 <label class="block text-xs font-bold text-on-surface mb-1">Nama Lengkap Petugas *</label>
-                <input type="text" id="req-nama" required placeholder="Contoh: Budi Santoso" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                <input type="text" id="req-nama" required placeholder="Contoh: Budi Santoso"
+                  class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary" />
               </div>
               <div>
-                <label class="block text-xs font-bold text-on-surface mb-1">Catatan / Posisi / Keterangan Penugasan</label>
-                <textarea id="req-catatan" rows="2" placeholder="Contoh: Checker Armada DC Cakung / Sopir Kanvas / Penugasan Baru" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                <label class="block text-xs font-bold text-on-surface mb-1">Catatan / Posisi / Keterangan
+                  Penugasan</label>
+                <textarea id="req-catatan" rows="2"
+                  placeholder="Contoh: Checker Armada DC Cakung / Sopir Kanvas / Penugasan Baru"
+                  class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
               </div>
-              <button type="submit" id="btn-submit-req" class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
+              <button type="submit" id="btn-submit-req"
+                class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
                 <span class="material-symbols-outlined text-[20px]">send</span>
                 <span>Ajukan Akses ke Admin</span>
               </button>
             </form>
 
             <!-- Panel 2: FORM MASUK DENGAN EMAIL TERDAFTAR -->
-            <form id="form-direct-login" onsubmit="handleDirectLogin(event)" class="hidden w-full flex flex-col gap-4 text-left">
+            <form id="form-direct-login" onsubmit="handleDirectLogin(event)"
+              class="hidden w-full flex flex-col gap-4 text-left">
               <div>
                 <label class="block text-xs font-bold text-on-surface mb-1">Email Google Terdaftar *</label>
-                <input type="email" id="login-email" required placeholder="nama.anda@gmail.com" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono"/>
-                <span class="text-[11px] text-secondary mt-1 block">Masukkan email yang telah disetujui / didaftarkan Admin DC.</span>
+                <input type="email" id="login-email" required placeholder="nama.anda@gmail.com"
+                  class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono" />
+                <span class="text-[11px] text-secondary mt-1 block">Masukkan email yang telah disetujui / didaftarkan
+                  Admin DC.</span>
               </div>
-              <button type="submit" id="btn-submit-login" class="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
+              <button type="submit" id="btn-submit-login"
+                class="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
                 <span class="material-symbols-outlined text-[20px]">login</span>
                 <span>Masuk ke Sistem</span>
               </button>
 
               <!-- Quick Demo Helper (Hanya tampil di Browser Standalone / Non-GAS) -->
               <div id="demo-quick-login" class="hidden w-full pt-3 mt-1 border-t border-surface-container text-left">
-                <span class="text-[11px] font-bold text-secondary block mb-1.5">⚡ Masuk Cepat Akun Demo (Preview Lokal):</span>
+                <span class="text-[11px] font-bold text-secondary block mb-1.5">⚡ Masuk Cepat Akun Demo (Preview
+                  Lokal):</span>
                 <div class="flex flex-wrap gap-1.5">
-                  <button type="button" onclick="quickFillDemo('admin@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Admin DC</button>
-                  <button type="button" onclick="quickFillDemo('gudang@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala Gudang</button>
-                  <button type="button" onclick="quickFillDemo('depo@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala Depo</button>
+                  <button type="button" onclick="quickFillDemo('admin@danone-distrib.co.id')"
+                    class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Admin
+                    DC</button>
+                  <button type="button" onclick="quickFillDemo('gudang@danone-distrib.co.id')"
+                    class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala
+                    Gudang</button>
+                  <button type="button" onclick="quickFillDemo('depo@danone-distrib.co.id')"
+                    class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala
+                    Depo</button>
                 </div>
               </div>
             </form>
 
-            <div id="req-success-message" class="hidden mt-4 p-4 rounded-xl bg-tertiary/10 text-tertiary border border-tertiary/20 text-xs font-medium">
+            <div id="req-success-message"
+              class="hidden mt-4 p-4 rounded-xl bg-tertiary/10 text-tertiary border border-tertiary/20 text-xs font-medium">
               Permohonan akses berhasil diajukan! Harap hubungi Admin untuk menyetujui akun Anda.
             </div>
 
             <!-- Status Card Pending / Sedang Ditinjau -->
-            <div id="req-status-card" class="hidden mt-4 p-4 rounded-xl bg-surface-container-low text-left border border-surface-container w-full">
+            <div id="req-status-card"
+              class="hidden mt-4 p-4 rounded-xl bg-surface-container-low text-left border border-surface-container w-full">
               <div class="flex items-start gap-3">
-                <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0">
+                <div
+                  class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-[22px]">pending_actions</span>
                 </div>
                 <div class="flex-1">
                   <h4 class="text-xs font-bold text-on-surface" id="req-status-title">Permohonan Sedang Ditinjau</h4>
-                  <p class="text-xs text-secondary mt-0.5" id="req-status-msg">Akun Anda sedang menunggu persetujuan / aktivasi dari Admin DC.</p>
+                  <p class="text-xs text-secondary mt-0.5" id="req-status-msg">Akun Anda sedang menunggu persetujuan /
+                    aktivasi dari Admin DC.</p>
                   <p class="text-[11px] font-mono text-primary font-bold mt-1" id="req-status-email">-</p>
                 </div>
               </div>
               <div class="mt-4 pt-3 border-t border-surface-container flex items-center justify-between gap-2">
-                <button type="button" onclick="checkAccessStatus()" class="px-3.5 h-9 rounded-lg bg-primary hover:bg-primary-container text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
+                <button type="button" onclick="checkAccessStatus()"
+                  class="px-3.5 h-9 rounded-lg bg-primary hover:bg-primary-container text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
                   <span class="material-symbols-outlined text-[16px]">sync</span>
                   <span>Cek Status Sekarang</span>
                 </button>
-                <button type="button" onclick="resetAuthForm()" class="px-3 h-9 rounded-lg text-secondary hover:text-on-surface text-xs font-semibold">
+                <button type="button" onclick="resetAuthForm()"
+                  class="px-3 h-9 rounded-lg text-secondary hover:text-on-surface text-xs font-semibold">
                   Ganti Akun
                 </button>
               </div>
-            </div>
             </div>
           </div>
         </section>
@@ -350,17 +415,24 @@
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
-                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Operasional Real-Time PSS-Depo Labuan Bajo</span>
+                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Operasional Real-Time PSS-Depo
+                  Labuan Bajo</span>
               </div>
-              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Ringkasan Operasional Gudang</h1>
-              <p class="text-sm text-secondary mt-0.5">Pantauan logistik distribusi air mineral Aqua, throughput armada, & level stok fisik.</p>
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Ringkasan Operasional
+                Gudang</h1>
+              <p class="text-sm text-secondary mt-0.5">Pantauan logistik distribusi air mineral Aqua, throughput armada,
+                & level stok fisik.</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="navigate('inbound')" class="h-11 px-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95" title="Input Barang Masuk Pabrik / Transfer">
+              <button onclick="navigate('inbound')"
+                class="h-11 px-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95"
+                title="Input Barang Masuk Pabrik / Transfer">
                 <span class="material-symbols-outlined text-[20px]">south_west</span>
                 <span>+ Barang Masuk</span>
               </button>
-              <button onclick="navigate('outbound')" class="h-11 px-3.5 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95" title="Input Barang Keluar Armada Kanvas / Toko">
+              <button onclick="navigate('outbound')"
+                class="h-11 px-3.5 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-sm flex items-center gap-2 shadow-sm transition-all active:scale-95"
+                title="Input Barang Keluar Armada Kanvas / Toko">
                 <span class="material-symbols-outlined text-[20px]">north_east</span>
                 <span>- Barang Keluar</span>
               </button>
@@ -368,17 +440,20 @@
           </div>
 
           <!-- Alert Banner jika ada SKU Kritis -->
-          <div id="dash-critical-banner" class="hidden bg-error-container text-on-error-container p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm border border-error/20">
+          <div id="dash-critical-banner"
+            class="hidden bg-error-container text-on-error-container p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm border border-error/20">
             <div class="flex items-start sm:items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-error text-white flex items-center justify-center shrink-0">
                 <span class="material-symbols-outlined text-[24px]">warning</span>
               </div>
               <div>
                 <p class="text-sm font-bold" id="dash-critical-title">Peringatan: Ada SKU di bawah Safety Stock!</p>
-                <p class="text-xs text-on-surface-variant mt-0.5" id="dash-critical-desc">Segera lakukan re-order sebelum pasokan terhenti.</p>
+                <p class="text-xs text-on-surface-variant mt-0.5" id="dash-critical-desc">Segera lakukan re-order
+                  sebelum pasokan terhenti.</p>
               </div>
             </div>
-            <button onclick="navigate('forecast')" class="px-3.5 py-2 bg-error text-white text-xs font-bold uppercase rounded-lg tracking-wider shrink-0 hover:bg-error/90 transition-colors">
+            <button onclick="navigate('forecast')"
+              class="px-3.5 py-2 bg-error text-white text-xs font-bold uppercase rounded-lg tracking-wider shrink-0 hover:bg-error/90 transition-colors">
               Lihat Forecast & PO
             </button>
           </div>
@@ -386,12 +461,14 @@
           <!-- 3 KPI Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- KPI 1: Total Stok Karton -->
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
               <div>
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold uppercase tracking-wider text-secondary">Total Stok Fisik</span>
-                  <span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-[11px] font-bold">Real-Time</span>
+                  <span
+                    class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-[11px] font-bold">Real-Time</span>
                 </div>
                 <div class="flex items-baseline gap-1.5">
                   <span class="text-3xl font-extrabold text-on-surface tnum" id="kpi-total-karton">0</span>
@@ -399,62 +476,76 @@
                 </div>
                 <p class="text-xs text-secondary mt-1 font-medium" id="kpi-total-pcs">+0 Pcs lepas</p>
               </div>
-              <div class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
+              <div
+                class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
                 <span>Dihitung dari seluruh riwayat mutasi</span>
-                <span class="text-primary font-bold cursor-pointer" onclick="navigate('products')">Lihat SKU &rarr;</span>
+                <span class="text-primary font-bold cursor-pointer" onclick="navigate('products')">Lihat SKU
+                  &rarr;</span>
               </div>
             </div>
 
             <!-- KPI 2: SKU Kritis -->
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error" id="kpi-critical-bar"></div>
               <div>
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold uppercase tracking-wider text-secondary">Safety Stock</span>
-                  <span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-bold" id="kpi-critical-badge">Perlu PO</span>
+                  <span
+                    class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-bold"
+                    id="kpi-critical-badge">Perlu PO</span>
                 </div>
                 <div class="flex items-baseline gap-1.5">
                   <span class="text-3xl font-extrabold text-error tnum" id="kpi-critical-count">0</span>
                   <span class="text-sm font-bold text-error">SKU Di Bawah Min</span>
                 </div>
-                <p class="text-xs text-on-surface-variant mt-1" id="kpi-critical-sub">Semua level stok dalam batas aman</p>
+                <p class="text-xs text-on-surface-variant mt-1" id="kpi-critical-sub">Semua level stok dalam batas aman
+                </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
+              <div
+                class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
                 <span>Batas reorder: 48 jam</span>
                 <span class="text-error font-bold cursor-pointer" onclick="navigate('forecast')">Periksa &rarr;</span>
               </div>
             </div>
 
             <!-- KPI 3: Sesi Opname Status -->
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low relative overflow-hidden flex flex-col justify-between">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary"></div>
               <div>
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-bold uppercase tracking-wider text-secondary">Status Stock Opname</span>
-                  <span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary text-[11px] font-bold" id="kpi-opname-status">Audit</span>
+                  <span class="px-2 py-0.5 rounded-full bg-surface-container text-secondary text-[11px] font-bold"
+                    id="kpi-opname-status">Audit</span>
                 </div>
                 <div class="flex items-baseline gap-1.5">
                   <span class="text-xl font-bold text-on-surface" id="kpi-opname-text">Tidak Ada Sesi Aktif</span>
                 </div>
                 <p class="text-xs text-secondary mt-1" id="kpi-opname-desc">Pembekuan stok siap dibuka</p>
               </div>
-              <div class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
+              <div
+                class="mt-4 pt-3 border-t border-surface-container-low flex items-center justify-between text-xs text-secondary">
                 <span>Audit Fisik vs Sistem</span>
-                <span class="text-tertiary font-bold cursor-pointer" onclick="navigate('opname')">Buka Modul &rarr;</span>
+                <span class="text-tertiary font-bold cursor-pointer" onclick="navigate('opname')">Buka Modul
+                  &rarr;</span>
               </div>
             </div>
           </div>
 
           <!-- Grafik 30 Hari: Masuk vs Keluar -->
-          <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col gap-3">
+          <div
+            class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col gap-3">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h3 class="text-base font-bold text-on-surface">Throughput Logistik: Masuk vs Keluar (30 Hari)</h3>
                 <p class="text-xs text-secondary">Tren volume pergerakan air mineral dalam satuan pcs</p>
               </div>
               <div class="flex items-center gap-4 text-xs font-semibold">
-                <span class="flex items-center gap-1.5 text-tertiary"><span class="w-3 h-3 rounded-full bg-tertiary-container"></span> Masuk (Inbound)</span>
-                <span class="flex items-center gap-1.5 text-primary"><span class="w-3 h-3 rounded-full bg-primary-container"></span> Keluar (Outbound)</span>
+                <span class="flex items-center gap-1.5 text-tertiary"><span
+                    class="w-3 h-3 rounded-full bg-tertiary-container"></span> Masuk (Inbound)</span>
+                <span class="flex items-center gap-1.5 text-primary"><span
+                    class="w-3 h-3 rounded-full bg-primary-container"></span> Keluar (Outbound)</span>
               </div>
             </div>
             <div class="h-64 sm:h-72 w-full relative">
@@ -465,13 +556,16 @@
           <!-- 10 Transaksi Terakhir & SKU Kritis -->
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <!-- 10 Transaksi Terakhir (8 cols) -->
-            <div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-              <div class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
+            <div
+              class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+              <div
+                class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <span class="material-symbols-outlined text-primary text-[20px]">history</span>
                   <h3 class="text-sm font-bold text-on-surface">10 Transaksi Terakhir</h3>
                 </div>
-                <button onclick="navigate('history')" class="text-xs font-bold text-primary hover:underline">Lihat Semua</button>
+                <button onclick="navigate('history')" class="text-xs font-bold text-primary hover:underline">Lihat
+                  Semua</button>
               </div>
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
@@ -485,15 +579,19 @@
                     </tr>
                   </thead>
                   <tbody id="dash-recent-trx-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="5" class="py-8 text-center text-secondary">Memuat data transaksi...</td></tr>
+                    <tr>
+                      <td colspan="5" class="py-8 text-center text-secondary">Memuat data transaksi...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
             <!-- Daftar SKU di Bawah Minimum (4 cols) -->
-            <div class="lg:col-span-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-              <div class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
+            <div
+              class="lg:col-span-4 bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+              <div
+                class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <span class="material-symbols-outlined text-error text-[20px]">priority_high</span>
                   <h3 class="text-sm font-bold text-on-surface">SKU Perlu Re-Order</h3>
@@ -518,19 +616,24 @@
                 <span>/</span>
                 <span class="text-primary font-bold">Master SKU Aqua</span>
               </div>
-              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Produk & Stok Real-Time</h1>
-              <p class="text-sm text-secondary mt-0.5">Stok selalu dihitung dari riwayat transaksi (sum masuk - sum keluar).</p>
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Produk & Stok
+                Real-Time</h1>
+              <p class="text-sm text-secondary mt-0.5">Stok selalu dihitung dari riwayat transaksi (sum masuk - sum
+                keluar).</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="exportProducts('xlsx')" class="h-10 px-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container transition-colors">
+              <button onclick="exportProducts('xlsx')"
+                class="h-10 px-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-tertiary">table_chart</span>
                 <span>Export Excel</span>
               </button>
-              <button onclick="exportProducts('pdf')" class="h-10 px-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container transition-colors">
+              <button onclick="exportProducts('pdf')"
+                class="h-10 px-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-error">picture_as_pdf</span>
                 <span>Export PDF</span>
               </button>
-              <button id="btn-admin-add-prod" onclick="openProductModal()" class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all hidden">
+              <button id="btn-admin-add-prod" onclick="openProductModal()"
+                class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all hidden">
                 <span class="material-symbols-outlined text-[18px]">add_box</span>
                 <span>Tambah Produk</span>
               </button>
@@ -538,14 +641,19 @@
           </div>
 
           <!-- Filter & Search Toolbar -->
-          <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-surface-container-low flex flex-col gap-3">
+          <div
+            class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-surface-container-low flex flex-col gap-3">
             <div class="flex flex-col sm:flex-row items-center gap-3">
               <div class="relative flex-1 w-full">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
-                <input type="text" id="prod-search-input" oninput="filterProductsUI()" placeholder="Cari nama produk, SKU, kategori..." class="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary"/>
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+                <input type="text" id="prod-search-input" oninput="filterProductsUI()"
+                  placeholder="Cari nama produk, SKU, kategori..."
+                  class="w-full h-11 pl-10 pr-4 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:bg-white focus:ring-2 focus:ring-primary" />
               </div>
               <div class="flex items-center gap-2 w-full sm:w-auto">
-                <select id="prod-filter-cat" onchange="filterProductsUI()" class="h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none w-1/2 sm:w-auto">
+                <select id="prod-filter-cat" onchange="filterProductsUI()"
+                  class="h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none w-1/2 sm:w-auto">
                   <option value="ALL">Semua Kategori</option>
                   <option value="Galon">Galon</option>
                   <option value="Botol">Botol</option>
@@ -553,7 +661,8 @@
                   <option value="Reflections">Reflections</option>
                   <option value="Isotonik">Isotonik</option>
                 </select>
-                <select id="prod-filter-status" onchange="filterProductsUI()" class="h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none w-1/2 sm:w-auto">
+                <select id="prod-filter-status" onchange="filterProductsUI()"
+                  class="h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none w-1/2 sm:w-auto">
                   <option value="ALL">Semua Status</option>
                   <option value="AMAN">Stok Aman</option>
                   <option value="MENIPIS">Menipis</option>
@@ -576,41 +685,53 @@
         <section id="view-transaction" class="view-panel hidden py-4 flex flex-col gap-6 max-w-4xl mx-auto">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span id="tx-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
+              <span id="tx-badge"
+                class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider">
                 <span id="tx-badge-dot" class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
                 <span id="tx-badge-text">Logistik Masuk • Inbound PSS-Depo Labuan Bajo</span>
               </span>
             </div>
-            <h1 id="tx-heading" class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Input Barang Masuk (Inbound)</h1>
-            <p id="tx-subheading" class="text-sm text-secondary mt-0.5">Pencatatan pasokan dari pabrik Danone Aqua, transfer masuk antar cabang, & retur armada.</p>
+            <h1 id="tx-heading" class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Input Barang
+              Masuk (Inbound)</h1>
+            <p id="tx-subheading" class="text-sm text-secondary mt-0.5">Pencatatan pasokan dari pabrik Danone Aqua,
+              transfer masuk antar cabang, & retur armada.</p>
           </div>
 
           <!-- Form Panel Card -->
-          <div id="tx-card-container" class="bg-surface-container-lowest rounded-2xl p-5 sm:p-7 shadow-sm border border-emerald-500/30 flex flex-col gap-6 transition-all duration-200">
+          <div id="tx-card-container"
+            class="bg-surface-container-lowest rounded-2xl p-5 sm:p-7 shadow-sm border border-emerald-500/30 flex flex-col gap-6 transition-all duration-200">
             <!-- Banner Status Alur Transaksi (Masing-masing alur berdiri sendiri tanpa tombol silang) -->
-            <div id="banner-inbound" class="flex items-center gap-3.5 p-4 rounded-xl bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/20">
+            <div id="banner-inbound"
+              class="flex items-center gap-3.5 p-4 rounded-xl bg-emerald-600 text-white shadow-md ring-2 ring-emerald-500/20">
               <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
                 <span class="material-symbols-outlined text-[24px]">south_west</span>
               </div>
               <div class="flex flex-col min-w-0">
                 <div class="flex items-center gap-2">
                   <span class="text-sm font-extrabold tracking-wide">FORMULIR INPUT BARANG MASUK</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Inbound DC</span>
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Inbound
+                    DC</span>
                 </div>
-                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Penerimaan pasokan Pabrik Danone Aqua, Transfer Masuk Antar Depo, & Retur Armada</span>
+                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Penerimaan pasokan Pabrik Danone Aqua,
+                  Transfer Masuk Antar Depo, & Retur Armada</span>
               </div>
             </div>
 
-            <div id="banner-outbound" class="hidden flex items-center gap-3.5 p-4 rounded-xl bg-primary text-white shadow-md ring-2 ring-primary/20">
+            <div id="banner-outbound"
+              class="hidden flex items-center gap-3.5 p-4 rounded-xl bg-primary text-white shadow-md ring-2 ring-primary/20">
               <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-white/20 text-white">
                 <span class="material-symbols-outlined text-[24px]">north_east</span>
               </div>
               <div class="flex flex-col min-w-0">
                 <div class="flex items-center gap-2">
                   <span class="text-sm font-extrabold tracking-wide">FORMULIR INPUT BARANG KELUAR</span>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Outbound DC</span>
+                  <span
+                    class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 text-white">Outbound
+                    DC</span>
                 </div>
-                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Distribusi Armada Kanvas Harian, Pemuatan Truk Toko/Grosir, & Transfer Keluar</span>
+                <span class="text-xs font-normal mt-0.5 opacity-90 truncate">Distribusi Armada Kanvas Harian, Pemuatan
+                  Truk Toko/Grosir, & Transfer Keluar</span>
               </div>
             </div>
 
@@ -618,16 +739,21 @@
               <!-- Jenis Transaksi & Pihak -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-jenis" id="tx-jenis-label">Jenis Transaksi Masuk *</label>
-                  <select id="tx-jenis" required onchange="handleJenisChange()" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-semibold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary">
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-jenis" id="tx-jenis-label">Jenis
+                    Transaksi Masuk *</label>
+                  <select id="tx-jenis" required onchange="handleJenisChange()"
+                    class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-semibold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary">
                     <!-- Populated based on Inbound vs Outbound -->
                   </select>
                   <span class="text-[11px] text-secondary mt-1 block" id="tx-jenis-hint"></span>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-pihak" id="tx-pihak-label">Pabrik / Depo / Rekanan Pengirim *</label>
-                  <input type="text" id="tx-pihak" required list="pihak-datalist" placeholder="Pilih atau ketik pabrik / rekanan pengirim..." class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-pihak" id="tx-pihak-label">Pabrik
+                    / Depo / Rekanan Pengirim *</label>
+                  <input type="text" id="tx-pihak" required list="pihak-datalist"
+                    placeholder="Pilih atau ketik pabrik / rekanan pengirim..."
+                    class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary" />
                   <datalist id="pihak-datalist"></datalist>
                 </div>
               </div>
@@ -635,12 +761,14 @@
               <!-- Pilih SKU Produk -->
               <div>
                 <label class="block text-xs font-bold text-on-surface mb-1" for="tx-sku">Pilih Produk (SKU) *</label>
-                <select id="tx-sku" required onchange="handleSkuSelectChange()" class="w-full h-12 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary">
+                <select id="tx-sku" required onchange="handleSkuSelectChange()"
+                  class="w-full h-12 px-3.5 rounded-lg bg-surface-container-low text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary">
                   <option value="">-- Pilih Produk SKU Aqua --</option>
                 </select>
 
                 <!-- Live Stock Information Strip for selected SKU -->
-                <div id="tx-stock-preview" class="hidden mt-2 p-3 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
+                <div id="tx-stock-preview"
+                  class="hidden mt-2 p-3 rounded-xl bg-surface-container-low border border-surface-container flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary text-[20px]">inventory</span>
                     <span class="text-xs text-secondary font-medium">Stok Terkini di Gudang:</span>
@@ -658,11 +786,13 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-semibold text-secondary mb-1">Jumlah Karton / Dus</label>
-                    <input type="number" id="tx-qty-karton" min="0" value="0" oninput="calculateTotalPcs()" class="w-full h-11 px-3.5 rounded-lg bg-white text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary tnum"/>
+                    <input type="number" id="tx-qty-karton" min="0" value="0" oninput="calculateTotalPcs()"
+                      class="w-full h-11 px-3.5 rounded-lg bg-white text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary tnum" />
                   </div>
                   <div>
                     <label class="block text-xs font-semibold text-secondary mb-1">Pcs Lepas (Satuan)</label>
-                    <input type="number" id="tx-qty-pcs-extra" min="0" value="0" oninput="calculateTotalPcs()" class="w-full h-11 px-3.5 rounded-lg bg-white text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary tnum"/>
+                    <input type="number" id="tx-qty-pcs-extra" min="0" value="0" oninput="calculateTotalPcs()"
+                      class="w-full h-11 px-3.5 rounded-lg bg-white text-on-surface font-bold text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary tnum" />
                   </div>
                 </div>
 
@@ -673,7 +803,8 @@
               </div>
 
               <!-- Rejection Warning jika stok kurang untuk OUTBOUND -->
-              <div id="tx-deficit-alert" class="hidden p-3 rounded-lg bg-error-container text-on-error-container text-xs font-bold flex items-center gap-2">
+              <div id="tx-deficit-alert"
+                class="hidden p-3 rounded-lg bg-error-container text-on-error-container text-xs font-bold flex items-center gap-2">
                 <span class="material-symbols-outlined text-[20px]">error</span>
                 <span>Kuantitas keluar melebihi stok yang ada di gudang! Transaksi akan ditolak server.</span>
               </div>
@@ -681,21 +812,27 @@
               <!-- No Dokumen & Catatan -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-nodok" id="tx-nodok-label">Nomor Surat Jalan Masuk (SJ Pabrik / PO) *</label>
-                  <input type="text" id="tx-nodok" required placeholder="Contoh: SJ-PABRIK-2025/05/0019" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-nodok" id="tx-nodok-label">Nomor
+                    Surat Jalan Masuk (SJ Pabrik / PO) *</label>
+                  <input type="text" id="tx-nodok" required placeholder="Contoh: SJ-PABRIK-2025/05/0019"
+                    class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-catatan" id="tx-catatan-label">Catatan / Keterangan</label>
-                  <input type="text" id="tx-catatan" placeholder="Contoh: Penerimaan Truk Tronton Plat B 9120 UXT" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
+                  <label class="block text-xs font-bold text-on-surface mb-1" for="tx-catatan"
+                    id="tx-catatan-label">Catatan / Keterangan</label>
+                  <input type="text" id="tx-catatan" placeholder="Contoh: Penerimaan Truk Tronton Plat B 9120 UXT"
+                    class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
               </div>
 
               <!-- Submit Button -->
               <div class="pt-2 flex items-center justify-end gap-3">
-                <button type="reset" class="px-5 h-11 rounded-lg text-secondary hover:text-on-surface text-sm font-semibold transition-colors">
+                <button type="reset"
+                  class="px-5 h-11 rounded-lg text-secondary hover:text-on-surface text-sm font-semibold transition-colors">
                   Reset
                 </button>
-                <button type="submit" id="btn-save-tx" class="px-6 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95">
+                <button type="submit" id="btn-save-tx"
+                  class="px-6 h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center gap-2 active:scale-95">
                   <span class="material-symbols-outlined text-[20px]">check_circle</span>
                   <span id="btn-save-tx-text">Simpan Barang Masuk</span>
                 </button>
@@ -715,20 +852,25 @@
                 <span>/</span>
                 <span class="text-primary font-bold">Audit Mutasi</span>
               </div>
-              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Riwayat Transaksi</h1>
-              <p class="text-sm text-secondary mt-0.5">Filter riwayat lengkap berdasarkan tanggal, jenis, pihak rekanan, dan SKU.</p>
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Riwayat Transaksi
+              </h1>
+              <p class="text-sm text-secondary mt-0.5">Filter riwayat lengkap berdasarkan tanggal, jenis, pihak rekanan,
+                dan SKU.</p>
             </div>
             <!-- Export Buttons Deck -->
             <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="exportHistory('csv')" class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
+              <button onclick="exportHistory('csv')"
+                class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-primary">description</span>
                 <span>Export CSV</span>
               </button>
-              <button onclick="exportHistory('xlsx')" class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
+              <button onclick="exportHistory('xlsx')"
+                class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-tertiary">table_chart</span>
                 <span>Export Excel</span>
               </button>
-              <button onclick="exportHistory('pdf')" class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+              <button onclick="exportHistory('pdf')"
+                class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
                 <span>Export PDF</span>
               </button>
@@ -736,31 +878,39 @@
           </div>
 
           <!-- Filter Tabs Masuk vs Keluar vs Semua -->
-          <div class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-xl border border-surface-container w-full sm:w-fit overflow-x-auto">
-            <button type="button" id="hist-tab-all" onclick="setHistoryFlowTab('ALL')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-sm whitespace-nowrap">
+          <div
+            class="flex items-center gap-2 p-1.5 bg-surface-container-low rounded-xl border border-surface-container w-full sm:w-fit overflow-x-auto">
+            <button type="button" id="hist-tab-all" onclick="setHistoryFlowTab('ALL')"
+              class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-primary text-white shadow-sm whitespace-nowrap">
               <span class="material-symbols-outlined text-[16px]">all_inclusive</span>
               <span>Semua Transaksi</span>
             </button>
-            <button type="button" id="hist-tab-masuk" onclick="setHistoryFlowTab('MASUK')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
+            <button type="button" id="hist-tab-masuk" onclick="setHistoryFlowTab('MASUK')"
+              class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
               <span class="material-symbols-outlined text-[16px] text-emerald-600">south_west</span>
               <span>Barang Masuk (Inbound)</span>
             </button>
-            <button type="button" id="hist-tab-keluar" onclick="setHistoryFlowTab('KELUAR')" class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
+            <button type="button" id="hist-tab-keluar" onclick="setHistoryFlowTab('KELUAR')"
+              class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-secondary hover:text-on-surface whitespace-nowrap">
               <span class="material-symbols-outlined text-[16px] text-primary">north_east</span>
               <span>Barang Keluar (Outbound)</span>
             </button>
           </div>
 
           <!-- Comprehensive Filter Deck -->
-          <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-surface-container-low flex flex-col gap-3">
+          <div
+            class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-surface-container-low flex flex-col gap-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <div>
                 <label class="block text-[11px] font-bold text-secondary uppercase mb-1">Pencarian</label>
-                <input type="text" id="hist-filter-query" oninput="applyHistoryFilters()" placeholder="Cari No Dokumen / Pihak / TRX..." class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none"/>
+                <input type="text" id="hist-filter-query" oninput="applyHistoryFilters()"
+                  placeholder="Cari No Dokumen / Pihak / TRX..."
+                  class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none" />
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-secondary uppercase mb-1">Jenis Transaksi</label>
-                <select id="hist-filter-jenis" onchange="applyHistoryFilters()" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none">
+                <select id="hist-filter-jenis" onchange="applyHistoryFilters()"
+                  class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none">
                   <option value="ALL">Semua Jenis</option>
                   <option value="PABRIK">PABRIK (Masuk)</option>
                   <option value="TRANSFER_MASUK">TRANSFER MASUK</option>
@@ -773,23 +923,28 @@
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-secondary uppercase mb-1">Filter SKU</label>
-                <select id="hist-filter-sku" onchange="applyHistoryFilters()" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none">
+                <select id="hist-filter-sku" onchange="applyHistoryFilters()"
+                  class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-semibold border border-surface-container focus:outline-none">
                   <option value="ALL">Semua SKU</option>
                 </select>
               </div>
               <div>
                 <label class="block text-[11px] font-bold text-secondary uppercase mb-1">Rentang Tanggal</label>
                 <div class="flex items-center gap-1">
-                  <input type="date" id="hist-filter-start" onchange="applyHistoryFilters()" class="w-1/2 h-10 px-2 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none"/>
-                  <input type="date" id="hist-filter-end" onchange="applyHistoryFilters()" class="w-1/2 h-10 px-2 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none"/>
+                  <input type="date" id="hist-filter-start" onchange="applyHistoryFilters()"
+                    class="w-1/2 h-10 px-2 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none" />
+                  <input type="date" id="hist-filter-end" onchange="applyHistoryFilters()"
+                    class="w-1/2 h-10 px-2 rounded-lg bg-surface-container-low text-on-surface text-xs border border-surface-container focus:outline-none" />
                 </div>
               </div>
             </div>
           </div>
 
           <!-- History Table -->
-          <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-            <div class="p-3 bg-surface-container-low border-b border-surface-container flex items-center justify-between text-xs text-secondary font-semibold">
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+            <div
+              class="p-3 bg-surface-container-low border-b border-surface-container flex items-center justify-between text-xs text-secondary font-semibold">
               <span id="hist-count-display">Menampilkan 0 transaksi</span>
             </div>
             <div class="overflow-x-auto">
@@ -807,7 +962,9 @@
                   </tr>
                 </thead>
                 <tbody id="history-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                  <tr><td colspan="8" class="py-12 text-center text-secondary">Memuat data riwayat transaksi...</td></tr>
+                  <tr>
+                    <td colspan="8" class="py-12 text-center text-secondary">Memuat data riwayat transaksi...</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -822,10 +979,12 @@
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Modul Audit Fisik PSS-Depo Labuan Bajo</span>
+                <span class="text-xs font-bold text-secondary uppercase tracking-wider">Modul Audit Fisik PSS-Depo
+                  Labuan Bajo</span>
               </div>
               <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight">Stock Opname Gudang</h1>
-              <p class="text-sm text-secondary mt-0.5">Buka sesi membekukan stok sistem, multi-user mengisi hitungan fisik, tutup sesi otomatis membuat transaksi penyesuaian.</p>
+              <p class="text-sm text-secondary mt-0.5">Buka sesi membekukan stok sistem, multi-user mengisi hitungan
+                fisik, tutup sesi otomatis membuat transaksi penyesuaian.</p>
             </div>
             <div class="flex items-center gap-2" id="opname-top-actions">
               <!-- Rendered based on whether a session is open or not -->
@@ -833,16 +992,21 @@
           </div>
 
           <!-- JIKA TIDAK ADA SESI AKTIF -->
-          <div id="opname-no-session" class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-surface-container-low flex flex-col items-center text-center max-w-lg mx-auto my-6">
-            <div class="w-16 h-16 rounded-2xl bg-surface-container-low text-primary flex items-center justify-center mb-4">
+          <div id="opname-no-session"
+            class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-surface-container-low flex flex-col items-center text-center max-w-lg mx-auto my-6">
+            <div
+              class="w-16 h-16 rounded-2xl bg-surface-container-low text-primary flex items-center justify-center mb-4">
               <span class="material-symbols-outlined text-[36px]">fact_check</span>
             </div>
             <h3 class="text-lg font-bold text-on-surface">Tidak Ada Sesi Opname yang Aktif</h3>
-            <p class="text-xs text-secondary mt-1 max-w-sm">Kepala Gudang atau Admin dapat membuka sesi opname baru untuk membekukan stok sistem dan memulai audit fisik.</p>
+            <p class="text-xs text-secondary mt-1 max-w-sm">Kepala Gudang atau Admin dapat membuka sesi opname baru
+              untuk membekukan stok sistem dan memulai audit fisik.</p>
             <div class="mt-6 flex flex-col gap-3 w-full" id="opname-open-controls">
               <!-- Admin / Kepala Gudang button -->
-              <input type="text" id="opname-catatan-input" placeholder="Catatan Sesi (misal: Opname Bulanan Mei)" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-xs border border-surface-container focus:outline-none"/>
-              <button onclick="handleOpenOpname()" id="btn-open-opname" class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+              <input type="text" id="opname-catatan-input" placeholder="Catatan Sesi (misal: Opname Bulanan Mei)"
+                class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-xs border border-surface-container focus:outline-none" />
+              <button onclick="handleOpenOpname()" id="btn-open-opname"
+                class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold text-sm rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-[20px]">lock_clock</span>
                 <span>Buka Sesi Stock Opname</span>
               </button>
@@ -852,19 +1016,23 @@
           <!-- JIKA ADA SESI AKTIF -->
           <div id="opname-active-container" class="hidden flex flex-col gap-6">
             <!-- Active Session Hero Banner -->
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div class="flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold uppercase tracking-wider">
+                  <span
+                    class="px-2.5 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold uppercase tracking-wider">
                     Sesi Sedang Berlangsung
                   </span>
                   <span class="text-xs font-bold text-secondary font-mono" id="opname-active-id">OPN-XXXX</span>
                 </div>
-                <h2 class="text-xl font-bold text-on-surface mt-1" id="opname-active-title">Stock Opname Fisik Gudang</h2>
+                <h2 class="text-xl font-bold text-on-surface mt-1" id="opname-active-title">Stock Opname Fisik Gudang
+                </h2>
                 <p class="text-xs text-secondary" id="opname-active-meta">Dibuka oleh: -</p>
               </div>
               <div class="flex items-center gap-2" id="opname-close-actions">
-                <button onclick="handleCloseOpname()" class="h-11 px-5 rounded-lg bg-error hover:bg-error/90 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all">
+                <button onclick="handleCloseOpname()"
+                  class="h-11 px-5 rounded-lg bg-error hover:bg-error/90 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all">
                   <span class="material-symbols-outlined text-[20px]">lock</span>
                   <span>Tutup Sesi & Buat Penyesuaian</span>
                 </button>
@@ -872,7 +1040,8 @@
             </div>
 
             <!-- Form Multi-User Input Hitungan Fisik -->
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col gap-4">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col gap-4">
               <div class="flex items-center justify-between border-b border-surface-container-low pb-3">
                 <div class="flex items-center gap-2">
                   <span class="material-symbols-outlined text-primary text-[22px]">add_task</span>
@@ -880,23 +1049,28 @@
                 </div>
                 <span class="text-xs text-secondary">Semua peran (termasuk Kepala Depo) dapat mengisi</span>
               </div>
-              <form id="form-opname-count" onsubmit="handleSaveOpnameCount(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+              <form id="form-opname-count" onsubmit="handleSaveOpnameCount(event)"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
                 <div class="lg:col-span-2">
                   <label class="block text-xs font-bold text-on-surface mb-1">Pilih SKU Produk *</label>
-                  <select id="opn-input-sku" required class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none">
+                  <select id="opn-input-sku" required
+                    class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none">
                     <option value="">-- Pilih SKU --</option>
                   </select>
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-on-surface mb-1">Jumlah Karton</label>
-                  <input type="number" id="opn-input-ktn" min="0" value="0" class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none tnum"/>
+                  <input type="number" id="opn-input-ktn" min="0" value="0"
+                    class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none tnum" />
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-on-surface mb-1">Pcs Lepas</label>
-                  <input type="number" id="opn-input-pcs" min="0" value="0" class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none tnum"/>
+                  <input type="number" id="opn-input-pcs" min="0" value="0"
+                    class="w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surface text-xs font-bold border border-surface-container focus:outline-none tnum" />
                 </div>
                 <div>
-                  <button type="submit" id="btn-submit-opn-count" class="w-full h-11 bg-primary hover:bg-primary-container text-white font-bold text-xs rounded-lg shadow-sm transition-all flex items-center justify-center gap-1.5">
+                  <button type="submit" id="btn-submit-opn-count"
+                    class="w-full h-11 bg-primary hover:bg-primary-container text-white font-bold text-xs rounded-lg shadow-sm transition-all flex items-center justify-center gap-1.5">
                     <span class="material-symbols-outlined text-[18px]">add</span>
                     <span>Kirim Hitungan</span>
                   </button>
@@ -905,11 +1079,14 @@
             </div>
 
             <!-- Matriks Konsolidasi Opname: Stok Sistem vs Total Hitungan Fisik vs Selisih -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-              <div class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+              <div
+                class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
                 <div>
                   <h3 class="text-sm font-bold text-on-surface">Konsolidasi Hasil Audit Fisik</h3>
-                  <p class="text-[11px] text-secondary">Hitungan dari berbagai user untuk SKU sama otomatis dijumlahkan</p>
+                  <p class="text-[11px] text-secondary">Hitungan dari berbagai user untuk SKU sama otomatis dijumlahkan
+                  </p>
                 </div>
               </div>
               <div class="overflow-x-auto">
@@ -924,15 +1101,19 @@
                     </tr>
                   </thead>
                   <tbody id="opname-matrix-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="5" class="py-8 text-center text-secondary">Memuat hasil konsolidasi...</td></tr>
+                    <tr>
+                      <td colspan="5" class="py-8 text-center text-secondary">Memuat hasil konsolidasi...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
             <!-- Riwayat Entri Hitungan Log -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-              <div class="p-3 bg-surface-container-low border-b border-surface-container text-xs font-bold text-on-surface">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+              <div
+                class="p-3 bg-surface-container-low border-b border-surface-container text-xs font-bold text-on-surface">
                 Log Entri Hitungan Fisik Masuk
               </div>
               <div class="overflow-x-auto max-h-60 overflow-y-auto">
@@ -947,7 +1128,10 @@
                     </tr>
                   </thead>
                   <tbody id="opname-log-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="5" class="py-4 text-center text-secondary">Belum ada entri hitungan untuk sesi ini.</td></tr>
+                    <tr>
+                      <td colspan="5" class="py-4 text-center text-secondary">Belum ada entri hitungan untuk sesi ini.
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -966,19 +1150,24 @@
                 <span>/</span>
                 <span class="text-primary font-bold">Model Weighted Moving Average</span>
               </div>
-              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Forecast & Saran Order Pembelian</h1>
-              <p class="text-sm text-secondary mt-0.5">Rata-rata keluar harian 8 minggu terakhir (bobot minggu terbaru lebih tinggi). Titik pesan ulang = rata-rata harian &times; lead time + stok pengaman (10%).</p>
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Forecast & Saran
+                Order Pembelian</h1>
+              <p class="text-sm text-secondary mt-0.5">Rata-rata keluar harian 8 minggu terakhir (bobot minggu terbaru
+                lebih tinggi). Titik pesan ulang = rata-rata harian &times; lead time + stok pengaman (10%).</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-              <button onclick="navigate('admin'); setAdminTab('baseline');" id="btn-fc-edit-baseline" class="hidden h-10 px-3.5 rounded-lg bg-primary-fixed hover:bg-primary-fixed/80 text-on-primary-fixed-variant font-bold text-xs flex items-center gap-1.5 border border-primary/20 shadow-sm transition-all">
+              <button onclick="navigate('admin'); setAdminTab('baseline');" id="btn-fc-edit-baseline"
+                class="hidden h-10 px-3.5 rounded-lg bg-primary-fixed hover:bg-primary-fixed/80 text-on-primary-fixed-variant font-bold text-xs flex items-center gap-1.5 border border-primary/20 shadow-sm transition-all">
                 <span class="material-symbols-outlined text-[18px]">tune</span>
                 <span>Atur Acuan Stok & Forecast</span>
               </button>
-              <button onclick="exportForecast('xlsx')" class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
+              <button onclick="exportForecast('xlsx')"
+                class="h-10 px-3.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-semibold text-xs flex items-center gap-1.5 border border-surface-container shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px] text-tertiary">table_chart</span>
                 <span>Export Excel</span>
               </button>
-              <button onclick="exportForecast('pdf')" class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+              <button onclick="exportForecast('pdf')"
+                class="h-10 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
                 <span>Export PDF</span>
               </button>
@@ -987,7 +1176,8 @@
 
           <!-- Forecast Summary Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
               <div>
                 <span class="text-[11px] font-bold uppercase tracking-wider text-secondary">Status Kritis</span>
@@ -995,15 +1185,18 @@
                 <p class="text-xs text-secondary mt-1">Sisa stok &le; lead time pengiriman pabrik</p>
               </div>
             </div>
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E08A00]"></div>
               <div>
                 <span class="text-[11px] font-bold uppercase tracking-wider text-secondary">Status Reorder</span>
-                <h3 class="text-xl font-extrabold text-[#8A4C00] mt-0.5" id="fc-kpi-reorder">0 SKU Mendekati Titik Pesan</h3>
+                <h3 class="text-xl font-extrabold text-[#8A4C00] mt-0.5" id="fc-kpi-reorder">0 SKU Mendekati Titik Pesan
+                </h3>
                 <p class="text-xs text-secondary mt-1">Stok &le; Titik Pesan Ulang (ROP)</p>
               </div>
             </div>
-            <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-container-low flex flex-col justify-between relative overflow-hidden">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary"></div>
               <div>
                 <span class="text-[11px] font-bold uppercase tracking-wider text-secondary">Stok Aman</span>
@@ -1014,8 +1207,10 @@
           </div>
 
           <!-- Matriks Analisis Run-out & Saran Order Table -->
-          <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
-            <div class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden flex flex-col">
+            <div
+              class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
               <div>
                 <h3 class="text-sm font-bold text-on-surface">Matriks Analisis Run-out & Rekomendasi Order</h3>
                 <p class="text-[11px] text-secondary">Dihitung otomatis per update transaksi mutasi keluar</p>
@@ -1036,7 +1231,9 @@
                   </tr>
                 </thead>
                 <tbody id="forecast-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                  <tr><td colspan="8" class="py-12 text-center text-secondary">Memuat proyeksi forecast...</td></tr>
+                  <tr>
+                    <td colspan="8" class="py-12 text-center text-secondary">Memuat proyeksi forecast...</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1050,27 +1247,36 @@
           <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
             <div>
               <div class="flex items-center gap-1.5 text-xs text-secondary font-medium">
-                <span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded font-bold uppercase text-[10px]">Otoritas Penuh</span>
+                <span
+                  class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded font-bold uppercase text-[10px]">Otoritas
+                  Penuh</span>
                 <span>•</span>
                 <span>PSS-Depo Labuan Bajo</span>
               </div>
-              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Kelola Master Data & Akses</h1>
-              <p class="text-sm text-secondary mt-0.5">Kelola hak akses pengguna, master SKU produk Aqua, dan direktori pihak rekanan logistik.</p>
+              <h1 class="text-2xl lg:text-3xl font-extrabold text-on-surface tracking-tight mt-0.5">Kelola Master Data &
+                Akses</h1>
+              <p class="text-sm text-secondary mt-0.5">Kelola hak akses pengguna, master SKU produk Aqua, dan direktori
+                pihak rekanan logistik.</p>
             </div>
           </div>
 
           <!-- Segmented Tab Navigation for Admin: Users vs Produk vs Pihak vs Inisialisasi Stok & Forecast -->
-          <div class="flex items-center gap-2 p-1 bg-surface-container-low rounded-xl border border-surface-container w-fit flex-wrap">
-            <button onclick="setAdminTab('users')" id="admin-tab-users" class="px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white text-primary shadow-sm">
+          <div
+            class="flex items-center gap-2 p-1 bg-surface-container-low rounded-xl border border-surface-container w-fit flex-wrap">
+            <button onclick="setAdminTab('users')" id="admin-tab-users"
+              class="px-4 py-2 rounded-lg font-bold text-xs transition-all bg-white text-primary shadow-sm">
               Users (Pengguna)
             </button>
-            <button onclick="setAdminTab('products')" id="admin-tab-products" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface">
+            <button onclick="setAdminTab('products')" id="admin-tab-products"
+              class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface">
               Produk (Master SKU)
             </button>
-            <button onclick="setAdminTab('partners')" id="admin-tab-partners" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface">
+            <button onclick="setAdminTab('partners')" id="admin-tab-partners"
+              class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface">
               Pihak (Mitra & Rekanan)
             </button>
-            <button onclick="setAdminTab('baseline')" id="admin-tab-baseline" class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface flex items-center gap-1.5">
+            <button onclick="setAdminTab('baseline')" id="admin-tab-baseline"
+              class="px-4 py-2 rounded-lg font-bold text-xs transition-all text-secondary hover:text-on-surface flex items-center gap-1.5">
               <span class="material-symbols-outlined text-[15px]">tune</span>
               <span>Inisialisasi Stok & Forecast</span>
             </button>
@@ -1080,12 +1286,14 @@
           <div id="admin-content-users" class="flex flex-col gap-4">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-secondary uppercase">Daftar Akun Pengguna & Permohonan Akses</span>
-              <button onclick="openUserModal()" class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+              <button onclick="openUserModal()"
+                class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
                 <span class="material-symbols-outlined text-[16px]">person_add</span>
                 <span>Tambah User</span>
               </button>
             </div>
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-surface-container-low/70 text-secondary uppercase text-[11px] font-bold">
@@ -1098,7 +1306,9 @@
                     </tr>
                   </thead>
                   <tbody id="admin-users-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="5" class="py-8 text-center text-secondary">Memuat daftar pengguna...</td></tr>
+                    <tr>
+                      <td colspan="5" class="py-8 text-center text-secondary">Memuat daftar pengguna...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1109,12 +1319,14 @@
           <div id="admin-content-products" class="hidden flex flex-col gap-4">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-secondary uppercase">Master Produk Danone Aqua</span>
-              <button onclick="openProductModal()" class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+              <button onclick="openProductModal()"
+                class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
                 <span class="material-symbols-outlined text-[16px]">add</span>
                 <span>Tambah Produk Baru</span>
               </button>
             </div>
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-surface-container-low/70 text-secondary uppercase text-[11px] font-bold">
@@ -1129,7 +1341,9 @@
                     </tr>
                   </thead>
                   <tbody id="admin-products-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="7" class="py-8 text-center text-secondary">Memuat daftar produk...</td></tr>
+                    <tr>
+                      <td colspan="7" class="py-8 text-center text-secondary">Memuat daftar produk...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1140,12 +1354,14 @@
           <div id="admin-content-partners" class="hidden flex flex-col gap-4">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-secondary uppercase">Direktori Rekanan & Armada</span>
-              <button onclick="openPartnerModal()" class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+              <button onclick="openPartnerModal()"
+                class="h-9 px-3 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
                 <span class="material-symbols-outlined text-[16px]">domain_add</span>
                 <span>Tambah Rekanan</span>
               </button>
             </div>
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-surface-container-low/70 text-secondary uppercase text-[11px] font-bold">
@@ -1158,7 +1374,9 @@
                     </tr>
                   </thead>
                   <tbody id="admin-partners-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="5" class="py-8 text-center text-secondary">Memuat direktori rekanan...</td></tr>
+                    <tr>
+                      <td colspan="5" class="py-8 text-center text-secondary">Memuat direktori rekanan...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1168,27 +1386,36 @@
           <!-- ADMIN TAB 4: INISIALISASI STOK AWAL & FORECAST -->
           <div id="admin-content-baseline" class="hidden flex flex-col gap-4">
             <!-- Header Card & Instructions -->
-            <div class="p-4 rounded-xl bg-gradient-to-r from-primary/10 via-surface-container to-surface-container-low border border-primary/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div
+              class="p-4 rounded-xl bg-gradient-to-r from-primary/10 via-surface-container to-surface-container-low border border-primary/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div class="flex items-start gap-3">
-                <div class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <div
+                  class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
                   <span class="material-symbols-outlined text-[22px]">tune</span>
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
                     <h3 class="text-sm font-bold text-on-surface">Inisialisasi Stok Sistem Awal & Acuan Forecast</h3>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-primary-fixed text-on-primary-fixed-variant uppercase">Super Admin</span>
+                    <span
+                      class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-primary-fixed text-on-primary-fixed-variant uppercase">Super
+                      Admin</span>
                   </div>
                   <p class="text-xs text-secondary mt-1 max-w-2xl leading-relaxed">
-                    Tentukan <strong>saldo fisik awal gudang</strong> (Karton & Pcs) sebagai acuan dasar aplikasi (dicatat secara transaksional dengan audit trail) serta <strong>rata-rata penjualan harian</strong> (Karton/Hari) yang digunakan langsung untuk kalkulasi titik pesan ulang (ROP) & perkiraan hari habis stok.
+                    Tentukan <strong>saldo fisik awal gudang</strong> (Karton & Pcs) sebagai acuan dasar aplikasi
+                    (dicatat secara transaksional dengan audit trail) serta <strong>rata-rata penjualan harian</strong>
+                    (Karton/Hari) yang digunakan langsung untuk kalkulasi titik pesan ulang (ROP) & perkiraan hari habis
+                    stok.
                   </p>
                 </div>
               </div>
               <div class="flex items-center gap-2 shrink-0 flex-wrap">
-                <button type="button" onclick="copyCurrentStockToInputs()" class="h-9 px-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-bold text-xs flex items-center gap-1.5 border border-surface-container transition-all">
+                <button type="button" onclick="copyCurrentStockToInputs()"
+                  class="h-9 px-3 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-bold text-xs flex items-center gap-1.5 border border-surface-container transition-all">
                   <span class="material-symbols-outlined text-[16px]">content_copy</span>
                   <span>Salin Stok Saat Ini</span>
                 </button>
-                <button type="button" onclick="saveAllBaselineData()" id="btn-save-all-baseline" class="h-9 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                <button type="button" onclick="saveAllBaselineData()" id="btn-save-all-baseline"
+                  class="h-9 px-4 rounded-lg bg-primary hover:bg-primary-container text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
                   <span class="material-symbols-outlined text-[16px]">save</span>
                   <span>Simpan Semua Data</span>
                 </button>
@@ -1196,30 +1423,37 @@
             </div>
 
             <!-- Pengaturan Dokumen Mutasi Awal -->
-            <div class="p-3 bg-surface-container-lowest rounded-xl border border-surface-container-low flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div
+              class="p-3 bg-surface-container-lowest rounded-xl border border-surface-container-low flex flex-wrap items-center justify-between gap-3 text-xs">
               <div class="flex items-center gap-3 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="font-bold text-secondary">Tanggal Saldo Awal:</span>
-                  <input type="date" id="base-tx-date" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold"/>
+                  <input type="date" id="base-tx-date"
+                    class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold" />
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="font-bold text-secondary">No. Dokumen:</span>
-                  <input type="text" id="base-tx-doc" value="SALDO-AWAL-GUDANG" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-mono text-[11px] w-44"/>
+                  <input type="text" id="base-tx-doc" value="SALDO-AWAL-GUDANG"
+                    class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-mono text-[11px] w-44" />
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="font-bold text-secondary">Catatan Audit:</span>
-                  <input type="text" id="base-tx-note" value="Inisialisasi Saldo Awal Gudang & Acuan Forecast DC" class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none w-64"/>
+                  <input type="text" id="base-tx-note" value="Inisialisasi Saldo Awal Gudang & Acuan Forecast DC"
+                    class="h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none w-64" />
                 </div>
               </div>
               <div class="text-[11px] text-secondary font-medium flex items-center gap-2">
-                <span class="inline-flex items-center gap-1 text-tertiary font-semibold"><span class="w-2 h-2 rounded-full bg-tertiary"></span> +MASUK</span>
+                <span class="inline-flex items-center gap-1 text-tertiary font-semibold"><span
+                    class="w-2 h-2 rounded-full bg-tertiary"></span> +MASUK</span>
                 <span>•</span>
-                <span class="inline-flex items-center gap-1 text-error font-semibold"><span class="w-2 h-2 rounded-full bg-error"></span> -KELUAR</span>
+                <span class="inline-flex items-center gap-1 text-error font-semibold"><span
+                    class="w-2 h-2 rounded-full bg-error"></span> -KELUAR</span>
               </div>
             </div>
 
             <!-- Tabel Inisialisasi Stok & Forecast -->
-            <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-low overflow-hidden">
               <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs">
                   <thead class="bg-surface-container-low/70 text-secondary uppercase text-[11px] font-bold">
@@ -1236,7 +1470,9 @@
                     </tr>
                   </thead>
                   <tbody id="admin-baseline-tbody" class="divide-y divide-surface-container-low text-on-surface">
-                    <tr><td colspan="9" class="py-8 text-center text-secondary">Memuat data acuan produk...</td></tr>
+                    <tr>
+                      <td colspan="9" class="py-8 text-center text-secondary">Memuat data acuan produk...</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1247,28 +1483,35 @@
       </main>
 
       <!-- MOBILE BOTTOM NAVIGATION DOCK (< 1024px) -->
-      <nav id="mobile-dock" class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_-2px_10px_rgba(0,0,0,0.06)] z-40 flex items-center justify-around px-1 border-t border-surface-container-low">
-        <button onclick="navigate('dashboard')" data-mob-nav="dashboard" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-primary">
+      <nav id="mobile-dock"
+        class="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_-2px_10px_rgba(0,0,0,0.06)] z-40 flex items-center justify-around px-1 border-t border-surface-container-low">
+        <button onclick="navigate('dashboard')" data-mob-nav="dashboard"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-primary">
           <span class="material-symbols-outlined text-[20px]">dashboard</span>
           <span class="text-[10px] font-bold mt-0.5">Dashboard</span>
         </button>
-        <button onclick="navigate('products')" data-mob-nav="products" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+        <button onclick="navigate('products')" data-mob-nav="products"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
           <span class="material-symbols-outlined text-[20px]">inventory_2</span>
           <span class="text-[10px] font-semibold mt-0.5">Produk</span>
         </button>
-        <button onclick="navigate('inbound')" data-mob-nav="inbound" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+        <button onclick="navigate('inbound')" data-mob-nav="inbound"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
           <span class="material-symbols-outlined text-[20px] text-emerald-600">south_west</span>
           <span class="text-[10px] font-semibold mt-0.5">Masuk</span>
         </button>
-        <button onclick="navigate('outbound')" data-mob-nav="outbound" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+        <button onclick="navigate('outbound')" data-mob-nav="outbound"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
           <span class="material-symbols-outlined text-[20px] text-primary">north_east</span>
           <span class="text-[10px] font-semibold mt-0.5">Keluar</span>
         </button>
-        <button onclick="navigate('history')" data-mob-nav="history" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+        <button onclick="navigate('history')" data-mob-nav="history"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
           <span class="material-symbols-outlined text-[20px]">receipt_long</span>
           <span class="text-[10px] font-semibold mt-0.5">Riwayat</span>
         </button>
-        <button onclick="navigate('opname')" data-mob-nav="opname" class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
+        <button onclick="navigate('opname')" data-mob-nav="opname"
+          class="mob-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[48px] text-secondary">
           <span class="material-symbols-outlined text-[20px]">fact_check</span>
           <span class="text-[10px] font-semibold mt-0.5">Opname</span>
         </button>
@@ -1282,27 +1525,33 @@
   <!-- ========================================== -->
 
   <!-- MODAL: Form Produk (Tambah/Edit) -->
-  <div id="modal-product" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
+  <div id="modal-product"
+    class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div
+      class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
       <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-surface-container">
         <h3 class="text-sm font-bold text-on-surface" id="modal-product-title">Tambah Produk Aqua</h3>
-        <button onclick="closeProductModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
+        <button onclick="closeProductModal()"
+          class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
       </div>
       <form id="form-modal-product" onsubmit="handleSaveProduct(event)" class="p-5 flex flex-col gap-3 text-xs">
         <div>
           <label class="block font-bold text-on-surface mb-1">SKU Produk *</label>
-          <input type="text" id="mprod-sku" required placeholder="Contoh: AQ-GAL-19L" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface uppercase border border-surface-container focus:outline-none"/>
+          <input type="text" id="mprod-sku" required placeholder="Contoh: AQ-GAL-19L"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface uppercase border border-surface-container focus:outline-none" />
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Nama Produk *</label>
-          <input type="text" id="mprod-nama" required placeholder="Contoh: Aqua Galon 19 Liter" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="mprod-nama" required placeholder="Contoh: Aqua Galon 19 Liter"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-on-surface mb-1">Kategori</label>
-            <select id="mprod-kategori" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
+            <select id="mprod-kategori"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
               <option value="Galon">Galon</option>
               <option value="Botol">Botol</option>
               <option value="Cup">Cup</option>
@@ -1313,93 +1562,115 @@
           </div>
           <div>
             <label class="block font-bold text-on-surface mb-1">Pcs per Karton *</label>
-            <input type="number" id="mprod-pcs" required min="1" value="24" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+            <input type="number" id="mprod-pcs" required min="1" value="24"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum" />
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-on-surface mb-1">Stok Min (Karton)</label>
-            <input type="number" id="mprod-min" min="0" value="100" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+            <input type="number" id="mprod-min" min="0" value="100"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum" />
           </div>
           <div>
             <label class="block font-bold text-on-surface mb-1">Lead Time (Hari)</label>
-            <input type="number" id="mprod-lead" min="1" value="2" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+            <input type="number" id="mprod-lead" min="1" value="2"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum" />
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-bold text-on-surface mb-1">Harga per Karton (Rp)</label>
-            <input type="number" id="mprod-harga" min="0" value="0" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+            <input type="number" id="mprod-harga" min="0" value="0"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum" />
           </div>
           <div>
             <label class="block font-bold text-on-surface mb-1">Rata2 Jual (Karton/Hari)</label>
-            <input type="number" step="0.1" id="mprod-avg-sales" min="0" value="0" placeholder="Acuan Forecast" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum"/>
+            <input type="number" step="0.1" id="mprod-avg-sales" min="0" value="0" placeholder="Acuan Forecast"
+              class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none tnum" />
           </div>
         </div>
         <div class="pt-3 border-t border-surface-container-low flex justify-end gap-2">
-          <button type="button" onclick="closeProductModal()" class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
-          <button type="submit" id="btn-save-mprod" class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan Produk</button>
+          <button type="button" onclick="closeProductModal()"
+            class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
+          <button type="submit" id="btn-save-mprod"
+            class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan
+            Produk</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- MODAL: Form User (Tambah/Edit Role) -->
-  <div id="modal-user" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
+  <div id="modal-user"
+    class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div
+      class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
       <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-surface-container">
         <h3 class="text-sm font-bold text-on-surface" id="modal-user-title">Kelola Akun Pengguna</h3>
-        <button onclick="closeUserModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
+        <button onclick="closeUserModal()"
+          class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
       </div>
       <form id="form-modal-user" onsubmit="handleSaveUser(event)" class="p-5 flex flex-col gap-3 text-xs">
         <div>
           <label class="block font-bold text-on-surface mb-1">Email Google *</label>
-          <input type="email" id="muser-email" required placeholder="user@danone-distrib.co.id" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="email" id="muser-email" required placeholder="user@danone-distrib.co.id"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Nama Lengkap *</label>
-          <input type="text" id="muser-nama" required placeholder="Contoh: Andi Pratama" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="muser-nama" required placeholder="Contoh: Andi Pratama"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Peran (Role) *</label>
-          <select id="muser-role" required class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
+          <select id="muser-role" required
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
             <option value="admin">admin (Semua Akses + Kelola Master)</option>
             <option value="kepala_gudang">kepala_gudang (Semua Transaksi, Buka/Tutup Opname)</option>
             <option value="kepala_depo">kepala_depo (Kanvas, Muat/Retur Armada, Hitung Opname)</option>
           </select>
         </div>
         <div class="flex items-center gap-2 pt-1">
-          <input type="checkbox" id="muser-aktif" class="w-4 h-4 rounded text-primary border-surface-container"/>
+          <input type="checkbox" id="muser-aktif" class="w-4 h-4 rounded text-primary border-surface-container" />
           <label for="muser-aktif" class="font-bold text-on-surface">Akun Aktif (Dapat Login)</label>
         </div>
         <div class="pt-3 border-t border-surface-container-low flex justify-end gap-2">
-          <button type="button" onclick="closeUserModal()" class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
-          <button type="submit" id="btn-save-muser" class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan Akun</button>
+          <button type="button" onclick="closeUserModal()"
+            class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
+          <button type="submit" id="btn-save-muser"
+            class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan
+            Akun</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- MODAL: Form Pihak (Tambah/Edit) -->
-  <div id="modal-partner" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
+  <div id="modal-partner"
+    class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div
+      class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col border border-surface-container-low animate-in fade-in zoom-in-95 duration-150">
       <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-surface-container">
         <h3 class="text-sm font-bold text-on-surface" id="modal-partner-title">Tambah Rekanan / Armada</h3>
-        <button onclick="closePartnerModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
+        <button onclick="closePartnerModal()"
+          class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:bg-surface-container transition-colors">
           <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
       </div>
       <form id="form-modal-partner" onsubmit="handleSavePartner(event)" class="p-5 flex flex-col gap-3 text-xs">
-        <input type="hidden" id="mpart-id"/>
+        <input type="hidden" id="mpart-id" />
         <div>
           <label class="block font-bold text-on-surface mb-1">Nama Pihak / Rekanan / Armada *</label>
-          <input type="text" id="mpart-nama" required placeholder="Contoh: Pabrik Danone Aqua" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="mpart-nama" required placeholder="Contoh: Pabrik Danone Aqua"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Jenis Entitas *</label>
-          <select id="mpart-jenis" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
+          <select id="mpart-jenis"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none font-semibold">
             <option value="PABRIK">PABRIK (Pemasok Air Mineral)</option>
             <option value="DEPO">DEPO (Cabang Distribusi)</option>
             <option value="OUTLET">OUTLET (Toko / Grosir / Retail)</option>
@@ -1409,15 +1680,20 @@
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Kontak Telepon / WhatsApp</label>
-          <input type="text" id="mpart-kontak" placeholder="0812-XXXX-XXXX" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="mpart-kontak" placeholder="0812-XXXX-XXXX"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div>
           <label class="block font-bold text-on-surface mb-1">Alamat / Keterangan</label>
-          <input type="text" id="mpart-alamat" placeholder="Alamat depo atau nomor plat truk" class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none"/>
+          <input type="text" id="mpart-alamat" placeholder="Alamat depo atau nomor plat truk"
+            class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface border border-surface-container focus:outline-none" />
         </div>
         <div class="pt-3 border-t border-surface-container-low flex justify-end gap-2">
-          <button type="button" onclick="closePartnerModal()" class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
-          <button type="submit" id="btn-save-mpart" class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan Pihak</button>
+          <button type="button" onclick="closePartnerModal()"
+            class="px-4 h-10 rounded-lg text-secondary hover:text-on-surface font-semibold">Batal</button>
+          <button type="submit" id="btn-save-mpart"
+            class="px-5 h-10 rounded-lg bg-primary hover:bg-primary-container text-white font-bold shadow-sm">Simpan
+            Pihak</button>
         </div>
       </form>
     </div>
@@ -1448,7 +1724,7 @@
      * Menghubungkan ke Google Apps Script google.script.run jika di cloud,
      * atau ke Local Storage Mock Backend jika dijalankan lokal/browser biasa!
      */
-    function callServer(methodName, args = [], onSuccess = () => {}, onError = () => {}) {
+    function callServer(methodName, args = [], onSuccess = () => { }, onError = () => { }) {
       showLoading(true);
 
       // Ambil identitas email klien dari sesi aktif atau localStorage perangkat
@@ -1482,7 +1758,7 @@
             showToast(err.message || 'Terjadi kesalahan sistem.', 'error');
             onError(err);
           });
-        
+
         if (typeof runner[methodName] === 'function') {
           runner[methodName].apply(runner, finalArgs);
         } else {
@@ -1513,7 +1789,7 @@
      */
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+        navigator.serviceWorker.register('./sw.js').catch(() => { });
       });
     }
 
@@ -1521,7 +1797,7 @@
      * INISIALISASI SAAT DOM READY
      */
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('env-badge').innerText = state.isGas ? 'GAS Web App' : 'Mode Demo';
+      document.getElementById('env-badge').innerText = state.isGas ? '' : 'Mode Demo';
       if (!state.isGas) {
         const demoHelper = document.getElementById('demo-quick-login');
         if (demoHelper) demoHelper.classList.remove('hidden');
@@ -1572,13 +1848,13 @@
       document.getElementById('user-avatar').innerText = initial;
       document.getElementById('mobile-user-avatar').innerText = initial;
       document.getElementById('user-display-name').innerText = state.user.nama || state.user.email;
-      
+
       const roleText = {
         'admin': 'Super Admin',
         'kepala_gudang': 'Kepala Gudang',
         'kepala_depo': 'Kepala Depo'
       }[state.user.role] || (state.user.aktif ? state.user.role : 'Belum Aktif');
-      
+
       document.getElementById('user-role-badge').innerText = roleText;
     }
 
@@ -2080,7 +2356,7 @@
         }
 
         const isGalon = p.pcs_per_karton === 1;
-        const formattedStock = isGalon ? 
+        const formattedStock = isGalon ?
           `<span class="text-2xl font-black text-on-surface">${formatRibuan(p.current_pcs)}</span> <span class="text-xs font-bold text-secondary">Galon/Unit</span>` :
           `<span class="text-2xl font-black text-on-surface">${formatRibuan(p.current_karton)}</span> <span class="text-xs font-bold text-secondary">Ktn</span> <span class="text-xs font-bold text-primary ml-1">+${p.current_sisa_pcs} pcs</span>`;
 
@@ -2373,7 +2649,7 @@
 
     function renderTxSkuDropdown() {
       const sel = document.getElementById('tx-sku');
-      sel.innerHTML = '<option value="">-- Pilih Produk SKU Aqua --</option>' + 
+      sel.innerHTML = '<option value="">-- Pilih Produk SKU Aqua --</option>' +
         state.products.map(p => `
           <option value="${escapeHtml(p.sku)}">${escapeHtml(p.sku)} - ${escapeHtml(p.nama_produk)} (${p.pcs_per_karton} pcs/ktn)</option>
         `).join('');
@@ -2423,7 +2699,7 @@
       const sku = document.getElementById('tx-sku').value;
       const ktn = Number(document.getElementById('tx-qty-karton').value) || 0;
       const pcsExtra = Number(document.getElementById('tx-qty-pcs-extra').value) || 0;
-      
+
       let pcsPerKtn = 1;
       let currentStock = 0;
       if (sku) {
@@ -2518,7 +2794,7 @@
       // Siapkan dropdown SKU jika belum terisi
       const selSku = document.getElementById('hist-filter-sku');
       if (selSku.options.length <= 1 && state.products.length > 0) {
-        selSku.innerHTML = '<option value="ALL">Semua SKU</option>' + 
+        selSku.innerHTML = '<option value="ALL">Semua SKU</option>' +
           state.products.map(p => `<option value="${escapeHtml(p.sku)}">${escapeHtml(p.sku)} - ${escapeHtml(p.nama_produk)}</option>`).join('');
       }
 
@@ -2620,7 +2896,7 @@
 
     function populateOpnSkuDropdown() {
       const sel = document.getElementById('opn-input-sku');
-      sel.innerHTML = '<option value="">-- Pilih SKU --</option>' + 
+      sel.innerHTML = '<option value="">-- Pilih SKU --</option>' +
         state.products.map(p => `<option value="${escapeHtml(p.sku)}">${escapeHtml(p.sku)} - ${escapeHtml(p.nama_produk)}</option>`).join('');
     }
 
@@ -2919,9 +3195,9 @@
                 </span>
               </td>
               <td class="py-3 px-3">
-                ${isAktif ? 
-                  '<span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-[11px] font-bold">AKTIF</span>' : 
-                  '<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-bold">NONAKTIF</span>'}
+                ${isAktif ?
+              '<span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary text-[11px] font-bold">AKTIF</span>' :
+              '<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-bold">NONAKTIF</span>'}
               </td>
               <td class="py-3 px-4 text-secondary">${dt}</td>
               <td class="py-3 px-4 text-right">
@@ -3558,7 +3834,7 @@
 
     function getTimestampFilename() {
       const d = new Date();
-      return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}_${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
+      return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}_${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`;
     }
 
     /**
@@ -3569,7 +3845,7 @@
     function showToast(message, type = 'info') {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
-      
+
       const colors = {
         'success': 'bg-tertiary text-white',
         'error': 'bg-error text-white',
@@ -3684,7 +3960,7 @@
         this._init();
         const products = this.getProductsAndStock();
         const transactions = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
-        
+
         let totalKtn = 0;
         let totalPcsLepas = 0;
         const lowStock = [];
@@ -3722,7 +3998,7 @@
         this._init();
         const products = JSON.parse(localStorage.getItem('wf_products') || '[]');
         const transactions = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
-        
+
         const stockMap = {};
         transactions.forEach(t => {
           const sku = t.sku;
@@ -3835,7 +4111,7 @@
       getTransactionHistory(filter = {}) {
         this._init();
         let txs = JSON.parse(localStorage.getItem('wf_transactions') || '[]');
-        
+
         return txs.filter(t => {
           if (filter.arah && filter.arah !== 'ALL' && t.arah !== filter.arah) return false;
           if (filter.jenis && filter.jenis !== 'ALL' && t.jenis !== filter.jenis) return false;
@@ -4040,7 +4316,7 @@
         const MS_PER_WEEK = 7 * 86400000;
 
         return prods.map(p => {
-          const weekly = [0,0,0,0,0,0,0,0];
+          const weekly = [0, 0, 0, 0, 0, 0, 0, 0];
           txs.forEach(t => {
             if (t.sku !== p.sku || t.arah !== 'KELUAR') return;
             const diff = now - new Date(t.timestamp);
@@ -4173,14 +4449,14 @@
           products.forEach((p, pIdx) => {
             const outKtn = Math.floor(p.stok_minimum_karton * 0.22 * (0.8 + w * 0.08));
             transactions.push({
-              id_transaksi: `TRX-W${w+1}-${pIdx}`,
+              id_transaksi: `TRX-W${w + 1}-${pIdx}`,
               timestamp: dt.toISOString(),
               jenis: pIdx % 2 === 0 ? 'KANVAS' : 'MUAT_ARMADA',
               arah: 'KELUAR',
               sku: p.sku,
               qty_pcs: outKtn * p.pcs_per_karton,
               pihak: pIdx % 2 === 0 ? 'Armada Kanvas Rute JTM-01' : 'Agen Grosir Makmur Jaya',
-              no_dokumen: `DO-W${w+1}-${pIdx}`,
+              no_dokumen: `DO-W${w + 1}-${pIdx}`,
               catatan: 'Pengiriman Mingguan',
               user_email: 'gudang@danone-distrib.co.id'
             });
@@ -4207,4 +4483,5 @@
     }
   </script>
 </body>
+
 </html>
