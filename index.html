@@ -194,9 +194,14 @@
               <span class="text-[11px] font-semibold text-secondary uppercase tracking-wider truncate" id="user-role-badge">-</span>
             </div>
           </div>
-          <button onclick="refreshData()" title="Segarkan Data" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-primary hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-[18px]">sync</span>
-          </button>
+          <div class="flex items-center gap-1 shrink-0">
+            <button onclick="refreshData()" title="Segarkan Data" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-primary hover:bg-surface-container-high transition-colors">
+              <span class="material-symbols-outlined text-[18px]">sync</span>
+            </button>
+            <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="w-8 h-8 rounded-lg flex items-center justify-center text-secondary hover:text-error hover:bg-error-container/20 transition-colors">
+              <span class="material-symbols-outlined text-[18px]">logout</span>
+            </button>
+          </div>
         </div>
       </div>
     </aside>
@@ -229,6 +234,9 @@
             <span class="material-symbols-outlined text-[16px]" id="refresh-spinner">refresh</span>
             <span class="hidden sm:inline">Refresh</span>
           </button>
+          <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="h-9 px-2.5 rounded-lg bg-surface-container-low hover:bg-error-container/20 text-secondary hover:text-error text-xs font-bold flex items-center gap-1 transition-colors border border-surface-container">
+            <span class="material-symbols-outlined text-[16px]">logout</span>
+          </button>
           <div class="lg:hidden flex items-center gap-1 pl-1">
             <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold" id="mobile-user-avatar">U</div>
           </div>
@@ -243,34 +251,87 @@
         <!-- ========================================== -->
         <section id="view-access-request" class="view-panel hidden py-8 max-w-lg mx-auto">
           <div class="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 shadow-sm border border-surface-container-low flex flex-col items-center text-center">
-            <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+            <div class="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-4 shadow-sm">
               <span class="material-symbols-outlined text-[36px]">lock_person</span>
             </div>
-            <h2 class="text-2xl font-bold text-on-surface">Akses Diperlukan</h2>
-            <p class="text-sm text-secondary mt-1">Akun Google Anda belum terdaftar sebagai operator aktif di sistem depo WareFlow.</p>
-            
-            <div class="w-full bg-surface-container-low p-3.5 rounded-xl my-5 text-left border border-surface-container">
-              <span class="text-[11px] font-bold text-secondary uppercase">Email Google Login:</span>
-              <p class="text-sm font-semibold text-primary font-mono mt-0.5 break-all" id="req-email-display">-</p>
+            <h2 class="text-2xl font-bold text-on-surface">Pendaftaran Petugas Gudang</h2>
+            <p class="text-sm text-secondary mt-1">Sistem WareFlow dibatasi khusus untuk petugas depo resmi. Silakan ajukan akses akun Google Anda atau masuk jika sudah didaftarkan.</p>
+
+            <!-- Tab Switcher: Daftar Akses Baru vs Masuk Akun Terdaftar -->
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-surface-container-low rounded-xl w-full my-5 border border-surface-container">
+              <button type="button" id="tab-auth-register" onclick="switchAuthTab('register')" class="py-2 text-xs font-bold rounded-lg transition-all bg-white text-primary shadow-sm">
+                Ajukan Akses Baru
+              </button>
+              <button type="button" id="tab-auth-login" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg transition-all text-secondary hover:text-on-surface">
+                Masuk Email Terdaftar
+              </button>
             </div>
 
+            <!-- Panel 1: FORM AJUKAN AKSES BARU -->
             <form id="form-request-access" onsubmit="handleRequestAccess(event)" class="w-full flex flex-col gap-4 text-left">
+              <div id="req-email-container">
+                <label class="block text-xs font-bold text-on-surface mb-1">Email Akun Google Anda *</label>
+                <input type="email" id="req-email" required placeholder="nama.anda@gmail.com" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono"/>
+                <span class="text-[11px] text-secondary mt-1 block">Pastikan menggunakan alamat email Google aktif yang Anda pakai di HP ini.</span>
+              </div>
               <div>
                 <label class="block text-xs font-bold text-on-surface mb-1">Nama Lengkap Petugas *</label>
                 <input type="text" id="req-nama" required placeholder="Contoh: Budi Santoso" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"/>
               </div>
               <div>
-                <label class="block text-xs font-bold text-on-surface mb-1">Catatan / Posisi Penugasan</label>
-                <textarea id="req-catatan" rows="2" placeholder="Contoh: Checker Armada Baru DC Cakung" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                <label class="block text-xs font-bold text-on-surface mb-1">Posisi / Keterangan Penugasan</label>
+                <textarea id="req-catatan" rows="2" placeholder="Contoh: Checker Armada DC Cakung / Sopir Kanvas" class="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
               </div>
-              <button type="submit" id="btn-submit-req" class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-2">
+              <button type="submit" id="btn-submit-req" class="w-full h-12 bg-primary hover:bg-primary-container text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
                 <span class="material-symbols-outlined text-[20px]">send</span>
                 <span>Ajukan Akses ke Admin DC</span>
               </button>
             </form>
 
-            <div id="req-success-message" class="hidden mt-4 p-4 rounded-xl bg-tertiary/10 text-tertiary border border-tertiary/20 text-xs font-medium">
-              Permohonan akses berhasil diajukan! Harap hubungi Admin DC untuk menyetujui akun Anda.
+            <!-- Panel 2: FORM MASUK DENGAN EMAIL TERDAFTAR -->
+            <form id="form-direct-login" onsubmit="handleDirectLogin(event)" class="hidden w-full flex flex-col gap-4 text-left">
+              <div>
+                <label class="block text-xs font-bold text-on-surface mb-1">Email Google Terdaftar *</label>
+                <input type="email" id="login-email" required placeholder="nama.anda@gmail.com" class="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm border border-surface-container focus:outline-none focus:ring-2 focus:ring-primary font-mono"/>
+                <span class="text-[11px] text-secondary mt-1 block">Masukkan email yang telah disetujui / didaftarkan Admin DC.</span>
+              </div>
+              <button type="submit" id="btn-submit-login" class="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 mt-1 active:scale-98">
+                <span class="material-symbols-outlined text-[20px]">login</span>
+                <span>Masuk ke Sistem</span>
+              </button>
+
+              <!-- Quick Demo Helper (Hanya tampil di Browser Standalone / Non-GAS) -->
+              <div id="demo-quick-login" class="hidden w-full pt-3 mt-1 border-t border-surface-container text-left">
+                <span class="text-[11px] font-bold text-secondary block mb-1.5">⚡ Masuk Cepat Akun Demo (Preview Lokal):</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="quickFillDemo('admin@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Admin DC</button>
+                  <button type="button" onclick="quickFillDemo('gudang@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala Gudang</button>
+                  <button type="button" onclick="quickFillDemo('depo@danone-distrib.co.id')" class="px-2.5 py-1 bg-surface-container hover:bg-primary/10 text-on-surface text-[11px] rounded font-semibold transition-colors">Kepala Depo</button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Status Card Pending / Sedang Ditinjau -->
+            <div id="req-status-card" class="hidden mt-4 p-4 rounded-xl bg-surface-container-low text-left border border-surface-container w-full">
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[22px]">pending_actions</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-xs font-bold text-on-surface" id="req-status-title">Permohonan Sedang Ditinjau</h4>
+                  <p class="text-xs text-secondary mt-0.5" id="req-status-msg">Akun Anda sedang menunggu persetujuan / aktivasi dari Admin DC.</p>
+                  <p class="text-[11px] font-mono text-primary font-bold mt-1" id="req-status-email">-</p>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-surface-container flex items-center justify-between gap-2">
+                <button type="button" onclick="checkAccessStatus()" class="px-3.5 h-9 rounded-lg bg-primary hover:bg-primary-container text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
+                  <span class="material-symbols-outlined text-[16px]">sync</span>
+                  <span>Cek Status Sekarang</span>
+                </button>
+                <button type="button" onclick="resetAuthForm()" class="px-3 h-9 rounded-lg text-secondary hover:text-on-surface text-xs font-semibold">
+                  Ganti Akun
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -1385,6 +1446,24 @@
     function callServer(methodName, args = [], onSuccess = () => {}, onError = () => {}) {
       showLoading(true);
 
+      // Ambil identitas email klien dari sesi aktif atau localStorage perangkat
+      const clientEmail = (state.user && state.user.email) || localStorage.getItem('wf_user_email') || '';
+      let finalArgs = Array.isArray(args) ? [...args] : [];
+
+      if (methodName === 'getCurrentUser') {
+        if (finalArgs.length === 0) {
+          finalArgs = [clientEmail];
+        }
+      } else if (methodName === 'submitAccessRequest') {
+        if (finalArgs.length < 3) {
+          finalArgs.push(clientEmail);
+        }
+      } else {
+        // Semua API operasional (getDashboardData, saveTransaction, dll)
+        // menerima clientEmail sebagai parameter terakhir untuk verifikasi otorisasi
+        finalArgs.push(clientEmail);
+      }
+
       if (state.isGas) {
         // Lingkungan Google Apps Script Asli
         let runner = google.script.run
@@ -1400,7 +1479,7 @@
           });
         
         if (typeof runner[methodName] === 'function') {
-          runner[methodName].apply(runner, args);
+          runner[methodName].apply(runner, finalArgs);
         } else {
           showLoading(false);
           const err = new Error('Metode ' + methodName + ' tidak ditemukan di Code.gs');
@@ -1411,7 +1490,7 @@
         // Lingkungan Standalone Browser Preview: Mock LocalStorage Backend
         setTimeout(() => {
           try {
-            const res = MockBackend[methodName].apply(MockBackend, args);
+            const res = MockBackend[methodName].apply(MockBackend, finalArgs);
             showLoading(false);
             onSuccess(res);
           } catch (err) {
@@ -1438,31 +1517,47 @@
      */
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('env-badge').innerText = state.isGas ? 'GAS Web App' : 'Mode Demo';
+      if (!state.isGas) {
+        const demoHelper = document.getElementById('demo-quick-login');
+        if (demoHelper) demoHelper.classList.remove('hidden');
+      }
       initApp();
     });
 
     function initApp() {
-      callServer('getCurrentUser', [], (user) => {
+      const savedEmail = localStorage.getItem('wf_user_email') || '';
+      callServer('getCurrentUser', [savedEmail], (user) => {
         state.user = user;
         updateUserUI();
 
         if (!user.registered || !user.aktif) {
-          // Arahkan ke halaman Ajukan Akses
-          document.getElementById('req-email-display').innerText = user.email || 'Tidak terdeteksi';
-          showView('access-request');
+          // Pengguna belum terdaftar atau belum disetujui Admin -> Arahkan ke Layar Daftar/Status
+          showAccessRequestScreen(user);
         } else {
-          // User aktif! Tampilkan menu dan view awal
+          // Pengguna terdaftar dan aktif! Simpan sesi email di perangkat ini
+          if (user.email) {
+            localStorage.setItem('wf_user_email', user.email);
+          }
+
+          // Tampilkan kontrol khusus Super Admin
           if (user.role === 'admin') {
             document.getElementById('nav-admin').classList.remove('hidden');
             document.getElementById('btn-admin-add-prod').classList.remove('hidden');
             const btnFc = document.getElementById('btn-fc-edit-baseline');
             if (btnFc) btnFc.classList.remove('hidden');
+          } else {
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('btn-admin-add-prod').classList.add('hidden');
+            const btnFc = document.getElementById('btn-fc-edit-baseline');
+            if (btnFc) btnFc.classList.add('hidden');
           }
+
           navigate('dashboard');
           loadAllData();
         }
       }, (err) => {
         showToast('Gagal memverifikasi pengguna: ' + err.message, 'error');
+        showAccessRequestScreen({ registered: false, aktif: false, email: savedEmail });
       });
     }
 
@@ -1589,26 +1684,217 @@
 
     /**
      * ==========================================
-     * LOGIKA VIEW 0: AJUKAN AKSES
+     * LOGIKA VIEW 0: AUTENTIKASI & AJUKAN AKSES
      * ==========================================
      */
+    function switchAuthTab(tab) {
+      const btnReg = document.getElementById('tab-auth-register');
+      const btnLogin = document.getElementById('tab-auth-login');
+      const formReq = document.getElementById('form-request-access');
+      const formLogin = document.getElementById('form-direct-login');
+      const statusCard = document.getElementById('req-status-card');
+
+      if (statusCard) statusCard.classList.add('hidden');
+
+      if (tab === 'login') {
+        if (btnReg) {
+          btnReg.className = 'py-2 text-xs font-bold rounded-lg transition-all text-secondary hover:text-on-surface';
+        }
+        if (btnLogin) {
+          btnLogin.className = 'py-2 text-xs font-bold rounded-lg transition-all bg-white text-primary shadow-sm';
+        }
+        if (formReq) formReq.classList.add('hidden');
+        if (formLogin) formLogin.classList.remove('hidden');
+      } else {
+        if (btnReg) {
+          btnReg.className = 'py-2 text-xs font-bold rounded-lg transition-all bg-white text-primary shadow-sm';
+        }
+        if (btnLogin) {
+          btnLogin.className = 'py-2 text-xs font-bold rounded-lg transition-all text-secondary hover:text-on-surface';
+        }
+        if (formReq) formReq.classList.remove('hidden');
+        if (formLogin) formLogin.classList.add('hidden');
+      }
+    }
+
+    function showAccessRequestScreen(user = {}) {
+      showView('access-request');
+
+      const savedEmail = user.email || localStorage.getItem('wf_user_email') || '';
+      const reqEmailInput = document.getElementById('req-email');
+      const loginEmailInput = document.getElementById('login-email');
+
+      if (savedEmail) {
+        if (reqEmailInput) reqEmailInput.value = savedEmail;
+        if (loginEmailInput) loginEmailInput.value = savedEmail;
+      }
+
+      const formReq = document.getElementById('form-request-access');
+      const formLogin = document.getElementById('form-direct-login');
+      const statusCard = document.getElementById('req-status-card');
+
+      if (user.registered && !user.aktif) {
+        // Akun sudah terdaftar tapi BELUM DIAKTIFKAN oleh Admin
+        if (formReq) formReq.classList.add('hidden');
+        if (formLogin) formLogin.classList.add('hidden');
+        if (statusCard) {
+          statusCard.classList.remove('hidden');
+          const titleEl = document.getElementById('req-status-title');
+          const msgEl = document.getElementById('req-status-msg');
+          const emailEl = document.getElementById('req-status-email');
+          if (titleEl) titleEl.innerText = 'Permohonan Akses Sedang Ditinjau';
+          if (msgEl) msgEl.innerText = 'Halo ' + (user.nama || 'Petugas') + ', akun Anda telah terdaftar dan saat ini menunggu persetujuan / aktivasi dari Super Admin DC.';
+          if (emailEl) emailEl.innerText = user.email || savedEmail;
+        }
+      } else {
+        // Akun belum terdaftar sama sekali di database
+        if (statusCard) statusCard.classList.add('hidden');
+        switchAuthTab('register');
+      }
+    }
+
     function handleRequestAccess(e) {
       e.preventDefault();
+      const email = document.getElementById('req-email').value.trim();
       const nama = document.getElementById('req-nama').value.trim();
       const catatan = document.getElementById('req-catatan').value.trim();
       const btn = document.getElementById('btn-submit-req');
 
-      btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Mengirim...';
+      if (!email || !email.includes('@')) {
+        showToast('Silakan masukkan alamat email Google yang valid.', 'error');
+        return;
+      }
+      if (!nama) {
+        showToast('Silakan masukkan nama lengkap petugas.', 'error');
+        return;
+      }
 
-      callServer('submitAccessRequest', [nama, catatan], (res) => {
-        document.getElementById('form-request-access').classList.add('hidden');
-        document.getElementById('req-success-message').classList.remove('hidden');
-        showToast(res.message, 'success');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Mengirim Permohonan...';
+
+      callServer('submitAccessRequest', [nama, catatan, email], (res) => {
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span><span>Ajukan Akses ke Admin DC</span>';
+
+        localStorage.setItem('wf_user_email', email);
+
+        if (res.aktif) {
+          showToast(res.message || 'Akun Anda sudah aktif. Mengalihkan ke dashboard...', 'success');
+          initApp();
+        } else {
+          showToast(res.message || 'Permohonan akses berhasil dikirim.', 'success');
+          showAccessRequestScreen({
+            registered: true,
+            aktif: false,
+            email: email,
+            nama: nama,
+            role: 'kepala_depo'
+          });
+        }
       }, (err) => {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span> Ajukan Akses ke Admin DC';
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">send</span><span>Ajukan Akses ke Admin DC</span>';
+        showToast('Gagal mengajukan akses: ' + err.message, 'error');
       });
+    }
+
+    function handleDirectLogin(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const btn = document.getElementById('btn-submit-login');
+
+      if (!email || !email.includes('@')) {
+        showToast('Silakan masukkan email Google yang valid.', 'error');
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Memeriksa Akun...';
+      }
+
+      callServer('getCurrentUser', [email], (user) => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">login</span><span>Masuk ke Sistem</span>';
+        }
+
+        if (!user.registered) {
+          showToast('Email ' + email + ' belum terdaftar. Silakan ajukan permohonan akses.', 'error');
+          switchAuthTab('register');
+          const reqEmailInput = document.getElementById('req-email');
+          if (reqEmailInput) reqEmailInput.value = email;
+          return;
+        }
+
+        if (!user.aktif) {
+          localStorage.setItem('wf_user_email', email);
+          showToast('Akun Anda belum diaktifkan oleh Admin DC.', 'info');
+          showAccessRequestScreen(user);
+          return;
+        }
+
+        // Akun terdaftar dan berstatus aktif!
+        localStorage.setItem('wf_user_email', user.email);
+        state.user = user;
+        updateUserUI();
+        showToast('Login berhasil! Selamat datang, ' + (user.nama || user.email), 'success');
+
+        if (user.role === 'admin') {
+          document.getElementById('nav-admin').classList.remove('hidden');
+          document.getElementById('btn-admin-add-prod').classList.remove('hidden');
+          const btnFc = document.getElementById('btn-fc-edit-baseline');
+          if (btnFc) btnFc.classList.remove('hidden');
+        } else {
+          document.getElementById('nav-admin').classList.add('hidden');
+          document.getElementById('btn-admin-add-prod').classList.add('hidden');
+          const btnFc = document.getElementById('btn-fc-edit-baseline');
+          if (btnFc) btnFc.classList.add('hidden');
+        }
+
+        navigate('dashboard');
+        loadAllData();
+      }, (err) => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">login</span><span>Masuk ke Sistem</span>';
+        }
+        showToast('Gagal memverifikasi akun: ' + err.message, 'error');
+      });
+    }
+
+    function checkAccessStatus() {
+      showToast('Memeriksa status persetujuan akun...', 'info');
+      initApp();
+    }
+
+    function resetAuthForm() {
+      localStorage.removeItem('wf_user_email');
+      state.user = null;
+      const reqEmail = document.getElementById('req-email');
+      const reqNama = document.getElementById('req-nama');
+      const reqCatatan = document.getElementById('req-catatan');
+      const loginEmail = document.getElementById('login-email');
+      if (reqEmail) reqEmail.value = '';
+      if (reqNama) reqNama.value = '';
+      if (reqCatatan) reqCatatan.value = '';
+      if (loginEmail) loginEmail.value = '';
+      switchAuthTab('register');
+    }
+
+    function handleLogout() {
+      if (confirm('Apakah Anda yakin ingin keluar atau ganti akun di perangkat ini?')) {
+        localStorage.removeItem('wf_user_email');
+        state.user = null;
+        location.reload();
+      }
+    }
+
+    function quickFillDemo(email) {
+      const el = document.getElementById('login-email');
+      if (el) el.value = email;
+      switchAuthTab('login');
+      handleDirectLogin(new Event('submit'));
     }
 
     /**
@@ -3342,14 +3628,52 @@
           localStorage.setItem('wareflow_initialized', 'true');
         }
       },
-      getCurrentUser() {
+      getCurrentUser(clientEmail) {
         this._init();
         const users = JSON.parse(localStorage.getItem('wf_users') || '[]');
-        // Default login sebagai admin di preview lokal
-        return users[0] || { authenticated: true, registered: true, email: 'admin@danone-distrib.co.id', nama: 'Andi Pratama', role: 'admin', aktif: true };
+        const email = clientEmail || localStorage.getItem('wf_user_email');
+        if (!email) {
+          return { authenticated: false, registered: false, email: '', nama: '', role: null, aktif: false };
+        }
+        const found = users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase());
+        if (!found) {
+          return { authenticated: false, registered: false, email: email, nama: '', role: null, aktif: false };
+        }
+        const isAktif = found.aktif === true || String(found.aktif).toLowerCase() === 'true';
+        return {
+          authenticated: true,
+          registered: true,
+          email: found.email,
+          nama: found.nama,
+          role: found.role,
+          aktif: isAktif
+        };
       },
-      submitAccessRequest(nama, catatan) {
-        return { success: true, message: 'Permohonan akses berhasil diajukan.' };
+      submitAccessRequest(nama, catatan, emailInput) {
+        this._init();
+        const email = emailInput || (nama && nama.includes('@') ? nama : '');
+        if (!email || !email.includes('@')) {
+          throw new Error('Alamat email Google tidak valid.');
+        }
+        let users = JSON.parse(localStorage.getItem('wf_users') || '[]');
+        const existing = users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase());
+        if (existing) {
+          const isAktif = existing.aktif === true || String(existing.aktif).toLowerCase() === 'true';
+          if (isAktif) {
+            return { success: true, message: 'Akun ' + email + ' sudah aktif. Silakan masuk.', email: email, aktif: true };
+          }
+          return { success: true, message: 'Permohonan untuk ' + email + ' sedang ditinjau Admin.', email: email, aktif: false };
+        }
+        const newUser = {
+          email: email,
+          nama: (nama && !nama.includes('@')) ? nama : email.split('@')[0],
+          role: 'kepala_depo',
+          aktif: false,
+          created_at: new Date().toISOString()
+        };
+        users.push(newUser);
+        localStorage.setItem('wf_users', JSON.stringify(users));
+        return { success: true, message: 'Permohonan akses berhasil diajukan untuk ' + email + '.', email: email, aktif: false };
       },
       getDashboardData() {
         this._init();

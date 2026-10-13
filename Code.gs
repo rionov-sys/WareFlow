@@ -104,13 +104,29 @@ function getSheetDataBatch(sheetName) {
 }
 
 /**
- * Mengambil informasi user yang sedang aktif berdasarkan Session Google
+ * Mengambil informasi user yang sedang aktif berdasarkan Session Google atau email klien yang tersimpan.
+ * Prioritas 1: Sesi Google Session.getActiveUser().getEmail() (jika login Google terdeteksi).
+ * Prioritas 2: clientEmail yang dikirim dari browser (tersimpan di localStorage perangkat setelah login/daftar).
+ * PENTING: JANGAN PERNAH fallback ke Session.getEffectiveUser().getEmail()!
+ * Karena getEffectiveUser() adalah akun pemilik/deployer (Admin), sehingga jika dipakai fallback,
+ * perangkat lain akan otomatis masuk sebagai Admin tanpa melalui layar daftar!
  */
-function getCurrentUser() {
+function getCurrentUser(clientEmail) {
   var email = Session.getActiveUser().getEmail();
+  
+  if (!email && clientEmail) {
+    email = String(clientEmail).trim().toLowerCase();
+  }
+  
   if (!email) {
-    // Mode fallback jika dijalankan tanpa login domain atau test environment
-    email = Session.getEffectiveUser().getEmail() || 'demo.user@danone-distrib.co.id';
+    return {
+      authenticated: false,
+      registered: false,
+      email: '',
+      nama: '',
+      role: null,
+      aktif: false
+    };
   }
   
   var users = getSheetDataBatch(SHEETS.USERS);
@@ -128,6 +144,7 @@ function getCurrentUser() {
       authenticated: false,
       registered: false,
       email: email,
+      nama: '',
       role: null,
       aktif: false
     };
@@ -147,10 +164,11 @@ function getCurrentUser() {
 /**
  * Validasi Role Pengguna di Sisi Server
  */
-function validateRole(allowedRoles) {
-  var user = getCurrentUser();
+function validateRole(allowedRoles, clientEmail) {
+  var user = getCurrentUser(clientEmail);
   if (!user.registered || !user.aktif) {
-    throw new Error('Akses Ditolak: Akun Anda (' + user.email + ') belum terdaftar atau belum diaktifkan oleh Admin.');
+    var identity = user.email ? (' (' + user.email + ')') : '';
+    throw new Error('Akses Ditolak: Akun Anda' + identity + ' belum terdaftar atau belum diaktifkan oleh Admin.');
   }
   
   if (allowedRoles.indexOf(user.role) === -1) {
@@ -163,10 +181,17 @@ function validateRole(allowedRoles) {
 /**
  * Mengajukan permohonan akses baru (jika email tidak terdaftar)
  */
-function submitAccessRequest(nama, catatan) {
-  var email = Session.getActiveUser().getEmail() || Session.getEffectiveUser().getEmail();
-  if (!email) {
-    throw new Error('Email Google tidak terdeteksi dari sesi aktif.');
+function submitAccessRequest(nama, catatan, emailInput) {
+  var email = Session.getActiveUser().getEmail();
+  
+  if (!email && emailInput) {
+    email = String(emailInput).trim().toLowerCase();
+  } else if (!email && nama && String(nama).indexOf('@') !== -1 && (!emailInput || emailInput === '')) {
+    email = String(nama).trim().toLowerCase();
+  }
+  
+  if (!email || email.indexOf('@') === -1) {
+    throw new Error('Alamat email Google tidak valid atau belum diisi.');
   }
   
   var lock = LockService.getScriptLock();
@@ -182,25 +207,27 @@ function submitAccessRequest(nama, catatan) {
     var users = getSheetDataBatch(SHEETS.USERS);
     for (var i = 0; i < users.length; i++) {
       if (String(users[i].email).trim().toLowerCase() === email.trim().toLowerCase()) {
-        if (users[i].aktif === true || String(users[i].aktif).toLowerCase() === 'true') {
-          return { success: true, message: 'Akun Anda sudah terdaftar dan aktif. Silakan segarkan halaman.' };
+        var isAktif = users[i].aktif === true || String(users[i].aktif).toLowerCase() === 'true';
+        if (isAktif) {
+          return { success: true, message: 'Akun ' + email + ' sudah terdaftar dan aktif. Silakan masuk ke aplikasi.', email: email, aktif: true };
         } else {
-          return { success: true, message: 'Permohonan akses Anda sudah tercatat dan sedang menunggu persetujuan Admin.' };
+          return { success: true, message: 'Permohonan akses untuk ' + email + ' sudah terdaftar sebelumnya dan sedang menunggu persetujuan Admin DC.', email: email, aktif: false };
         }
       }
     }
     
     // Tambah baris baru dengan aktif = false
+    var cleanNama = (nama && String(nama).indexOf('@') === -1) ? String(nama).trim() : email.split('@')[0];
     var newRow = [
       email,
-      nama || email.split('@')[0],
+      cleanNama,
       ROLES.KEPALA_DEPO, // Default role pemohon
       false, // Belum aktif
       new Date().toISOString()
     ];
     sheet.appendRow(newRow);
     
-    return { success: true, message: 'Permohonan akses berhasil dikirim. Menunggu persetujuan Admin.' };
+    return { success: true, message: 'Permohonan akses berhasil dikirim untuk ' + email + '. Harap hubungi Admin DC untuk menyetujui akun Anda.', email: email, aktif: false };
   } catch (err) {
     throw new Error('Gagal mengajukan akses: ' + err.message);
   } finally {
@@ -239,9 +266,9 @@ function calculateStockPcsMap() {
 /**
  * Mendapatkan data ringkasan Dashboard
  */
-function getDashboardData() {
+function getDashboardData(clientEmail) {
   // Hanya user aktif yang boleh melihat
-  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   var products = getSheetDataBatch(SHEETS.PRODUK);
   var transactions = getSheetDataBatch(SHEETS.TRANSAKSI);
@@ -381,8 +408,8 @@ function calculate30DayInOut(transactions) {
 /**
  * Mengambil daftar produk & stok terkini
  */
-function getProductsAndStock() {
-  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function getProductsAndStock(clientEmail) {
+  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   var products = getSheetDataBatch(SHEETS.PRODUK);
   var stockPcsMap = calculateStockPcsMap();
   
@@ -422,8 +449,8 @@ function getProductsAndStock() {
 /**
  * Menyimpan / Mengubah Produk (Hanya Admin)
  */
-function saveProduct(productData) {
-  validateRole([ROLES.ADMIN]);
+function saveProduct(productData, clientEmail) {
+  validateRole([ROLES.ADMIN], clientEmail);
   
   var sku = String(productData.sku || '').trim().toUpperCase();
   if (!sku) throw new Error('SKU Produk wajib diisi.');
@@ -470,16 +497,16 @@ function saveProduct(productData) {
 /**
  * Mengambil daftar Pihak
  */
-function getPartners() {
-  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function getPartners(clientEmail) {
+  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   return getSheetDataBatch(SHEETS.PIHAK);
 }
 
 /**
  * Menyimpan / Mengubah Pihak (Hanya Admin)
  */
-function savePartner(partnerData) {
-  validateRole([ROLES.ADMIN]);
+function savePartner(partnerData, clientEmail) {
+  validateRole([ROLES.ADMIN], clientEmail);
   
   var namaPihak = String(partnerData.nama_pihak || '').trim();
   if (!namaPihak) throw new Error('Nama Pihak wajib diisi.');
@@ -525,16 +552,16 @@ function savePartner(partnerData) {
 /**
  * Mengambil daftar User (Hanya Admin)
  */
-function getUsers() {
-  validateRole([ROLES.ADMIN]);
+function getUsers(clientEmail) {
+  validateRole([ROLES.ADMIN], clientEmail);
   return getSheetDataBatch(SHEETS.USERS);
 }
 
 /**
  * Menyimpan / Mengubah Pengguna (Hanya Admin)
  */
-function saveUser(userData) {
-  validateRole([ROLES.ADMIN]);
+function saveUser(userData, clientEmail) {
+  validateRole([ROLES.ADMIN], clientEmail);
   
   var email = String(userData.email || '').trim().toLowerCase();
   if (!email) throw new Error('Email pengguna wajib diisi.');
@@ -577,8 +604,8 @@ function saveUser(userData) {
 /**
  * Toggle Status Aktif Pengguna (Hanya Admin)
  */
-function toggleUserActive(email, aktif) {
-  validateRole([ROLES.ADMIN]);
+function toggleUserActive(email, aktif, clientEmail) {
+  validateRole([ROLES.ADMIN], clientEmail);
   var lock = LockService.getScriptLock();
   try {
     lock.waitLock(10000);
@@ -605,8 +632,8 @@ function toggleUserActive(email, aktif) {
  * - Tolak transaksi keluar jika stok tidak mencukupi
  * - Validasi kewenangan role untuk jenis transaksi tertentu
  */
-function saveTransaction(txData) {
-  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function saveTransaction(txData, clientEmail) {
+  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   var jenis = String(txData.jenis || '').trim().toUpperCase();
   var sku = String(txData.sku || '').trim().toUpperCase();
@@ -707,8 +734,8 @@ function saveTransaction(txData) {
  * Menyimpan Stok Sistem Awal per SKU (Hanya Super Admin)
  * Menyesuaikan saldo sistem secara transaksional dengan audit trail
  */
-function setInitialStock(sku, karton, pcs, catatan, tanggal) {
-  var user = validateRole([ROLES.ADMIN]);
+function setInitialStock(sku, karton, pcs, catatan, tanggal, clientEmail) {
+  var user = validateRole([ROLES.ADMIN], clientEmail);
   
   sku = String(sku || '').trim().toUpperCase();
   if (!sku) throw new Error('SKU produk wajib dipilih.');
@@ -780,8 +807,8 @@ function setInitialStock(sku, karton, pcs, catatan, tanggal) {
  * Menyimpan Batch Stok Sistem Awal dan Acuan Rata-rata Penjualan Forecast (Hanya Super Admin)
  * items: Array of { sku, karton, pcs, avg_sales_karton }
  */
-function saveBatchInitialStockAndForecast(items, tanggal, catatan) {
-  var user = validateRole([ROLES.ADMIN]);
+function saveBatchInitialStockAndForecast(items, tanggal, catatan, clientEmail) {
+  var user = validateRole([ROLES.ADMIN], clientEmail);
   
   if (!items || !items.length) {
     throw new Error('Data item inisialisasi tidak boleh kosong.');
@@ -869,8 +896,8 @@ function saveBatchInitialStockAndForecast(items, tanggal, catatan) {
 /**
  * Mengambil Riwayat Transaksi dengan Filter
  */
-function getTransactionHistory(filter) {
-  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function getTransactionHistory(filter, clientEmail) {
+  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   filter = filter || {};
   var transactions = getSheetDataBatch(SHEETS.TRANSAKSI);
@@ -930,8 +957,8 @@ function getTransactionHistory(filter) {
 /**
  * Mengambil sesi opname yang sedang TERBUKA (jika ada)
  */
-function getActiveOpnameSession() {
-  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function getActiveOpnameSession(clientEmail) {
+  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   var opnameList = getSheetDataBatch(SHEETS.OPNAME);
   var activeOpname = null;
@@ -984,8 +1011,8 @@ function getActiveOpnameSession() {
  * - Otoritas: admin, kepala_gudang
  * - Bekukan stok sistem saat ini (qty_sistem_pcs) untuk semua SKU aktif
  */
-function openOpnameSession(catatan) {
-  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG]);
+function openOpnameSession(catatan, clientEmail) {
+  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG], clientEmail);
   
   var lock = LockService.getScriptLock();
   try {
@@ -1043,8 +1070,8 @@ function openOpnameSession(catatan) {
 /**
  * Mengisi Hitungan Fisik Opname (Multi-user: admin, kepala_gudang, kepala_depo)
  */
-function submitOpnameCount(countData) {
-  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function submitOpnameCount(countData, clientEmail) {
+  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   var idOpname = String(countData.id_opname || '').trim();
   var sku = String(countData.sku || '').trim().toUpperCase();
@@ -1114,8 +1141,8 @@ function submitOpnameCount(countData) {
  * - Banyak user mengisi qty_hitung per SKU dijumlahkan
  * - Selisih (total_hitung - qty_sistem) jadi transaksi PENYESUAIAN
  */
-function closeOpnameSession(opnameId) {
-  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG]);
+function closeOpnameSession(opnameId, clientEmail) {
+  var user = validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG], clientEmail);
   
   var lock = LockService.getScriptLock();
   try {
@@ -1231,8 +1258,8 @@ function closeOpnameSession(opnameId) {
  * - Titik pesan ulang = rata-rata harian x lead time + stok pengaman (10%)
  * - Tampilkan "SKU X habis dalam N hari, saran order Y karton"
  */
-function getForecastData() {
-  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO]);
+function getForecastData(clientEmail) {
+  validateRole([ROLES.ADMIN, ROLES.KEPALA_GUDANG, ROLES.KEPALA_DEPO], clientEmail);
   
   var products = getSheetDataBatch(SHEETS.PRODUK);
   var transactions = getSheetDataBatch(SHEETS.TRANSAKSI);
